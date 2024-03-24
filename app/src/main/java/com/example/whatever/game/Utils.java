@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
@@ -30,10 +31,13 @@ public class Utils {
     private NotificationUtils notificationUtils;
     private DialogUtils dialogUtils;
     private IntentUtils intentUtils;
+    private SFXUtils sfxUtils;
 
     public Utils(Activity a, View v, Context c){
         this.activity = a;
         this.view = v;
+
+        UserPreferences.init(a);
 
         utilsInit(a, v, c);
     }
@@ -44,6 +48,7 @@ public class Utils {
         notificationUtils = new NotificationUtils(a, v);
         dialogUtils = new DialogUtils(c);
         intentUtils = new IntentUtils(c);
+        sfxUtils = new SFXUtils(c);
     }
 
     // Functions
@@ -74,6 +79,13 @@ public class Utils {
     public void startUrlIntent(String url){
         intentUtils.urlIntent(url);
     }
+
+    public void playSFX(int soundResourceId){
+        sfxUtils.playSound(activity, soundResourceId);
+    }
+    public void playWrongSFX(){ sfxUtils.playSound(activity, R.raw.wrong_sfx); }
+    public void playEnterLevelSFX(){ sfxUtils.playSound(activity, R.raw.enter_level_sfx);}
+    public void playCorrectSFX(){ sfxUtils.playCorrectSFXSound(activity);}
 
     //Classes to handel the functions
     public class ToastUtils {
@@ -206,6 +218,38 @@ public class Utils {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 
             context.startActivity(intent);
+        }
+
+    }
+
+    public class SFXUtils {
+        private MediaPlayer sfxPlayer;
+        private Context context;
+
+        public SFXUtils(Context c){
+            context = c;
+        }
+
+        public void playSound(Context context, int soundResourceId) {
+            // Release any resources from the previous MediaPlayer
+            if (sfxPlayer != null) {
+                sfxPlayer.release();
+            }
+
+            // Create a new MediaPlayer instance and start it
+            sfxPlayer = MediaPlayer.create(context, soundResourceId);
+            if (sfxPlayer != null) {
+                if (UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, false)) {
+                    sfxPlayer.setOnCompletionListener(MediaPlayer::release);
+                    sfxPlayer.start();
+                }
+            }
+        }
+
+        public void playCorrectSFXSound(Context c){
+            sfxPlayer = MediaPlayer.create(c, R.raw.correct_sfx);
+            sfxPlayer.setOnCompletionListener(mediaPlayer -> MediaPlayer.create(c, R.raw.clapping_sfx).start());
+            sfxPlayer.start();
         }
 
     }

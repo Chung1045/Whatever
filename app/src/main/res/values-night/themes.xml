@@ -6,4 +6,14 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:fontFamily">"@font/inter_variable"</item>
     </style>
+
+    <style name="Theme.Whatever.Button" parent="ThemeOverlay.Material3.Button">
+        <item name="android:fontFamily">@font/inter_variable</item>
+        <item name="android:backgroundTint">@color/buttonBackground</item>
+    </style>
+
+    <style name="Theme.Whatever.ResultButton" parent="ThemeOverlay.Material3.Button">
+        <item name="android:backgroundTint">@color/resultScreenButtonBackground</item>
+        <item name="android:drawableTint">@color/resultScreenButtonForeground</item>
+    </style>
 </resources>

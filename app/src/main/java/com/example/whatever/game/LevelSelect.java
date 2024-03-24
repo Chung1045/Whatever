@@ -4,14 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class LevelSelect extends AppCompatActivity implements View.OnClickListener {
+
+    private Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_select);
+
+        View v = LayoutInflater.from(this).inflate(R.layout.activity_level_select, null);
+        utils = new Utils(this, v, this);
+
         listenerInit();
     }
 
@@ -70,4 +78,14 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(this, LevelTemplate.class));
             }
         }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // Replace R.raw.tap_sound with your actual sound resource ID
+            utils.playSFX(R.raw.tap_sfx);
+        }
+        return super.dispatchTouchEvent(event);
     }
+
+}

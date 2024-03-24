@@ -10,7 +10,9 @@
         android:id="@+id/view_topbar_LevelTemplate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:visibility="gone">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/button_LevelTemplate_NavigateBackBt"
@@ -24,41 +26,96 @@
             android:paddingVertical="5dp"
             android:src="@drawable/baseline_arrow_back_24"
             android:tooltipText="Level Selection"
-            app:tint="?attr/colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurface"
+            android:contentDescription="Level Selection" />
 
-        <ImageView
-            android:id="@+id/button_LevelTemplate_HintBt"
+        <LinearLayout
+            android:id="@+id/view_topbarButtons_LevelTemplate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="5dp"
-            android:src="@drawable/baseline_lightbulb_outline_24"
-            android:tooltipText="Hint"
-            app:tint="?attr/colorOnSurface"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/button_LevelTemplate_ResetBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="5dp"
-            android:src="@drawable/baseline_refresh_24"
-            android:tooltipText="Restart Level"
-            app:tint="?attr/colorOnSurface"
-            app:layout_constraintEnd_toStartOf="@+id/button_LevelTemplate_HintBt"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/button_LevelTemplate_HintBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Hint"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_lightbulb_outline_24"
+                android:tooltipText="Hint"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_LevelTemplate_ResetBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Reset"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_refresh_24"
+                android:tooltipText="Restart Level"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_LevelTemplate_SettingsBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Settings"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_settings_24"
+                android:tooltipText="Settings"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_LevelTemplate_SoundBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Toggle Sound"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/ic_volume_on_24"
+                android:tooltipText="Settings"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_LevelTemplate_CloseBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Close"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_close_24"
+                android:tooltipText="Settings"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurface" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/text_LevelTemplate_Title"
@@ -72,7 +129,7 @@
             android:text="Do something!"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -100,7 +157,7 @@
             android:text="1234"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="36dp"
+            android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -139,8 +196,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        app:layout_constraintVertical_bias="1.0"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_LevelTemplate_LevelPassTitle"
@@ -214,12 +270,11 @@
                 android:id="@+id/button_LevelTemplate_HomeBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/baseline_home_24"
-                android:backgroundTint="@color/resultScreenButtonBackground"
-                android:drawableTint="@color/resultScreenButtonForeground"
-                android:textColor="@color/resultScreenButtonForeground"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:drawableEnd="@drawable/baseline_home_24"
                 android:text="Level Select"
+                android:textColor="@color/resultScreenButtonForeground"
+                android:theme="@style/Theme.Whatever.ResultButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -227,11 +282,10 @@
                 android:id="@+id/button_LevelTemplate_NextLevelBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/baseline_arrow_forward_24"
-                android:backgroundTint="@color/resultScreenButtonBackground"
-                android:drawableTint="@color/resultScreenButtonForeground"
-                android:textColor="@color/resultScreenButtonForeground"
+                android:drawableEnd="@drawable/baseline_arrow_forward_24"
                 android:text="Next Level"
+                android:textColor="@color/resultScreenButtonForeground"
+                android:theme="@style/Theme.Whatever.ResultButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
