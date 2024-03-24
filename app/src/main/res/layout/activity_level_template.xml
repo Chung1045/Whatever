@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LevelTemplate">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_topbar_LevelTemplate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/button_LevelTemplate_NavigateBackBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:tooltipText="Level Selection"
+            app:tint="?attr/colorOnSurface"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_LevelTemplate_HintBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"
+            android:src="@drawable/baseline_lightbulb_outline_24"
+            android:tooltipText="Hint"
+            app:tint="?attr/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/button_LevelTemplate_ResetBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"
+            android:src="@drawable/baseline_refresh_24"
+            android:tooltipText="Restart Level"
+            app:tint="?attr/colorOnSurface"
+            app:layout_constraintEnd_toStartOf="@+id/button_LevelTemplate_HintBt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_LevelTemplate_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="123dp"
+            android:fontFamily="@font/inter_variable"
+            android:paddingBottom="10dp"
+            android:text="Do something!"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_LevelLayout_LevelTemplate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_topbar_LevelTemplate"
+        app:layout_constraintVertical_bias="0.5"
+        tools:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/timer_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="1234"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_LevelTemplate_Bt2"
+            android:layout_width="127dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="160dp"
+            android:text="A button2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_LevelTemplate_Bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="244dp"
+            android:text="A button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_LevelTemplate_Pass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#BF000000"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+
+        <TextView
+            android:id="@+id/text_LevelTemplate_LevelPassTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="Level Completed"
+            android:textColor="@color/white"
+            android:textSize="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_LevelTemplate_TimeUsedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="108dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="Time used"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_LevelPassTitle" />
+
+        <TextView
+            android:id="@+id/text_LevelTemplate_TimeUsedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="XX:XX"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_TimeUsedTitle" />
+
+        <TextView
+            android:id="@+id/text_LevelTemPlate_PassMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="I have done something"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_TimeUsedText" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemPlate_PassMessage">
+
+            <Button
+                android:id="@+id/button_LevelTemplate_HomeBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/baseline_home_24"
+                android:backgroundTint="@color/resultScreenButtonBackground"
+                android:drawableTint="@color/resultScreenButtonForeground"
+                android:textColor="@color/resultScreenButtonForeground"
+                android:layout_marginRight="10dp"
+                android:text="Level Select"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_LevelTemplate_NextLevelBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/baseline_arrow_forward_24"
+                android:backgroundTint="@color/resultScreenButtonBackground"
+                android:drawableTint="@color/resultScreenButtonForeground"
+                android:textColor="@color/resultScreenButtonForeground"
+                android:text="Next Level"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
