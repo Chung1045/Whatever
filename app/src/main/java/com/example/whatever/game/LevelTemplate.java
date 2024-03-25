@@ -18,32 +18,37 @@ public class LevelTemplate extends AppCompatActivity implements View.OnTouchList
 
     private TextView timerTextView;
     private Utils utils;
-    private View v;
     private long startTime = 0L;
     private long elapsedTime = 0L;
-    private Handler timerHandler = new Handler();
-    private long timeInMillis = 0L;
-    private long updatedTime = 0L;
+    private final Handler timerHandler = new Handler();
     private int seconds;
     private int minutes;
     private int deltaX;
     private int deltaY;
     private boolean isLevelPass = false;
-    private String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private Random random = new Random();
+    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
+    private final String levelHint = "Try tapping the buttons";
+    private final Random random = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_template);
-        v = findViewById(R.id.view_LevelLayout_LevelTemplate);
+        View v = findViewById(R.id.view_LevelLayout_LevelTemplate);
+        onLevelStart(v);
+    }
 
+    private void onLevelStart(View v){
         timerTextView = findViewById(R.id.timer_text_view); // Assuming you have a TextView in your layout for displaying the timer
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
 
         UserPreferences.init(this);
+
+        // change accordingly to the current level
+        UserPreferences.editor.putInt(UserPreferences.LAST_PLAYED_LEVEL, -1).commit();
+
         topBarInit();
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
@@ -51,16 +56,11 @@ public class LevelTemplate extends AppCompatActivity implements View.OnTouchList
     }
 
     private void topBarInit(){
-        Boolean sfx = UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, true);
+        boolean sfx = UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, true);
         ImageView soundBt = findViewById(R.id.button_LevelTemplate_SoundBt);
         if (!sfx) {
             soundBt.setImageResource(R.drawable.ic_volume_muted_24);
         }
-
-        findViewById(R.id.button_LevelTemplate_NavigateBackBt).setOnClickListener(view -> {
-            Intent intent = new Intent(LevelTemplate.this, LevelSelect.class);
-            startActivity(intent);
-        });
 
         findViewById(R.id.button_LevelTemplate_SettingsBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
@@ -109,41 +109,43 @@ public class LevelTemplate extends AppCompatActivity implements View.OnTouchList
             }
         });
 
+        // go back to level selection (android system navigation bar is pressed / back gesture)
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent intent = new Intent(LevelTemplate.this, LevelSelect.class);
-                startActivity(intent);
+                startActivity(new Intent(LevelTemplate.this, LevelSelect.class));
             }
         });
 
+        // go back to level selection (Top arrow back icon)
+        findViewById(R.id.button_LevelTemplate_NavigateBackBt).setOnClickListener(view -> {
+            startActivity(new Intent(LevelTemplate.this, LevelSelect.class));
+        });
+
         findViewById(R.id.button_LevelTemplate_HomeBt).setOnClickListener(view -> {
-            Intent intent = new Intent(LevelTemplate.this, LevelSelect.class);
-            startActivity(intent);
+            startActivity(new Intent(LevelTemplate.this, LevelSelect.class));
         });
 
         findViewById(R.id.button_LevelTemplate_NextLevelBt).setOnClickListener(view -> {
-            Intent intent = new Intent(LevelTemplate.this, Level1.class);
-            startActivity(intent);
+            startActivity(new Intent(LevelTemplate.this, Level1.class));
         });
 
     }
 
+    // Touch Sound Effect
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             // Replace R.raw.tap_sound with your actual sound resource ID
-            if (UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false)) {
-                utils.playSFX(R.raw.tap_sfx);
-            }
+            utils.playSFX(R.raw.tap_sfx);
         }
         return super.dispatchTouchEvent(event);
     }
 
     @Override
     protected void onPause() {
+        super.onPause();
         if (!isLevelPass) {
-            super.onPause();
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
         }
@@ -151,8 +153,8 @@ public class LevelTemplate extends AppCompatActivity implements View.OnTouchList
 
     @Override
     protected void onResume(){
+        super.onResume();
         if (!isLevelPass) {
-            super.onResume();
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
         }
@@ -203,10 +205,9 @@ public class LevelTemplate extends AppCompatActivity implements View.OnTouchList
     // AKA Stopwatch Timer
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            timeInMillis = System.currentTimeMillis() - startTime;
-            updatedTime = timeInMillis;
+            long timeInMillis = System.currentTimeMillis() - startTime;
 
-            seconds = (int) (updatedTime / 1000);
+            seconds = (int) (timeInMillis / 1000);
             minutes = seconds / 60;
             seconds = seconds % 60;
 
@@ -231,6 +232,10 @@ public class LevelTemplate extends AppCompatActivity implements View.OnTouchList
 
         findViewById(R.id.button_LevelTemplate_Bt2).setOnClickListener(view -> {
             onLevelPass();
+        });
+
+        findViewById(R.id.button_LevelTemplate_HintBt).setOnClickListener(view -> {
+            utils.showSnackBarMessage(levelHint);
         });
 
         findViewById(R.id.timer_text_view).setOnTouchListener(this);

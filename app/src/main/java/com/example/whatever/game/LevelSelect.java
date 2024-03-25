@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -36,6 +37,15 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.button_selectLevel_Level10).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_NavigateBackBt).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_templateLevel).setOnClickListener(this);
+        findViewById(R.id.image_level_selection_account_icon).setOnClickListener(this);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                startActivity(new Intent(LevelSelect.this, MainActivity.class));
+            }
+        });
+
     }
 
 
@@ -76,6 +86,9 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
             }
             if (view.getId() == R.id.button_selectLevel_templateLevel) {
                 startActivity(new Intent(this, LevelTemplate.class));
+            }
+            if (view.getId() == R.id.image_level_selection_account_icon) {
+                startActivity(new Intent(this, ProfileView.class));
             }
         }
 

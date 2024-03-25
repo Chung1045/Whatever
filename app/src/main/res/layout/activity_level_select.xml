@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <TextView
@@ -46,6 +47,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/image_level_selection_account_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackgroundBorderless"
@@ -70,6 +72,7 @@
         android:text="Level Template"
         android:textSize="32dp"
         android:backgroundTint="@color/buttonBackground"
+        android:textColor="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -94,7 +97,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="1"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level2"
@@ -103,7 +107,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="2"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level3"
@@ -112,7 +117,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="3"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level4"
@@ -121,7 +127,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="4"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level5"
@@ -130,7 +137,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="5"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
     </LinearLayout>
 
     <LinearLayout
@@ -150,7 +158,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="6"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level7"
@@ -159,7 +168,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="7"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level8"
@@ -168,7 +178,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="8"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level9"
@@ -177,7 +188,8 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="9"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level10"
@@ -185,7 +197,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="10"
-            android:backgroundTint="@color/buttonBackground"/>
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

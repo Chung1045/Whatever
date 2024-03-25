@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/view_home_root"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
     <TextView
@@ -24,13 +25,29 @@
     <Button
         android:id="@+id/home_selectLevelBt"
         android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="168dp"
         android:fontFamily="@font/inter_variable"
         android:text="Okay?"
         android:textSize="28dp"
         android:backgroundTint="@color/buttonBackground"
+        android:textColor="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/home_lastPlayedBt"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/buttonBackground"
+        android:fontFamily="@font/inter_variable"
+        android:text="Continue Level"
+        android:textColor="@color/background"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/home_selectLevelBt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,6 +61,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/image_home_account_image"
             android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

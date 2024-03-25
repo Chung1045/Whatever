@@ -2,7 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#FFFFFFFF</color>
+    <color name="foreground">#FF000000</color>
+    <color name="resultScreenBackground">#EFFFFFFF</color>
     <color name="buttonBackground">#FF000000</color>
     <color name="resultScreenButtonBackground">#FFFFFFFF</color>
     <color name="resultScreenButtonForeground">#FF000000</color>
+    <color name="cardBackground">#FF000000</color>
+    <color name="textFieldBorderColor">#FF2d2d2d</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#FF1d1d1d</color>
 </resources>

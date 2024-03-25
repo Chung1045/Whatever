@@ -10,10 +10,12 @@
         android:id="@+id/view_topbar_Level1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:visibility="visible">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/button_LevelTemplate_NavigateBackBt"
+            android:id="@+id/button_Level1_NavigateBackBt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -25,40 +27,98 @@
             android:src="@drawable/baseline_arrow_back_24"
             android:tooltipText="Level Selection"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurface"
+            android:contentDescription="Level Selection" />
 
-        <ImageView
-            android:id="@+id/button_LevelTemplate_HintBt"
+        <LinearLayout
+            android:id="@+id/view_topbarButtons_Level1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="5dp"
-            android:src="@drawable/baseline_lightbulb_outline_24"
-            android:tooltipText="Hint"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/button_LevelTemplate_ResetBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="5dp"
-            android:src="@drawable/baseline_refresh_24"
-            android:tooltipText="Restart Level"
-            app:layout_constraintEnd_toStartOf="@+id/button_LevelTemplate_HintBt"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/button_Level1_HintBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Hint"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_lightbulb_outline_24"
+                android:tooltipText="Hint"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level1_ResetBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Reset"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_refresh_24"
+                android:tooltipText="Restart Level"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level1_SettingsBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Settings"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_settings_24"
+                android:tooltipText="Settings"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level1_SoundBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Toggle Sound"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/ic_volume_on_24"
+                android:tooltipText="Settings"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level1_CloseBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Close"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_close_24"
+                android:tooltipText="Settings"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurface" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/text_LevelTemplate_Title"
+            android:id="@+id/text_Level1_Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="123dp"
@@ -69,7 +129,7 @@
             android:text="Do something!"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,12 +145,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_topbar_Level1"
         app:layout_constraintVertical_bias="0.5"
-        tools:visibility="visible">
-
-        <!-- Add elements here -->
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        tools:visibility="gone"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_Level1_Pass"
@@ -104,8 +159,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
+        app:layout_constraintVertical_bias="1.0"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level1_LevelPassTitle"
@@ -164,7 +218,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_Level1_TimeUsedText" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level1_PassMessage">
+
+            <Button
+                android:id="@+id/button_Level1_HomeBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:drawableEnd="@drawable/baseline_home_24"
+                android:text="Level Select"
+                android:textColor="@color/resultScreenButtonForeground"
+                android:theme="@style/Theme.Whatever.ResultButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_Level1_NextLevelBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/baseline_arrow_forward_24"
+                android:text="Next Level"
+                android:textColor="@color/resultScreenButtonForeground"
+                android:theme="@style/Theme.Whatever.ResultButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
