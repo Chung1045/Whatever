@@ -166,7 +166,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level2_TimeUsedText"
