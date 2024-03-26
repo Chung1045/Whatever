@@ -33,8 +33,6 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.button_selectLevel_Level6).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_Level7).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_Level8).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level9).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level10).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_NavigateBackBt).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_templateLevel).setOnClickListener(this);
         findViewById(R.id.image_level_selection_account_icon).setOnClickListener(this);
@@ -74,12 +72,6 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
             }
             if (view.getId() == R.id.button_selectLevel_Level8) {
                 startActivity(new Intent(this, Level8.class));
-            }
-            if (view.getId() == R.id.button_selectLevel_Level9) {
-                startActivity(new Intent(this, Level9.class));
-            }
-            if (view.getId() == R.id.button_selectLevel_Level10) {
-                startActivity(new Intent(this, Level10.class));
             }
             if (view.getId() == R.id.button_selectLevel_NavigateBackBt) {
                 startActivity(new Intent(this, MainActivity.class));

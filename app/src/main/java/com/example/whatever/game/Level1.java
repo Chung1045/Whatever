@@ -16,16 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Level1 extends AppCompatActivity implements View.OnTouchListener {
 
+    private TextView timerTextView;
     private Utils utils;
-    private long startTime = 0L;
-    private long elapsedTime = 0L;
+    private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
-    private int seconds;
-    private int minutes;
-    private int deltaX;
-    private int deltaY;
+    private int minutes, seconds, milliseconds, deltaX, deltaY;
+    private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
+    private final String levelHint = "Try tapping the buttons";
     private final Random random = new Random();
 
     @Override
@@ -33,11 +32,20 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1);
         View v = findViewById(R.id.view_LevelLayout_Level1);
+        onLevelStart(v);
+    }
+
+    private void onLevelStart(View v){
+        timerTextView = findViewById(R.id.timer_text_view); // Assuming you have a TextView in your layout for displaying the timer
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
 
         UserPreferences.init(this);
+
+        // change accordingly to the current level
+        UserPreferences.editor.putInt(UserPreferences.LAST_PLAYED_LEVEL, 1).commit();
+
         topBarInit();
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
@@ -45,16 +53,11 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void topBarInit(){
-        Boolean sfx = UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, true);
+        boolean sfx = UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, true);
         ImageView soundBt = findViewById(R.id.button_Level1_SoundBt);
         if (!sfx) {
             soundBt.setImageResource(R.drawable.ic_volume_muted_24);
         }
-
-        findViewById(R.id.button_Level1_NavigateBackBt).setOnClickListener(view -> {
-            Intent intent = new Intent(Level1.this, LevelSelect.class);
-            startActivity(intent);
-        });
 
         findViewById(R.id.button_Level1_SettingsBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
@@ -93,8 +96,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level1_SoundBt).setOnClickListener(view -> {
             ImageView soundButton = findViewById(R.id.button_Level1_SoundBt);
-            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED,!UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false));
-            UserPreferences.editor.commit();
+            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED,!UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false)).commit();
 
             if (!UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, false)) {
                 soundButton.setImageResource(R.drawable.ic_volume_muted_24);
@@ -103,35 +105,27 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
             }
         });
 
+        // go back to level selection (android system navigation bar is pressed / back gesture)
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent intent = new Intent(Level1.this, LevelSelect.class);
-                startActivity(intent);
+                startActivity(new Intent(Level1.this, LevelSelect.class));
             }
+        });
+
+        // go back to level selection (Top arrow back icon)
+        findViewById(R.id.button_Level1_NavigateBackBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level1.this, LevelSelect.class));
         });
 
         findViewById(R.id.button_Level1_HomeBt).setOnClickListener(view -> {
-            Intent intent = new Intent(Level1.this, LevelSelect.class);
-            startActivity(intent);
+            startActivity(new Intent(Level1.this, LevelSelect.class));
         });
 
         findViewById(R.id.button_Level1_NextLevelBt).setOnClickListener(view -> {
-            Intent intent = new Intent(Level1.this, Level1.class);
-            startActivity(intent);
+            startActivity(new Intent(Level1.this, Level2.class));
         });
 
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            // Replace R.raw.tap_sound with your actual sound resource ID
-            if (UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false)) {
-                utils.playSFX(R.raw.tap_sfx);
-            }
-        }
-        return super.dispatchTouchEvent(event);
     }
 
     @Override
@@ -164,28 +158,47 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         timerHandler.removeCallbacks(updateTimerThread);
     }
 
-    private void resetState(){
-        // add you move-able state changeable elements here
-        // setTranslationX(0) and setTranslationY(0) will reset the element to its original position
-    }
-
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
         timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level1_TimeUsedText);
-        TextView passMessage = findViewById(R.id.text_Level1_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds));
+        TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
+        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
+
+        updateBestTime();
 
         // Random level pass message to be display
         findViewById(R.id.view_Level1_Pass).setVisibility(View.VISIBLE);
         Animation fadeInAnimation = new AlphaAnimation(0, 1);
-        fadeInAnimation.setDuration(500); // Duration in milliseconds (adjust as needed)
+        fadeInAnimation.setDuration(1000); // Duration in milliseconds (adjust as needed)
 
         // Apply the animation to the result screen view
         findViewById(R.id.view_Level1_Pass).startAnimation(fadeInAnimation);
         utils.playCorrectSFX();
+    }
+
+    private void updateBestTime(){
+        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L) == 0L ||
+                timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L)){
+            UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, timeUsedInMilliseconds).commit();
+            TextView timeUsedTitle = findViewById(R.id.text_Level1_TimeUsedTitle);
+            timeUsedTitle.setText("New best time : ");
+            findViewById(R.id.text_Level1_BestTimeUsedTitle).setVisibility(View.GONE);
+            findViewById(R.id.text_Level1_Best_TimeUsedText).setVisibility(View.GONE);
+        } else {
+            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L);
+            TextView bestTimeUsed = findViewById(R.id.text_Level1_Best_TimeUsedText);
+
+            long seconds = bestTime / 1000;
+            long minutes = seconds / 60;
+            seconds = seconds % 60;
+            milliseconds = (int) (bestTime % 1000);
+
+            bestTimeUsed.setText(String.format("%02d:%02d:%03d", minutes, seconds, milliseconds));
+
+        }
     }
 
     public void onWrongAttempt(){
@@ -195,13 +208,14 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     // AKA Stopwatch Timer
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            long timeInMillis = System.currentTimeMillis() - startTime;
+            timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
-            seconds = (int) (timeInMillis / 1000);
+            seconds = (int) (timeUsedInMilliseconds / 1000);
             minutes = seconds / 60;
             seconds = seconds % 60;
+            milliseconds = (int) (timeUsedInMilliseconds % 1000); // Calculate milliseconds part
 
-            timerHandler.postDelayed(this, 1000);
+            timerHandler.postDelayed(this, 10); // Update interval changed to 50ms for smoother milliseconds display
         }
     };
 
@@ -214,7 +228,18 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
             resetState();
         });
 
-        // Your element listener action goes here
+        findViewById(R.id.button_Level1_HintBt).setOnClickListener(view -> {
+            utils.showSnackBarMessage(levelHint);
+        });
+
+        // place your element listener here
+    }
+
+    private void resetState(){
+        View textView = findViewById(R.id.timer_text_view);
+        textView.setTranslationX(0);
+        textView.setTranslationY(0);
+        // add you move-able / state changeable elements here
     }
 
     // Listener for dragging move-able elements
@@ -238,6 +263,16 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
                 return false;
         }
         return true;
+    }
+
+    // Touch Sound Effect
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // Replace R.raw.tap_sound with your actual sound resource ID
+            utils.playSFX(R.raw.tap_sfx);
+        }
+        return super.dispatchTouchEvent(event);
     }
 }
 

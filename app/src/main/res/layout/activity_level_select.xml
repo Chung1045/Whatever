@@ -130,15 +130,6 @@
             android:backgroundTint="@color/buttonBackground"
             android:textColor="@color/background"/>
 
-        <Button
-            android:id="@+id/button_selectLevel_Level5"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:text="5"
-            android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
     </LinearLayout>
 
     <LinearLayout
@@ -150,6 +141,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Button
+            android:id="@+id/button_selectLevel_Level5"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:text="5"
+            android:backgroundTint="@color/buttonBackground"
+            android:textColor="@color/background"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level6"
@@ -181,24 +182,6 @@
             android:backgroundTint="@color/buttonBackground"
             android:textColor="@color/background"/>
 
-        <Button
-            android:id="@+id/button_selectLevel_Level9"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:text="9"
-            android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
-
-        <Button
-            android:id="@+id/button_selectLevel_Level10"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="10"
-            android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

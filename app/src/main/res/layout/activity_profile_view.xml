@@ -20,8 +20,8 @@
             android:id="@+id/view_profile_topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
             android:background="@color/background"
+            android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:title="Profile" />
 
@@ -29,10 +29,11 @@
 
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/cardBackground"
         android:elevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,22 +88,106 @@
                     android:textColor="@color/background"
                     android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/button_profile_sign_in_sign_up"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="@color/background"
-                    android:text="Sign in / Sign up"
-                    android:textColor="@color/foreground"
-                    android:clickable="true"/>
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_profile_sign_in_sign_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="@color/background"
+                        android:clickable="true"
+                        android:text="Sign in / Sign up"
+                        android:textColor="@color/foreground" />
+
+                    <Button
+                        android:id="@+id/button_profile_leaderboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="@color/background"
+                        android:clickable="true"
+                        android:text="Leader Board"
+                        android:textColor="@color/foreground" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/switchBarLayout_profile_sfx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginVertical="10dp"
+                android:src="@drawable/ic_volume_on_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/foreground" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="Sound Effect"
+                android:textSize="18sp"
+                android:textColor="@color/foreground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_profile_sfx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginVertical="10dp"
+                android:checked="true"
+                app:trackTint="@color/foreground"
+                app:thumbTint="@color/background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

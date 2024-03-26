@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LevelTemplate">
+    android:background="@color/background"
+    tools:context=".Level1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_topbar_Level1"
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/button_Level1_NavigateBackBt"
@@ -22,14 +24,14 @@
             android:layout_marginTop="15dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:contentDescription="Level Selection"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp"
             android:src="@drawable/baseline_arrow_back_24"
             android:tooltipText="Level Selection"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/colorOnSurface"
-            android:contentDescription="Level Selection" />
+            app:tint="?attr/colorOnSurface" />
 
         <LinearLayout
             android:id="@+id/view_topbarButtons_Level1"
@@ -96,7 +98,7 @@
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/ic_volume_on_24"
-                android:tooltipText="Settings"
+                android:tooltipText="Toggle Sound"
                 android:visibility="gone"
                 app:tint="?attr/colorOnSurface" />
 
@@ -112,7 +114,7 @@
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_close_24"
-                android:tooltipText="Settings"
+                android:tooltipText="Close Settings"
                 android:visibility="gone"
                 app:tint="?attr/colorOnSurface" />
         </LinearLayout>
@@ -143,15 +145,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_topbar_Level1"
+        app:layout_constraintTop_toTopOf="@+id/view_topbar_Level1"
         app:layout_constraintVertical_bias="0.5"
-        tools:visibility="gone"/>
+        tools:visibility="gone">
+
+        <!-- Place your Level Element here -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_Level1_Pass"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#BF000000"
+        android:background="@color/resultScreenBackground"
         android:clickable="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -159,19 +165,33 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"> <!-- To block from interacting the item behind the result screen -->
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+
+        <TextView
+            android:id="@+id/text_Level1_TimeUsedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="XX:XX"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level1_TimeUsedTitle" />
 
         <TextView
             android:id="@+id/text_Level1_LevelPassTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="92dp"
             android:fontFamily="@font/inter_variable"
             android:text="Level Completed"
-            android:textColor="@color/white"
-            android:textSize="36dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textColor="@color/foreground"
+            android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -179,45 +199,57 @@
             android:id="@+id/text_Level1_TimeUsedTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="108dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
             android:text="Time used"
-            android:textColor="@color/white"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_Level1_LevelPassTitle" />
 
         <TextView
-            android:id="@+id/text_Level1_TimeUsedText"
+            android:id="@+id/text_Level1_BestTimeUsedTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="XX:XX"
-            android:textColor="@color/white"
-            android:textSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            android:text="Best Time"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_Level1_TimeUsedTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/text_Level1_TimeUsedText" />
 
         <TextView
-            android:id="@+id/text_Level1_PassMessage"
+            android:id="@+id/text_Level1_Best_TimeUsedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
+            android:text="XX:XX"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level1_BestTimeUsedTitle" />
+
+        <TextView
+            android:id="@+id/text_LevelTemPlate_PassMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="232dp"
+            android:fontFamily="@font/inter_variable"
+            android:paddingHorizontal="10dp"
             android:text="I have done something"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="italic"
+            android:textColor="@color/foreground"
+            android:textSize="18sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_Level1_TimeUsedText" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,18 +258,21 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_Level1_PassMessage">
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemPlate_PassMessage"
+            app:layout_constraintVertical_bias="0.096">
 
             <Button
                 android:id="@+id/button_Level1_HomeBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_home_24"
+                android:drawableTint="@color/background"
                 android:text="Level Select"
-                android:textColor="@color/resultScreenButtonForeground"
-                android:theme="@style/Theme.Whatever.ResultButton"
+                android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -245,10 +280,11 @@
                 android:id="@+id/button_Level1_NextLevelBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_arrow_forward_24"
+                android:drawableTint="@color/background"
                 android:text="Next Level"
-                android:textColor="@color/resultScreenButtonForeground"
-                android:theme="@style/Theme.Whatever.ResultButton"
+                android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

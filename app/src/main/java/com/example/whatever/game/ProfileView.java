@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.materialswitch.MaterialSwitch;
+
 import java.util.Objects;
 
 public class ProfileView extends AppCompatActivity {
@@ -26,6 +28,8 @@ public class ProfileView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_view);
+
+        UserPreferences.init(this);
         v = LayoutInflater.from(this).inflate(R.layout.activity_profile_view, null);
         utils = new Utils(this, v, this);
 
@@ -38,9 +42,18 @@ public class ProfileView extends AppCompatActivity {
             return insets;
         });
 
+        layoutInit();
         listenerInit();
 
     }
+
+    private void layoutInit(){
+
+        MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
+        sfxSwitch.setChecked(UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false));
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -53,8 +66,23 @@ public class ProfileView extends AppCompatActivity {
 
     private void listenerInit() {
 
+        findViewById(R.id.switchBarLayout_profile_sfx).setOnClickListener(v -> {
+            MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
+            sfxSwitch.setChecked(!sfxSwitch.isChecked());
+            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, sfxSwitch.isChecked()).commit();
+        });
+
+        MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
+        sfxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, sfxSwitch.isChecked()).commit();
+        });
+
         findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> {
             startActivity(new Intent(ProfileView.this, SignIn.class));
+        });
+
+        findViewById(R.id.button_profile_leaderboard).setOnClickListener(view -> {
+            startActivity(new Intent(ProfileView.this, LeaderBoard.class));
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Whatever"
         tools:targetApi="31">
         <activity
+            android:name=".LeaderBoard"
+            android:exported="false" />
+        <activity
             android:name=".SignUp"
             android:exported="false" />
         <activity

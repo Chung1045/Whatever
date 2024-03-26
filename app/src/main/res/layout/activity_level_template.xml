@@ -202,6 +202,20 @@
         tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
+            android:id="@+id/text_LevelTemplate_TimeUsedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="XX:XX"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_TimeUsedTitle" />
+
+        <TextView
             android:id="@+id/text_LevelTemplate_LevelPassTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -210,7 +224,7 @@
             android:fontFamily="@font/inter_variable"
             android:text="Level Completed"
             android:textColor="@color/foreground"
-            android:textSize="36dp"
+            android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -223,24 +237,36 @@
             android:fontFamily="@font/inter_variable"
             android:text="Time used"
             android:textColor="@color/foreground"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_LevelPassTitle" />
 
         <TextView
-            android:id="@+id/text_LevelTemplate_TimeUsedText"
+            android:id="@+id/text_LevelTemplate_BestTimeUsedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="Best Time"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_TimeUsedText" />
+
+        <TextView
+            android:id="@+id/text_LevelTemplate_Best_TimeUsedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
             android:text="XX:XX"
             android:textColor="@color/foreground"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_TimeUsedTitle" />
-
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemplate_BestTimeUsedTitle" />
 
         <TextView
             android:id="@+id/text_LevelTemPlate_PassMessage"
@@ -251,7 +277,7 @@
             android:paddingHorizontal="10dp"
             android:text="I have done something"
             android:textColor="@color/foreground"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
