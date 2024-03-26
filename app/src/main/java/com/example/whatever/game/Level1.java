@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Level1 extends AppCompatActivity implements View.OnTouchListener {
 
-    private TextView timerTextView;
     private Utils utils;
     private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
@@ -36,7 +35,6 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void onLevelStart(View v){
-        timerTextView = findViewById(R.id.timer_text_view); // Assuming you have a TextView in your layout for displaying the timer
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
