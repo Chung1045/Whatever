@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Whatever¿</string>
+    <string name="string_Level7_title">Go to sleep!</string>
+    <string name="string_LevelPass_nextLevel">Next Level</string>
+    <string name="string_LevelPass_levelSelect">Level Select</string>
+    <string name="string_LevelPass_messagePlaceholder">I have done something</string>
+    <string name="string_LevelPass_bestTimeUsedPlaceHolder">XX:XX</string>
+    <string name="string_LevelPass_bestTimeUsedText">Best Time</string>
+    <string name="string_LevelPass_timeUsedText">Time used</string>
+    <string name="string_LevelPass_levelPassTitle">Level Completed</string>
+    <string name="string_LevelPass_timeUsedPlaceHolder">XX:XX</string>
+    <string name="string_TopAppBar_soundBtDescription">Toggle Sound</string>
+    <string name="string_TopAppBar_settingBtDescription">Settings</string>
+    <string name="string_TopAppBar_resetBtDescription">Reset</string>
+    <string name="string_TopAppBar_hintBtDescription">Hint</string>
+    <string name="string_TopAppBar_backBtDescription">Level Selection</string>
 </resources>
