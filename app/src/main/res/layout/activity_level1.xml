@@ -12,9 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/image_fat"
+            android:layout_width="130dp"
+            android:layout_height="210dp"
+            app:srcCompat="@drawable/fat"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="123dp" />
+
+        <ImageView
+            android:id="@+id/image_her"
+            android:layout_width="146dp"
+            android:layout_height="135dp"
+            app:srcCompat="@drawable/her"
+            tools:layout_editor_absoluteX="225dp"
+            tools:layout_editor_absoluteY="154dp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="218dp"
+            android:layout_height="54dp"
+            android:hint="Type Here"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="458dp" />
 
         <ImageView
             android:id="@+id/button_Level1_NavigateBackBt"
@@ -117,6 +142,7 @@
                 android:tooltipText="Close Settings"
                 android:visibility="gone"
                 app:tint="?attr/colorOnSurface" />
+
         </LinearLayout>
 
         <TextView
@@ -128,7 +154,7 @@
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="Do something!"
+            android:text="Guess a Word"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
@@ -166,7 +192,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level1_TimeUsedText"
