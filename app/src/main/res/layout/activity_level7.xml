@@ -110,7 +110,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Close"
+                android:contentDescription="@string/string_topAppBar_SettingCloseDescription"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_close_24"
@@ -151,17 +151,18 @@
         tools:visibility="visible">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/image_Level7_Bed"
             android:layout_width="220dp"
             android:layout_height="264dp"
             android:src="@drawable/image_level7_bed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.898" />
+            app:layout_constraintVertical_bias="0.898"
+            tools:ignore="ContentDescription"/>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/image_Level7_Switch"
             android:layout_width="41dp"
             android:layout_height="50dp"
             android:src="@drawable/image_level7_switch_on"
@@ -170,40 +171,54 @@
             app:layout_constraintHorizontal_bias="0.14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.292" />
+            app:layout_constraintVertical_bias="0.292"
+            tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/image_Level7_LampGlow"
+            android:layout_width="432dp"
+            android:layout_height="372dp"
+            android:layout_marginEnd="148dp"
+            android:layout_marginBottom="152dp"
+            android:src="@drawable/image_level7_lamp_glow_blur"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_Level7_Light"
             android:layout_width="115dp"
             android:layout_height="84dp"
             android:src="@drawable/image_level7_light_on"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"/>
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/image_Level7_Cabinet"
             android:layout_width="183dp"
             android:layout_height="280dp"
             android:src="@drawable/image_level7_cabinet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.893" />
+            app:layout_constraintVertical_bias="0.893"
+            tools:ignore="ContentDescription"/>
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/image_Level7_Lamp"
             android:layout_width="98dp"
             android:layout_height="128dp"
+            android:layout_marginBottom="236dp"
             android:src="@drawable/image_level7_lamp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.051"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.519" />
+            tools:ignore="ContentDescription" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/image_Level7_Window"
             android:layout_width="200dp"
             android:layout_height="169dp"
             android:src="@drawable/image_level7_window_night"
@@ -212,9 +227,11 @@
             app:layout_constraintHorizontal_bias="0.905"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.264" />
+            app:layout_constraintVertical_bias="0.264"
+            tools:ignore="ContentDescription"/>
 
         <ImageView
+            android:id="@+id/image_Level7_Curtain"
             android:layout_width="230dp"
             android:layout_height="188dp"
             android:src="@drawable/image_level7_curtain_open"
@@ -223,7 +240,8 @@
             app:layout_constraintHorizontal_bias="0.961"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.252" />
+            app:layout_constraintVertical_bias="0.252"
+            tools:ignore="ContentDescription"/>
 
         <!-- Place your Level Element here -->
 
@@ -350,7 +368,8 @@
                 android:text="@string/string_LevelPass_levelSelect"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
 
             <Button
                 android:id="@+id/button_Level7_NextLevelBt"
@@ -362,7 +381,8 @@
                 android:text="@string/string_LevelPass_nextLevel"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ButtonStyle,ContentDescription"/>
 
         </LinearLayout>
 

@@ -1,8 +1,14 @@
 package com.example.whatever.game;
 
+import android.app.UiModeManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -24,18 +30,23 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private Utils utils;
     private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
+    private final Handler darkEnvironmentHandler = new Handler();
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Have a nice dream", "One sheep, two sheep, three sheep...", "Sweet Dreams"};
     private final String levelHint = "";
     private final Random random = new Random();
+    private boolean isSwitchOn = true, isLampOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level7);
         View v = findViewById(R.id.view_LevelLayout_Level7);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
         onLevelStart(v);
     }
 
@@ -43,6 +54,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
+        darkEnvironmentHandler.postDelayed(checkDarkEnvironment, 0);
 
         UserPreferences.init(this);
 
@@ -159,6 +171,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     protected void onDestroy() {
         super.onDestroy();
         timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
     }
 
     // Show the level pass screen
@@ -221,6 +234,22 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         }
     };
 
+    private Runnable checkDarkEnvironment = () -> {
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+                break;
+        }
+    };
+
     // Listener for Level elements
     private void listenerInit() {
         findViewById(R.id.button_Level7_ResetBt).setOnClickListener(view -> {
@@ -235,12 +264,40 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         // place your element listener here
+
+        findViewById(R.id.image_Level7_Cabinet).setOnClickListener(view -> {
+            onWrongAttempt();
+        });
+
+        findViewById(R.id.image_Level7_Switch).setOnClickListener(view -> {
+            ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+            isSwitchOn = !isSwitchOn;
+
+            if (isSwitchOn) {
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+            } else {
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+            }
+        });
+
+        findViewById(R.id.image_Level7_Lamp).setOnClickListener(view -> {
+            ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+            ImageView lampGlow = findViewById(R.id.image_Level7_LampGlow);
+            isLampOn =!isLampOn;
+            if (isLampOn) {
+                lampGlow.setVisibility(View.VISIBLE);
+            } else {
+                lampGlow.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     private void resetState(){
-        View textView = findViewById(R.id.timer_text_view);
-        textView.setTranslationX(0);
-        textView.setTranslationY(0);
+        ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+        isSwitchOn = true;
+        isLampOn = true;
+        lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
         // add you move-able / state changeable elements here
     }
 
