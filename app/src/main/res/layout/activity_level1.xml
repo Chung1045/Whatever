@@ -150,32 +150,52 @@
         app:layout_constraintTop_toTopOf="@+id/view_topbar_Level1"
         app:layout_constraintVertical_bias="0.5"
         tools:visibility="visible">
-
         <!-- Place your Level Element here -->
 
-        <ImageView
-            android:id="@+id/image_fat"
-            android:layout_width="130dp"
-            android:layout_height="210dp"
-            app:srcCompat="@drawable/fat"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="123dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/image_fat"
+                android:layout_width="150dp"
+                android:layout_height="300dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="100dp"
+                app:srcCompat="@drawable/fat" />
+            <ImageView
+                android:id="@+id/image_her"
+                android:layout_width="146dp"
+                android:layout_height="135dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="150dp"
+                app:srcCompat="@drawable/her" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/image_her"
-            android:layout_width="146dp"
-            android:layout_height="135dp"
-            app:srcCompat="@drawable/her"
-            tools:layout_editor_absoluteX="225dp"
-            tools:layout_editor_absoluteY="154dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/et_ans"
+                android:layout_width="218dp"
+                android:layout_height="54dp"
+                android:hint="Type Here"
+                android:visibility="visible"
+                android:layout_marginTop="500dp"
+                android:layout_marginLeft="30dp"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="218dp"
-            android:layout_height="54dp"
-            android:hint="Type Here"
-            android:visibility="visible"
-            tools:layout_editor_absoluteX="94dp"
-            tools:layout_editor_absoluteY="458dp" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_marginTop="500dp"
+                android:layout_toRightOf="@id/et_ans"/>
+
+        </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
