@@ -41,7 +41,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Have a nice dream", "One sheep, two sheep, three sheep...", "Sweet Dreams"};
-    private final String levelHint = "";
+    private final String[] levelHint = new String[]{"Who wants to sleep with the light?", "I am sensitive to any light when sleeping", "Try toggle some setting on your phone", "Who wants light theme on your phone when on your bed?"};
     private final Random random = new Random();
     private boolean isSwitchOn = true, isLampOn = true;
 
@@ -254,6 +254,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
                 lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
                 light.setImageResource(R.drawable.image_level7_light_off);
                 darkOverlay.setVisibility(View.VISIBLE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
 
                 if (!isLampOn) {
                     ImageView lamp = findViewById(R.id.image_Level7_Lamp);
@@ -267,6 +268,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
                 lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
                 light.setImageResource(R.drawable.image_level7_light_on);
                 darkOverlay.setVisibility(View.GONE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
 
                 if (!isLampOn) {
                     ImageView lamp = findViewById(R.id.image_Level7_Lamp);
@@ -303,7 +305,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.button_Level7_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
 
         // place your element listener here
@@ -388,6 +390,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
                     isLampOn = true;
                     lampGlow.setVisibility(View.VISIBLE);
                     lamp.setImageResource(R.drawable.image_level7_lamp);
+
                     utils.playSFX(R.raw.sfx_level7_lamp_on);
                 }
 
