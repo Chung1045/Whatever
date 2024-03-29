@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,6 +36,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private final Handler timerHandler = new Handler();
     private final Handler darkEnvironmentHandler = new Handler();
     private int minutes, seconds, milliseconds, deltaX, deltaY;
+    private int curtainState = 0;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Have a nice dream", "One sheep, two sheep, three sheep...", "Sweet Dreams"};
@@ -239,13 +244,33 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
                 getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
         ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+        ImageView light = findViewById(R.id.image_Level7_Light);
+        ImageView darkOverlay = findViewById(R.id.image_level7_dark_overlay);
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
-                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+                isSwitchOn = false;
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+                light.setImageResource(R.drawable.image_level7_light_off);
+                darkOverlay.setVisibility(View.VISIBLE);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                }
+
                 break;
 
             case Configuration.UI_MODE_NIGHT_NO:
-                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+                isSwitchOn = true;
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+                light.setImageResource(R.drawable.image_level7_light_on);
+                darkOverlay.setVisibility(View.GONE);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                }
+
                 break;
         }
     };
@@ -269,15 +294,18 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             onWrongAttempt();
         });
 
-        findViewById(R.id.image_Level7_Switch).setOnClickListener(view -> {
-            ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
-            isSwitchOn = !isSwitchOn;
+        findViewById(R.id.image_Level7_Light).setOnClickListener(view -> {
+            onWrongAttempt();
+        });
 
-            if (isSwitchOn) {
-                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
-            } else {
-                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
-            }
+        findViewById(R.id.image_Level7_Switch).setOnClickListener(view -> {
+            onWrongAttempt();
+        });
+
+        findViewById(R.id.image_Level7_Bed).setOnClickListener(view -> {
+            if (!isSwitchOn && !isLampOn && curtainState == 2) {
+                onLevelPass();
+            } else onWrongAttempt();
         });
 
         findViewById(R.id.image_Level7_Lamp).setOnClickListener(view -> {
@@ -286,18 +314,78 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             isLampOn =!isLampOn;
             if (isLampOn) {
                 lampGlow.setVisibility(View.VISIBLE);
+                lamp.setImageResource(R.drawable.image_level7_lamp);
+                utils.playSFX(R.raw.sfx_level7_lamp_on);
             } else {
                 lampGlow.setVisibility(View.GONE);
+                if (isSwitchOn){
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                } else lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                utils.playSFX(R.raw.sfx_level7_lamp_off);
             }
         });
+
+        findViewById(R.id.image_Level7_Curtain).setOnClickListener(view -> {
+            ImageView curtain = findViewById(R.id.image_Level7_Curtain);
+
+            if (curtainState < 2){
+                curtainState += 1;
+            } else curtainState = 0;
+
+            switch (curtainState) {
+                case 0:
+                    curtain.setImageResource(R.drawable.image_level7_curtain_open);
+                    break;
+                case 1:
+                    curtain.setImageResource(R.drawable.image_level7_curtain_half_open);
+                    break;
+                case 2:
+                    curtain.setImageResource(R.drawable.image_level7_curtain_closed);
+                    break;
+            }
+
+            utils.playSFX(R.raw.sfx_level7_curtain_move);
+
+        });
+
+
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        SensorEventListener lightSensorListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float lightValue = event.values[0];
+                ImageView lampGlow = findViewById(R.id.image_Level7_LampGlow);
+                ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                // Handle changes in light sensor value here
+                if (lightValue < 100 && isLampOn) {
+                    isLampOn = false;
+                    lampGlow.setVisibility(View.GONE);
+                    if (isSwitchOn) {
+                        lamp.setImageResource(R.drawable.image_level7_lamp);
+                    } else lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                    utils.playSFX(R.raw.sfx_level7_lamp_off);
+                } else {
+                    isLampOn = true;
+                    lampGlow.setVisibility(View.VISIBLE);
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                    utils.playSFX(R.raw.sfx_level7_lamp_on);
+                }
+
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                // Handle accuracy changes if needed
+            }
+        };
+
+        sensorManager.registerListener(lightSensorListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
     private void resetState(){
-        ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
-        isSwitchOn = true;
-        isLampOn = true;
-        lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
         // add you move-able / state changeable elements here
     }
 

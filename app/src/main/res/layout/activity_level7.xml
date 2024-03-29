@@ -175,16 +175,6 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
-            android:id="@+id/image_Level7_LampGlow"
-            android:layout_width="432dp"
-            android:layout_height="372dp"
-            android:layout_marginEnd="148dp"
-            android:layout_marginBottom="152dp"
-            android:src="@drawable/image_level7_lamp_glow_blur"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageView
             android:id="@+id/image_Level7_Light"
             android:layout_width="115dp"
             android:layout_height="84dp"
@@ -204,18 +194,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.893"
             tools:ignore="ContentDescription"/>
-
-        <ImageView
-            android:id="@+id/image_Level7_Lamp"
-            android:layout_width="98dp"
-            android:layout_height="128dp"
-            android:layout_marginBottom="236dp"
-            android:src="@drawable/image_level7_lamp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/image_Level7_Window"
@@ -242,6 +220,41 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.252"
             tools:ignore="ContentDescription"/>
+
+        <ImageView
+            android:id="@+id/image_level7_dark_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/image_level7_dark_overlay"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level7_LampGlow"
+            android:layout_width="432dp"
+            android:layout_height="372dp"
+            android:layout_marginEnd="148dp"
+            android:layout_marginBottom="152dp"
+            android:src="@drawable/image_level7_lamp_glow_blur"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_Level7_Lamp"
+            android:layout_width="98dp"
+            android:layout_height="128dp"
+            android:layout_marginBottom="236dp"
+            android:src="@drawable/image_level7_lamp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ContentDescription" />
 
         <!-- Place your Level Element here -->
 
