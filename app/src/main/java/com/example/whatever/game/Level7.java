@@ -27,6 +27,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public class Level7 extends AppCompatActivity implements View.OnTouchListener {
@@ -70,6 +71,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
         listenerInit();
+        windowView();
     }
 
     private void topBarInit(){
@@ -275,6 +277,22 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         }
     };
 
+    private void windowView(){
+        Calendar currentTime = Calendar.getInstance();
+        int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        ImageView window = findViewById(R.id.image_Level7_Window);
+
+        if (currentHour >= 6 && currentHour < 12) {
+            window.setImageResource(R.drawable.image_level7_window_morning);
+        } else if (currentHour >= 12 && currentHour < 18) {
+            window.setImageResource(R.drawable.image_level7_window_noon);
+        } else if (currentHour >= 18 && currentHour < 21) {
+            window.setImageResource(R.drawable.image_level7_window_evening);
+        } else {
+            window.setImageResource(R.drawable.image_level7_window_night);
+        }
+    }
+
     // Listener for Level elements
     private void listenerInit() {
         findViewById(R.id.button_Level7_ResetBt).setOnClickListener(view -> {
@@ -387,6 +405,10 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
     private void resetState(){
         // add you move-able / state changeable elements here
+        windowView();
+        curtainState = 0;
+        ImageView curtain = findViewById(R.id.image_Level7_Curtain);
+        curtain.setImageResource(R.drawable.image_level7_curtain_open);
     }
 
     // Listener for dragging move-able elements
