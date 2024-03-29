@@ -128,10 +128,11 @@
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="Do something!"
+            android:textStyle="bold"
+            android:text="Give some water to \n Peter!"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="24sp"
+            android:textSize="35sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -144,12 +145,132 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view_topbar_Level5"
-        app:layout_constraintVertical_bias="0.5"
-        tools:visibility="gone">
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible">
 
-        <!-- Place your Level Element here -->
+
+        <ImageView
+            android:id="@+id/image_Level5_peter"
+            android:layout_width="140dp"
+            android:layout_height="207dp"
+            android:src="@drawable/image_level5_peter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.76"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.727"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_tap"
+            android:layout_width="282dp"
+            android:layout_height="314dp"
+            android:src="@drawable/image_level5_tap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.438"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear1"
+            android:layout_width="55dp"
+            android:layout_height="76dp"
+            android:src="@drawable/image_level5_gear1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.216"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.279"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/image_level5_gear2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.425"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.34"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear3"
+            android:layout_width="44dp"
+            android:layout_height="50dp"
+            android:src="@drawable/image_level5_gear3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.801"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.905"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear4"
+            android:layout_width="32dp"
+            android:layout_height="39dp"
+            android:src="@drawable/image_level5_gear4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.612"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.904"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear5"
+            android:layout_width="49dp"
+            android:layout_height="69dp"
+            android:src="@drawable/image_level5_gear5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.212"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.922"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear6"
+            android:layout_width="59dp"
+            android:layout_height="75dp"
+            android:src="@drawable/image_level5_gear6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.417"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.922"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level5_gear7"
+            android:layout_width="55dp"
+            android:layout_height="76dp"
+            android:src="@drawable/image_level5_gear7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.628"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.322"
+            tools:ignore="ContentDescription" />
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +287,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level5_TimeUsedText"
