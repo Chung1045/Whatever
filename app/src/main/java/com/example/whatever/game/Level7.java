@@ -1,7 +1,5 @@
 package com.example.whatever.game;
 
-import android.app.UiModeManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -12,20 +10,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -41,15 +33,20 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Have a nice dream", "One sheep, two sheep, three sheep...", "Sweet Dreams"};
-    private final String[] levelHint = new String[]{"Who wants to sleep with the light?", "I am sensitive to any light when sleeping", "Try toggle some setting on your phone", "Who wants light theme on your phone when on your bed?"};
+    private final String[] levelHint = new String[]{"Who wants to sleep with the light?", "I am sensitive to any light when sleeping", "Try toggle some setting on your phone", "Who wants light theme on your phone when on your bed?", "Try covering you top part of your phone"};
     private final Random random = new Random();
     private boolean isSwitchOn = true, isLampOn = true;
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level7);
         View v = findViewById(R.id.view_LevelLayout_Level7);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
@@ -59,8 +56,6 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private void onLevelStart(View v){
 
         startTime = System.currentTimeMillis();
-        timerHandler.postDelayed(updateTimerThread, 0);
-        darkEnvironmentHandler.postDelayed(checkDarkEnvironment, 0);
 
         UserPreferences.init(this);
 
@@ -157,6 +152,9 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
         }
+        timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     @Override
@@ -165,6 +163,8 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
+            darkEnvironmentHandler.post(checkDarkEnvironment);
+            sensorManager.registerListener(lightSensorListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
@@ -172,6 +172,8 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     protected void onStop() {
         super.onStop();
         timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     @Override
@@ -179,12 +181,16 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         super.onDestroy();
         timerHandler.removeCallbacks(updateTimerThread);
         darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
         timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
+
         TextView timeUsedCount = findViewById(R.id.text_Level7_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
         timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
@@ -276,6 +282,8 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
                 }
 
                 break;
+
+
         }
     };
 
@@ -367,43 +375,6 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             utils.playSFX(R.raw.sfx_level7_curtain_move);
 
         });
-
-
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
-        SensorEventListener lightSensorListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                float lightValue = event.values[0];
-                ImageView lampGlow = findViewById(R.id.image_Level7_LampGlow);
-                ImageView lamp = findViewById(R.id.image_Level7_Lamp);
-                // Handle changes in light sensor value here
-                if (lightValue < 100 && isLampOn) {
-                    isLampOn = false;
-                    lampGlow.setVisibility(View.GONE);
-                    if (isSwitchOn) {
-                        lamp.setImageResource(R.drawable.image_level7_lamp);
-                    } else lamp.setImageResource(R.drawable.image_level7_lamp_off);
-                    utils.playSFX(R.raw.sfx_level7_lamp_off);
-                } else {
-                    isLampOn = true;
-                    lampGlow.setVisibility(View.VISIBLE);
-                    lamp.setImageResource(R.drawable.image_level7_lamp);
-
-                    utils.playSFX(R.raw.sfx_level7_lamp_on);
-                }
-
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                // Handle accuracy changes if needed
-            }
-        };
-
-        sensorManager.registerListener(lightSensorListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
 
     private void resetState(){
@@ -446,4 +417,43 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         }
         return super.dispatchTouchEvent(event);
     }
+
+    private SensorEventListener lightSensorListener = new SensorEventListener() {
+
+        boolean isSFXOnPlayed = false;
+        boolean isSFXOffPlayed = false;
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float lightValue = event.values[0];
+            ImageView lampGlow = findViewById(R.id.image_Level7_LampGlow);
+            ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+            // Handle changes in light sensor value here
+            if (lightValue < 100 ) {
+                isLampOn = false;
+                lampGlow.setVisibility(View.GONE);
+                if (isSwitchOn) {
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                } else lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                if (!isSFXOnPlayed) {
+                    utils.playSFX(R.raw.sfx_level7_lamp_off);
+                    isSFXOnPlayed = true;
+                    isSFXOffPlayed = false;
+                }
+            } else {
+                isLampOn = true;
+                lampGlow.setVisibility(View.VISIBLE);
+                lamp.setImageResource(R.drawable.image_level7_lamp);
+                if (!isSFXOffPlayed) {
+                    utils.playSFX(R.raw.sfx_level7_lamp_on);
+                    isSFXOffPlayed = true;
+                    isSFXOnPlayed = false;
+                }
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // Handle accuracy changes if needed
+        }
+    };
 }
