@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="123dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
@@ -160,322 +160,334 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-            <TextView
-                android:id="@+id/text_Level8_debug"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:text="test"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/image_level8_wall24" />
-
             <ImageView
                 android:id="@+id/image_level8_ball"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/drawable_level8_ball"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/image_level8_ball"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.573" />
+                app:layout_constraintVertical_bias="0.573"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall1"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall2"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.765" />
+                app:layout_constraintVertical_bias="0.765"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall3"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.601" />
+                app:layout_constraintVertical_bias="0.601"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall4"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.343" />
+                app:layout_constraintVertical_bias="0.343"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall5"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.176" />
+                app:layout_constraintVertical_bias="0.176"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall6"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.847" />
+                app:layout_constraintVertical_bias="0.847"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall7"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.678" />
+                app:layout_constraintVertical_bias="0.678"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall8"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.423" />
+                app:layout_constraintVertical_bias="0.423"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall9"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.26" />
+                app:layout_constraintVertical_bias="0.26"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall10"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.086" />
+                app:layout_constraintVertical_bias="0.086"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall11"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.26" />
+                app:layout_constraintVertical_bias="0.26"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall12"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.422" />
+                app:layout_constraintVertical_bias="0.422"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall13"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.765" />
+                app:layout_constraintVertical_bias="0.765"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall14"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.086" />
+                app:layout_constraintVertical_bias="0.086"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall15"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.93" />
+                app:layout_constraintVertical_bias="0.915"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall16"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.343" />
+                app:layout_constraintVertical_bias="0.343"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall17"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.678" />
+                app:layout_constraintVertical_bias="0.678"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall18"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.847" />
+                app:layout_constraintVertical_bias="0.847"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall19"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.176" />
+                app:layout_constraintVertical_bias="0.176"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall20"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.176" />
+                app:layout_constraintVertical_bias="0.176"
+                tools:ignore="ContentDescription"/>
+
 
             <ImageView
                 android:id="@+id/image_level8_wall21"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.93" />
-
+                app:layout_constraintVertical_bias="0.914"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall22"
                 android:layout_width="10dp"
                 android:layout_height="00dp"
-                android:layout_marginHorizontal="60dp"
-                android:layout_marginVertical="60dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginVertical="70dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall23"
@@ -484,7 +496,8 @@
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall24"
@@ -493,7 +506,8 @@
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall25"
@@ -502,7 +516,8 @@
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
 
             <ImageView
                 android:id="@+id/image_level8_wall26"
@@ -511,7 +526,21 @@
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/image_level8_exit"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/image_level8_exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.418"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.464"
+                tools:ignore="ContentDescription"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -533,7 +562,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level8_TimeUsedText"
@@ -639,19 +668,6 @@
                 android:drawableEnd="@drawable/baseline_home_24"
                 android:drawableTint="@color/background"
                 android:text="@string/string_LevelPass_levelSelect"
-                android:textColor="@color/background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/button_Level8_NextLevelBt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/foreground"
-                android:drawableEnd="@drawable/baseline_arrow_forward_24"
-                android:drawableTint="@color/background"
-                android:text="@string/string_LevelPass_nextLevel"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
