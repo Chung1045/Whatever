@@ -19,15 +19,14 @@ import java.util.Objects;
 public class LeaderBoard extends AppCompatActivity {
 
     private Utils utils;
-    private View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_leader_board);
-        v = LayoutInflater.from(this).inflate(R.layout.activity_leader_board, null);
-        utils = new Utils(this, v, this);
+        View v1 = LayoutInflater.from(this).inflate(R.layout.activity_leader_board, null);
+        utils = new Utils(this, v1, this);
 
         setSupportActionBar(findViewById(R.id.view_leaderboard_topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -62,9 +61,7 @@ public class LeaderBoard extends AppCompatActivity {
 
     private void listenerInit(){
 
-        findViewById(R.id.button_leaderboard_sign_in_sign_up).setOnClickListener(view -> {
-            startActivity(new Intent(LeaderBoard.this, SignIn.class));
-        });
+        findViewById(R.id.button_leaderboard_sign_in_sign_up).setOnClickListener(view -> startActivity(new Intent(LeaderBoard.this, SignIn.class)));
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

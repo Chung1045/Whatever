@@ -31,8 +31,8 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false, holdMode = false;
-    private final String[] levelPassMessage = new String[]{"That was hard isn't it?", "Ever played Rotaneo?", "Shh, there a better way to do it"};
-    private final String[] levelHint = new String[]{"It seems theres a better way to do it", "If you can't reach the goal, then why not try to let the goal reach you?", "Why work hard when you can work smart?"};
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -47,6 +47,9 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
         wallsInit();
         onLevelStart(v);
         handler.post(interactMode);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level8_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level8_hints_array);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

@@ -32,8 +32,8 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private int curtainState = 0;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Have a nice dream", "One sheep, two sheep, three sheep...", "Sweet Dreams"};
-    private final String[] levelHint = new String[]{"Who wants to sleep with the light?", "I am sensitive to any light when sleeping", "Try toggle some setting on your phone", "Who wants light theme on your phone when on your bed?", "Try covering you top part of your phone"};
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
     private boolean isSwitchOn = true, isLampOn = true;
     private SensorManager sensorManager;
@@ -44,6 +44,9 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level7);
         View v = findViewById(R.id.view_LevelLayout_Level7);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level7_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level7_hints_array);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);

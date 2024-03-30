@@ -62,7 +62,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center_horizontal"
-                    android:text="Guest"
+                    android:text="@string/string_profile_defaultUsername"
                     android:textColor="@color/background"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -84,7 +84,7 @@
                     android:layout_width="247dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Sign in to save progress / view ranks"
+                    android:text="@string/string_profile_signIn_function_description"
                     android:textColor="@color/background"
                     android:textSize="18sp" />
 
@@ -101,19 +101,19 @@
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
-                        android:text="Sign in / Sign up"
+                        android:text="@string/string_profile_signInOrUp_text"
                         android:textColor="@color/foreground" />
 
                     <Button
                         android:id="@+id/button_profile_leaderboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
-                        android:text="Leader Board"
+                        android:text="@string/string_profile_leaderboard_text"
                         android:textColor="@color/foreground" />
 
                 </LinearLayout>
@@ -149,7 +149,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginVertical="10dp"
                 android:src="@drawable/ic_volume_on_24"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -160,8 +160,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="Sound Effect"
+                android:layout_marginStart="16dp"
+                android:text="@string/string_profile_option_soundEffect_text"
                 android:textSize="18sp"
                 android:textColor="@color/foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -172,7 +172,7 @@
                 android:id="@+id/switch_profile_sfx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginVertical="10dp"
                 android:checked="true"
                 app:trackTint="@color/foreground"

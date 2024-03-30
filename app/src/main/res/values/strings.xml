@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Whatever¿</string>
+    <string name="string_Level1_title"></string>
+    <string name="string_Level2_title"></string>
+    <string name="string_Level3_title"></string>
+    <string name="string_Level4_title"></string>
+    <string name="string_Level5_title"></string>
+    <string name="string_Level6_title"></string>
     <string name="string_Level7_title">Go to sleep!</string>
     <string name="string_Level8_title">Find the way out!</string>
     <string name="string_LevelPass_nextLevel">Next Level</string>
@@ -16,4 +22,41 @@
     <string name="string_TopAppBar_hintBtDescription">Hint</string>
     <string name="string_TopAppBar_backBtDescription">Level Selection</string>
     <string name="string_topAppBar_SettingCloseDescription">Close</string>
+    <string name="string_home_selectLevel_text">Okay?</string>
+    <string name="string_home_contiueLevel_text">Continue Level</string>
+    <string name="string_profile_defaultUsername">Guest</string>
+    <string name="string_profile_signIn_function_description">Sign in to save progress / view ranks</string>
+    <string name="string_profile_signInOrUp_text">Sign in / Sign up</string>
+    <string name="string_profile_leaderboard_text">Leader Board</string>
+    <string name="string_profile_option_soundEffect_text">Sound Effect</string>
+    <string name="string_leaderboard_default_userName">Guest</string>
+
+    <string-array name="string_Level7_hints_array">
+        <item>"Who wants to sleep with the light?"</item>
+        <item>"I am sensitive to any light when sleeping"</item>
+        <item>"Try toggle some setting on your phone"</item>
+        <item>"Who wants light theme on your phone when on your bed?"</item>
+        <item>"Try covering you top part of your phone"</item>
+    </string-array>
+
+    <string-array name="string_level7_level_pass_messages_array">
+        <item>"Have a nice dream"</item>
+        <item>"One sheep, two sheep, three sheep…"</item>
+        <item>"Sweet Dreams"</item>
+    </string-array>
+
+    <string-array name="string_Level8_hints_array">
+        <item>"It seems theres a better way to do it"</item>
+        <item>"If you can't reach the goal, then why not try to let the goal reach you?"</item>
+        <item>"Why work hard when you can work smart?"</item>
+    </string-array>
+
+    <string-array name="string_level8_level_pass_messages_array">
+        <item>"That was hard isn't it?"</item>
+        <item>"Ever played Rotaneo?"</item>
+        <item>"Shh, there a better way to do it"</item>
+    </string-array>
+
+
+
 </resources>
