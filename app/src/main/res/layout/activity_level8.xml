@@ -160,8 +160,31 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+            <TextView
+                android:id="@+id/text_Level8_debug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="test"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_level8_wall24" />
+
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/image_level8_ball"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawable_level8_ball"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.573" />
+
+            <ImageView
+                android:id="@+id/image_level8_wall1"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginRight="60dp"
@@ -172,6 +195,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_level8_wall2"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -180,11 +204,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.765" />
 
             <ImageView
+                android:id="@+id/image_level8_wall3"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -193,11 +218,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.601" />
 
             <ImageView
+                android:id="@+id/image_level8_wall4"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -206,11 +232,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.343" />
 
             <ImageView
+                android:id="@+id/image_level8_wall5"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -219,11 +246,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.176" />
 
             <ImageView
+                android:id="@+id/image_level8_wall6"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -232,12 +260,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.847" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/image_level8_wall7"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -246,12 +274,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.678" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/image_level8_wall8"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -260,12 +288,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.423" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/image_level8_wall9"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -274,12 +302,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.26" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/image_level8_wall10"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -288,131 +316,142 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.086" />
 
             <ImageView
+                android:id="@+id/image_level8_wall11"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.26" />
 
             <ImageView
+                android:id="@+id/image_level8_wall12"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.422" />
 
             <ImageView
+                android:id="@+id/image_level8_wall13"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.765" />
 
             <ImageView
+                android:id="@+id/image_level8_wall14"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.086" />
 
             <ImageView
+                android:id="@+id/image_level8_wall15"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.93" />
 
             <ImageView
+                android:id="@+id/image_level8_wall16"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginEnd="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.343" />
 
             <ImageView
+                android:id="@+id/image_level8_wall17"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginEnd="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.678" />
 
             <ImageView
+                android:id="@+id/image_level8_wall18"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginEnd="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.847" />
 
             <ImageView
+                android:id="@+id/image_level8_wall19"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginEnd="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.176" />
 
             <ImageView
+                android:id="@+id/image_level8_wall20"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginEnd="60dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.176" />
 
             <ImageView
+                android:id="@+id/image_level8_wall21"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginHorizontal="60dp"
@@ -421,13 +460,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.93" />
 
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/image_level8_wall22"
                 android:layout_width="10dp"
                 android:layout_height="00dp"
                 android:layout_marginHorizontal="60dp"
@@ -439,7 +478,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/image_level8_wall23"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
@@ -448,7 +487,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/image_level8_wall24"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
@@ -457,6 +496,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_level8_wall25"
                 android:layout_width="10dp"
                 android:layout_height="0dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"
@@ -465,6 +505,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/image_level8_wall26"
                 android:layout_width="10dp"
                 android:layout_height="0dp"
                 android:src="@drawable/drawable_level8_wall_resizeable"

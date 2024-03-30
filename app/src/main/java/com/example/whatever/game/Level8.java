@@ -1,6 +1,11 @@
 package com.example.whatever.game;
 
 import android.content.Intent;
+import android.graphics.Rect;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -19,7 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
-public class Level8 extends AppCompatActivity implements View.OnTouchListener {
+public class Level8 extends AppCompatActivity implements View.OnTouchListener, SensorEventListener {
     private Utils utils;
     private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
@@ -29,13 +34,32 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
     private final String levelHint = "Try tapping the buttons";
     private final Random random = new Random();
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private ImageView[] walls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level8);
         View v = findViewById(R.id.view_LevelLayout_Level8);
+        wallsInit();
         onLevelStart(v);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+
+
+
+    }
+
+    private void wallsInit() {
+        walls = new ImageView[26];
+        for (int i = 0; i < 26; i++) {
+            int resId = getResources().getIdentifier("image_level8_wall" + (i + 1), "id", getPackageName());
+            walls[i] = findViewById(resId);
+        }
     }
 
     private void onLevelStart(View v){
@@ -145,6 +169,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
         }
     }
 
@@ -275,4 +300,57 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
         }
         return super.dispatchTouchEvent(event);
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        ImageView pinball = findViewById(R.id.image_level8_ball);
+        TextView debug = findViewById(R.id.text_Level8_debug);
+
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = sensorEvent.values[0];
+            float y = sensorEvent.values[1];
+
+            // Scale down accelerometer values for translation
+            float scaleFactor = 0.6f; // Adjust as needed
+            float translationX = x * scaleFactor;
+            float translationY = y * scaleFactor;
+
+            // Update ball position
+            pinball.setX(pinball.getX() - translationX);
+            pinball.setY(pinball.getY() + translationY);
+
+
+            if (isTouchWalls(pinball, walls)){
+                pinball.setTranslationX(0);
+                pinball.setTranslationY(0);
+            }
+
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    public boolean isTouchWalls(View targetView, View[] views) {
+        Rect targetRect = new Rect();
+        targetView.getGlobalVisibleRect(targetRect);
+
+        for (View view : views) {
+            if (view.equals(targetView)) {
+                continue; // Skip checking against itself
+            }
+
+            Rect rect = new Rect();
+            view.getGlobalVisibleRect(rect);
+
+            if (rect.intersects(targetRect.left, targetRect.top, targetRect.right, targetRect.bottom)) {
+                return true; // If any view intersects with the target, return true
+            }
+        }
+
+        return false; // None of the views intersect with the target
+    }
+
 }
