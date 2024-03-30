@@ -8,8 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1);
         View v = findViewById(R.id.view_LevelLayout_Level1);
+
         onLevelStart(v);
     }
 
@@ -230,7 +233,19 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
-        // place your element listener here
+        findViewById(R.id.submit_button).setOnClickListener(view -> {
+            if (getText() == "Father")
+                onLevelPass();
+            else onLevelPass();
+
+
+        });// place your element listener here
+    }
+
+    private String getText(){
+        EditText editText = findViewById(R.id.et_ans);
+        String input = editText.getText().toString();
+        return input;
     }
 
     private void resetState(){
