@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Whatever¿</string>
     <string name="string_Level7_title">Go to sleep!</string>
+    <string name="string_Level8_title">Find the way out!</string>
     <string name="string_LevelPass_nextLevel">Next Level</string>
     <string name="string_LevelPass_levelSelect">Level Select</string>
     <string name="string_LevelPass_messagePlaceholder">I have done something</string>
