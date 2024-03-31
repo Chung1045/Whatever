@@ -178,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <EditText
-                android:id="@+id/et_ans"
+                android:id="@+id/text_Level1_Edit"
                 android:layout_width="218dp"
                 android:layout_height="54dp"
                 android:hint="Type Here"
@@ -187,12 +187,12 @@
                 android:layout_marginLeft="30dp"/>
 
             <Button
-                android:id="@+id/submit_button"
+                android:id="@+id/button_Level1_SubmitBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit"
                 android:layout_marginTop="500dp"
-                android:layout_toRightOf="@id/et_ans"/>
+                android:layout_toRightOf="@id/text_Level1_Edit"/>
 
         </RelativeLayout>
 

@@ -235,8 +235,8 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
-        findViewById(R.id.submit_button).setOnClickListener(view -> {
-            EditText input = findViewById(R.id.et_ans);
+        findViewById(R.id.button_Level1_SubmitBt).setOnClickListener(view -> {
+            EditText input = findViewById(R.id.text_Level1_Edit);
             String data = input.getText().toString();
             verify(data);
 
