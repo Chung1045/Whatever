@@ -33,6 +33,7 @@
             android:exported="false" />
         <activity
             android:name=".Level7"
+            android:configChanges="uiMode"
             android:exported="false" />
         <activity
             android:name=".Level6"

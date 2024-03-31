@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -38,12 +41,13 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private boolean isSwitchOn = true, isLampOn = true;
     private SensorManager sensorManager;
     private Sensor lightSensor;
+    private View layoutView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level7);
-        View v = findViewById(R.id.view_LevelLayout_Level7);
+        layoutView = findViewById(R.id.view_LevelLayout_Level7);
 
         levelPassMessage = getResources().getStringArray(R.array.string_level7_level_pass_messages_array);
         levelHint = getResources().getStringArray(R.array.string_Level7_hints_array);
@@ -53,7 +57,8 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
-        onLevelStart(v);
+        onLevelStart(layoutView);
+
     }
 
     private void onLevelStart(View v){
@@ -257,9 +262,17 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
         ImageView light = findViewById(R.id.image_Level7_Light);
         ImageView darkOverlay = findViewById(R.id.image_level7_dark_overlay);
+        ImageView backBt = findViewById(R.id.button_Level7_NavigateBackBt);
+        ImageView hintBt = findViewById(R.id.button_Level7_HintBt);
+        ImageView resetBt = findViewById(R.id.button_Level7_ResetBt);
+        ImageView settingsBt = findViewById(R.id.button_Level7_SettingsBt);
+        ImageView closeSettingBt = findViewById(R.id.button_Level7_CloseBt);
+        ImageView soundBt = findViewById(R.id.button_Level7_SoundBt);
+        TextView title = findViewById(R.id.text_Level7_Title);
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
                 isSwitchOn = false;
+
                 lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
                 light.setImageResource(R.drawable.image_level7_light_off);
                 darkOverlay.setVisibility(View.VISIBLE);
@@ -274,6 +287,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
             case Configuration.UI_MODE_NIGHT_NO:
                 isSwitchOn = true;
+
                 lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
                 light.setImageResource(R.drawable.image_level7_light_on);
                 darkOverlay.setVisibility(View.GONE);
@@ -288,6 +302,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
 
         }
+
     };
 
     private void windowView(){
@@ -458,5 +473,80 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
             // Handle accuracy changes if needed
         }
+
+
     };
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        ConstraintLayout topAppBar = findViewById(R.id.view_topbar_Level7);
+        ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+        ImageView light = findViewById(R.id.image_Level7_Light);
+        ImageView darkOverlay = findViewById(R.id.image_level7_dark_overlay);
+
+        int nightModeFlags = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                isSwitchOn = false;
+
+                layoutView.setBackgroundColor(Color.BLACK);
+                topAppBar.setBackgroundColor(Color.BLACK);
+                toggleTheme(Color.WHITE);
+
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+                light.setImageResource(R.drawable.image_level7_light_off);
+                darkOverlay.setVisibility(View.VISIBLE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                }
+
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                isSwitchOn = true;
+
+                layoutView.setBackgroundColor(Color.WHITE);
+                topAppBar.setBackgroundColor(Color.WHITE);
+                toggleTheme(Color.BLACK);
+
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+                light.setImageResource(R.drawable.image_level7_light_on);
+                darkOverlay.setVisibility(View.GONE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                }
+
+                break;
+
+
+        }
+
+    }
+
+    private void toggleTheme(int colorResource){
+        ImageView backBt = findViewById(R.id.button_Level7_NavigateBackBt);
+        ImageView hintBt = findViewById(R.id.button_Level7_HintBt);
+        ImageView resetBt = findViewById(R.id.button_Level7_ResetBt);
+        ImageView settingsBt = findViewById(R.id.button_Level7_SettingsBt);
+        ImageView closeSettingBt = findViewById(R.id.button_Level7_CloseBt);
+        ImageView soundBt = findViewById(R.id.button_Level7_SoundBt);
+        TextView title = findViewById(R.id.text_Level7_Title);
+
+        backBt.setColorFilter(colorResource);
+        hintBt.setColorFilter(colorResource);
+        resetBt.setColorFilter(colorResource);
+        settingsBt.setColorFilter(colorResource);
+        closeSettingBt.setColorFilter(colorResource);
+        soundBt.setColorFilter(colorResource);
+        title.setTextColor(colorResource);
+    }
+
 }
