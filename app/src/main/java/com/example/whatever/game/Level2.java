@@ -235,6 +235,9 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
+        findViewById(R.id.image_Level2_fifth).setOnClickListener(view -> {
+            onLevelPass();
+        });
         // place your element listener here
     }
 
