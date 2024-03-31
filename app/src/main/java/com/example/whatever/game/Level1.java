@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level1);
         View v = findViewById(R.id.view_LevelLayout_Level1);
+
 
         onLevelStart(v);
     }
@@ -234,18 +236,16 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.submit_button).setOnClickListener(view -> {
-            if (getText() == "Father")
-                onLevelPass();
-            else onLevelPass();
-
+            EditText input = findViewById(R.id.et_ans);
+            String data = input.getText().toString();
+            verify(data);
 
         });// place your element listener here
     }
-
-    private String getText(){
-        EditText editText = findViewById(R.id.et_ans);
-        String input = editText.getText().toString();
-        return input;
+    private void verify(String s){
+        if (s.equals("Father"))
+            onLevelPass();
+        else return;
     }
 
     private void resetState(){
@@ -256,6 +256,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Listener for dragging move-able elements
+
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {
