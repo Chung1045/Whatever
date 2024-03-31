@@ -101,7 +101,8 @@
             android:text="1"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level2"
@@ -112,7 +113,8 @@
             android:text="2"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level3"
@@ -123,7 +125,8 @@
             android:text="3"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level4"
@@ -134,7 +137,8 @@
             android:text="4"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
     </LinearLayout>
 
@@ -157,7 +161,8 @@
             android:text="5"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level6"
@@ -168,7 +173,8 @@
             android:text="6"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level7"
@@ -179,7 +185,8 @@
             android:text="7"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
         <Button
             android:id="@+id/button_selectLevel_Level8"
@@ -190,7 +197,8 @@
             android:text="8"
             android:textSize="24sp"
             android:backgroundTint="@color/buttonBackground"
-            android:textColor="@color/background"/>
+            android:textColor="@color/background"
+            android:fontFamily="@font/inter_variable"/>
 
     </LinearLayout>
 
