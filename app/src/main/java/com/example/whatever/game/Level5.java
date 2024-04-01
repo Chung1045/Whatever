@@ -25,7 +25,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
+    private final String[] levelPassMessage = new String[]{"U can do better", "Try hard?", "As expected"};
     private final String levelHint = "Is there only 4 gears?";
     private final Random random = new Random();
 
