@@ -238,6 +238,10 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
         findViewById(R.id.image_Level2_fifth).setOnClickListener(view -> {
             onLevelPass();
         });
+
+        findViewById(R.id.image_Level2_forth).setOnClickListener(view -> {
+            onDestroy();
+        });
         // place your element listener here
     }
 
