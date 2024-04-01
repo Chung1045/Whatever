@@ -1,21 +1,20 @@
 package com.example.whatever.game;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
@@ -27,8 +26,10 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String levelHint = "Is there only 4 gears?";
     private final Random random = new Random();
+
+    ImageView lv5_gear3, lv5_gear4, lv5_gear5, lv5_gear6, lv5_setting, lv5_waterdrop, lv5_drag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,49 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         setContentView(R.layout.activity_level5);
         View v = findViewById(R.id.view_LevelLayout_Level5);
         onLevelStart(v);
+        lv5_gear3 = (ImageView) findViewById(R.id.image_Level5_gear3);
+        lv5_gear4 = (ImageView) findViewById(R.id.image_Level5_gear4);
+        lv5_gear5 = (ImageView) findViewById(R.id.image_Level5_gear5);
+        lv5_gear6 = (ImageView) findViewById(R.id.image_Level5_gear6);
+        lv5_setting = (ImageView) findViewById(R.id.button_Level5_SettingsBt);
+        lv5_waterdrop = (ImageView) findViewById(R.id.image_Level5_waterdrop);
+        lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
+
+        lv5_gear3.setOnLongClickListener(onclickListener);
+        lv5_gear4.setOnLongClickListener(onclickListener);
+        lv5_gear5.setOnLongClickListener(onclickListener);
+        lv5_gear6.setOnLongClickListener(onclickListener);
+        lv5_setting.setOnLongClickListener(onclickListener);
+
+        lv5_drag.setOnDragListener(dragListener);
     }
+
+    View.OnLongClickListener onclickListener = (v) -> {
+        ClipData data = ClipData.newPlainText("", "");
+        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+        v.startDragAndDrop(data, shadowBuilder, v, 0);
+        return true;
+    };
+
+
+    View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int dragEvent = event.getAction();
+
+            if (dragEvent == DragEvent.ACTION_DRAG_ENTERED) {
+                final View view = (View) event.getLocalState();
+
+                if (view.getId() == R.id.button_Level5_SettingsBt) {
+                    lv5_waterdrop.setVisibility(View.VISIBLE);
+                    onLevelPass();
+                } else if (view.getId() == R.id.image_Level5_gear3 || view.getId() == R.id.image_Level5_gear4 || view.getId() == R.id.image_Level5_gear5 || view.getId() == R.id.image_Level5_gear6) {
+                    onWrongAttempt();
+                }
+            }
+            return true;
+        }
+    };
 
     private void onLevelStart(View v){
 
@@ -244,6 +287,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Listener for dragging move-able elements
+
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

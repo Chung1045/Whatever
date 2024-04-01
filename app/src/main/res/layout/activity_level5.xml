@@ -165,6 +165,19 @@
             app:layout_constraintVertical_bias="0.727"
             tools:ignore="ContentDescription" />
 
+
+        <ImageView
+            android:id="@+id/Level5_drag"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.349"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.268"
+            tools:ignore="ContentDescription" />
+
         <ImageView
             android:id="@+id/image_Level5_tap"
             android:layout_width="282dp"
@@ -269,7 +282,19 @@
             app:layout_constraintVertical_bias="0.322"
             tools:ignore="ContentDescription" />
 
-
+        <ImageView
+            android:id="@+id/image_Level5_waterdrop"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:src="@drawable/image_level5_waterdrop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.67"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.525"
+            tools:ignore="ContentDescription" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

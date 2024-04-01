@@ -27,12 +27,6 @@
             android:name=".ProfileView"
             android:exported="false" />
         <activity
-            android:name=".Level10"
-            android:exported="false" />
-        <activity
-            android:name=".Level9"
-            android:exported="false" />
-        <activity
             android:name=".Level8"
             android:exported="false" />
         <activity
