@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -240,7 +241,7 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.image_Level2_forth).setOnClickListener(view -> {
-            onDestroy();
+            finish();
         });
         // place your element listener here
     }
