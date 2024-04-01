@@ -67,16 +67,23 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         public boolean onDrag(View v, DragEvent event) {
             int dragEvent = event.getAction();
 
-            if (dragEvent == DragEvent.ACTION_DRAG_ENTERED) {
+            if (dragEvent == DragEvent.ACTION_DRAG_ENDED) {
                 final View view = (View) event.getLocalState();
 
                 if (view.getId() == R.id.button_Level5_SettingsBt) {
                     lv5_waterdrop.setVisibility(View.VISIBLE);
-                    onLevelPass();
+                    timerHandler.removeCallbacks(updateTimerThread);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            onLevelPass();
+                        }
+                    }, 1000);
                 } else if (view.getId() == R.id.image_Level5_gear3 || view.getId() == R.id.image_Level5_gear4 || view.getId() == R.id.image_Level5_gear5 || view.getId() == R.id.image_Level5_gear6) {
                     onWrongAttempt();
                 }
             }
+
             return true;
         }
     };
@@ -206,7 +213,6 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
-        timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level5_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
         timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
