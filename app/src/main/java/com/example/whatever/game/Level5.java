@@ -29,7 +29,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     private final String levelHint = "Is there only 4 gears?";
     private final Random random = new Random();
 
-    ImageView lv5_gear3, lv5_gear4, lv5_gear5, lv5_gear6, lv5_setting, lv5_waterdrop, lv5_drag;
+    ImageView lv5_gear3, lv5_gear4, lv5_gear5, lv5_gear6, lv5_setting, lv5_waterdrop, lv5_waterdrop1, lv5_waterdrop2, lv5_drag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,8 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         lv5_gear6 = (ImageView) findViewById(R.id.image_Level5_gear6);
         lv5_setting = (ImageView) findViewById(R.id.button_Level5_SettingsBt);
         lv5_waterdrop = (ImageView) findViewById(R.id.image_Level5_waterdrop);
+        lv5_waterdrop1 = (ImageView) findViewById(R.id.image_Level5_waterdrop1);
+        lv5_waterdrop2 = (ImageView) findViewById(R.id.image_Level5_waterdrop2);
         lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
 
         lv5_gear3.setOnLongClickListener(onclickListener);
@@ -72,6 +74,8 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
 
                 if (view.getId() == R.id.button_Level5_SettingsBt) {
                     lv5_waterdrop.setVisibility(View.VISIBLE);
+                    lv5_waterdrop1.setVisibility(View.VISIBLE);
+                    lv5_waterdrop2.setVisibility(View.VISIBLE);
                     timerHandler.removeCallbacks(updateTimerThread);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
