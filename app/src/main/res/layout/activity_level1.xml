@@ -164,7 +164,7 @@
                 android:layout_height="300dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/drawable_level1_Fat" />
+                app:srcCompat="@drawable/drawable_level1_fat" />
             <ImageView
                 android:id="@+id/image_her"
                 android:layout_width="146dp"

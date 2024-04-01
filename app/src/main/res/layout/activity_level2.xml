@@ -173,7 +173,7 @@
                     android:layout_marginStart="260dp"
                     android:layout_weight="1"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_Pic5" />
+                    app:srcCompat="@drawable/drawable_level2_pic5" />
             </LinearLayout>
 
             <LinearLayout
@@ -189,7 +189,7 @@
                     android:layout_height="95dp"
                     android:layout_marginTop="10dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_Pic1" />
+                    app:srcCompat="@drawable/drawable_level2_pic1" />
 
                 <ImageView
                     android:id="@+id/image_Level2_second"
@@ -197,7 +197,7 @@
                     android:layout_height="176dp"
                     android:layout_marginStart="50dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_Pic2" />
+                    app:srcCompat="@drawable/drawable_level2_pic2" />
             </LinearLayout>
 
             <LinearLayout
@@ -212,7 +212,7 @@
                     android:layout_height="169dp"
                     android:layout_marginStart="30dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_Pic3" />
+                    app:srcCompat="@drawable/drawable_level2_pic3" />
             </LinearLayout>
 
             <LinearLayout
@@ -227,7 +227,7 @@
                     android:layout_height="219dp"
                     android:layout_marginStart="30dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_Pic4" />
+                    app:srcCompat="@drawable/drawable_level2_pic4" />
             </LinearLayout>
         </LinearLayout>
 
