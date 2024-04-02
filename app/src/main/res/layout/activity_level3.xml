@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_topbar_Level3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="417dp"
+        android:layout_height="733dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -116,7 +116,8 @@
                 android:src="@drawable/baseline_close_24"
                 android:tooltipText="Close Settings"
                 android:visibility="gone"
-                app:tint="?attr/colorOnSurface" />
+                app:tint="?attr/colorOnSurface"
+                tools:visibility="gone" />
         </LinearLayout>
 
         <TextView
@@ -128,13 +129,75 @@
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="Do something!"
+            android:text="Where is the Sheep?"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_Level3_sheepBt"
+            android:layout_width="68dp"
+            android:layout_height="62dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="108dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/image_level3_sheep" />
+
+        <ImageButton
+            android:id="@+id/button_Level3_fox1Bt"
+            android:layout_width="185dp"
+            android:layout_height="190dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="92dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level3_Title"
+            app:srcCompat="@drawable/image_level3_fox" />
+
+        <ImageButton
+            android:id="@+id/button_Level3_fox2Bt"
+            android:layout_width="185dp"
+            android:layout_height="190dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="92dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/button_Level3_fox1Bt"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level3_Title"
+            app:srcCompat="@drawable/image_level3_fox" />
+
+        <ImageButton
+            android:id="@+id/button_Level3_fox3Bt"
+            android:layout_width="185dp"
+            android:layout_height="190dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="76dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_Level3_fox1Bt"
+            app:srcCompat="@drawable/image_level3_fox" />
+
+        <ImageButton
+            android:id="@+id/button_Level3_fox4Bt"
+            android:layout_width="185dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_Level3_fox2Bt"
+            app:srcCompat="@drawable/image_level3_fox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +229,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level3_TimeUsedText"

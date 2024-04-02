@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -27,8 +31,13 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String levelHint = "Sheep is behind the fox. Move the fox far away!";
     private final Random random = new Random();
+    //New
+    ImageButton fox1;
+    int btnNum = 1;
+    ViewGroup _root;
+    //New
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +47,19 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
         onLevelStart(v);
     }
 
+
+
     private void onLevelStart(View v){
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
+        ImageButton fox1, fox2, fox3, fox4, sheep;
+
+        fox1 = findViewById(R.id.button_Level3_fox1Bt);
+        fox2 = findViewById(R.id.button_Level3_fox2Bt);
+        fox3 = findViewById(R.id.button_Level3_fox3Bt);
+        fox4 = findViewById(R.id.button_Level3_fox4Bt);
+        sheep = findViewById(R.id.button_Level3_sheepBt);
 
         UserPreferences.init(this);
 
@@ -52,6 +70,13 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
         listenerInit();
+        fox1.setOnTouchListener(this);
+        fox2.setOnTouchListener(this);
+        fox3.setOnTouchListener(this);
+        fox4.setOnTouchListener(this);
+        sheep.setOnClickListener(view -> {
+            onLevelPass();
+        });
     }
 
     private void topBarInit(){
