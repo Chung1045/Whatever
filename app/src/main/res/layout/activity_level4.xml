@@ -138,7 +138,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/text_Level4_Question"
+            android:id="@+id/text_Level4_Question2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="123dp"
@@ -157,15 +157,16 @@
 
         <EditText
             android:id="@+id/text_Level4_Answer"
-            android:layout_width="96dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="75dp"
+            android:layout_width="56dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="104dp"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="number"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_Level4_Question" />
+            app:layout_constraintTop_toBottomOf="@+id/text_Level4_Question2" />
 
         <Button
             android:id="@+id/button_Level4_ResetBt"
@@ -179,7 +180,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button_Level4_EnterBt"
+            android:id="@+id/button_Level4_Enter2Bt"
             android:layout_width="132dp"
             android:layout_height="74dp"
             android:layout_marginEnd="48dp"

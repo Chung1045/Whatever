@@ -7,6 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +40,9 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
+        EditText Answer;
+        Button Reset, Enter;
+
 
         UserPreferences.init(this);
 
@@ -48,6 +53,22 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
         listenerInit();
+
+        Answer = findViewById(R.id.text_Level4_Answer);
+        Reset = findViewById(R.id.button_Level4_ResetBt);
+        Enter = findViewById(R.id.button_Level4_Enter2Bt);
+
+
+        Reset.setOnClickListener(view -> {
+            Answer.setText(" ");
+        });
+        Enter.setOnClickListener(view -> {
+            if(Integer.valueOf(Answer.getText().toString()) == 13){
+                onLevelPass();
+            }else{
+                onWrongAttempt();
+            }
+        });
     }
 
     private void topBarInit(){
