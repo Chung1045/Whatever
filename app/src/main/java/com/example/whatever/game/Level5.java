@@ -1,5 +1,8 @@
 package com.example.whatever.game;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,6 +76,33 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
                 final View view = (View) event.getLocalState();
 
                 if (view.getId() == R.id.button_Level5_SettingsBt) {
+                    lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
+                    lv5_drag.setImageResource(R.drawable.baseline_settings_24);
+
+                    View view1 = findViewById(R.id.image_Level5_gear1);
+                    View view2 = findViewById(R.id.image_Level5_gear2);
+                    View view3 = findViewById(R.id.image_Level5_gear7);
+                    View view4 = findViewById(R.id.Level5_drag);
+
+                    PropertyValuesHolder rotation = PropertyValuesHolder.ofFloat(View.ROTATION, 360f, 0f);
+                    PropertyValuesHolder rotation2 = PropertyValuesHolder.ofFloat(View.ROTATION, 0f, 360f);
+
+                    ObjectAnimator animator1 = ObjectAnimator.ofPropertyValuesHolder(view3, rotation);
+                    animator1.setDuration(1000);
+
+                    ObjectAnimator animator2 = ObjectAnimator.ofPropertyValuesHolder(view4, rotation);
+                    animator2.setDuration(1000);
+
+                    ObjectAnimator animator3 = ObjectAnimator.ofPropertyValuesHolder(view1, rotation2);
+                    animator3.setDuration(1000);
+
+                    ObjectAnimator animator4 = ObjectAnimator.ofPropertyValuesHolder(view2, rotation2);
+                    animator4.setDuration(1000);
+
+                    AnimatorSet animatorSet = new AnimatorSet();
+                    animatorSet.playTogether(animator1, animator2, animator3, animator4);
+                    animatorSet.start();
+
                     lv5_waterdrop.setVisibility(View.VISIBLE);
                     lv5_waterdrop1.setVisibility(View.VISIBLE);
                     lv5_waterdrop2.setVisibility(View.VISIBLE);
