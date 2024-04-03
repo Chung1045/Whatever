@@ -262,13 +262,6 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
         ImageView light = findViewById(R.id.image_Level7_Light);
         ImageView darkOverlay = findViewById(R.id.image_level7_dark_overlay);
-        ImageView backBt = findViewById(R.id.button_Level7_NavigateBackBt);
-        ImageView hintBt = findViewById(R.id.button_Level7_HintBt);
-        ImageView resetBt = findViewById(R.id.button_Level7_ResetBt);
-        ImageView settingsBt = findViewById(R.id.button_Level7_SettingsBt);
-        ImageView closeSettingBt = findViewById(R.id.button_Level7_CloseBt);
-        ImageView soundBt = findViewById(R.id.button_Level7_SoundBt);
-        TextView title = findViewById(R.id.text_Level7_Title);
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
                 isSwitchOn = false;
@@ -474,7 +467,6 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             // Handle accuracy changes if needed
         }
 
-
     };
 
     @Override
@@ -525,7 +517,6 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
                 }
 
                 break;
-
 
         }
 

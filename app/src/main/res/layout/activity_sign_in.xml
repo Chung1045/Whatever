@@ -51,13 +51,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Welcome Back"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:fontFamily="@font/inter_variable"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Login to sync your progress and join the leaderboard!"/>
+                android:text="Login to sync your progress and join the leaderboard!"
+                android:fontFamily="@font/inter_variable"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textinput_signin_email_username"
@@ -65,11 +67,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Email or User Name"
+                android:fontFamily="@font/inter_variable"
                 app:boxStrokeColor="@color/textFieldBorderColor">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,12 +85,14 @@
                 android:foregroundTint="@color/foreground"
                 android:hint="Password"
                 app:endIconMode="password_toggle"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +103,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Sign In"
                 android:textColor="@color/background"
-                android:backgroundTint="@color/foreground"/>
+                android:backgroundTint="@color/foreground"
+                android:fontFamily="@font/inter_variable"/>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -109,7 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Don't have an account?"
-                android:textColor="@color/foreground"/>
+                android:textColor="@color/foreground"
+                android:fontFamily="@font/inter_variable"/>
 
             <Button
                 android:id="@+id/button_sign_in_create_account"
@@ -118,7 +126,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Create Account"
                 android:textColor="@color/background"
-                android:backgroundTint="@color/foreground"/>
+                android:backgroundTint="@color/foreground"
+                android:fontFamily="@font/inter_variable"/>
 
         </LinearLayout>
 

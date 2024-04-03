@@ -77,7 +77,8 @@
                     android:text="@string/string_profile_defaultUsername"
                     android:textColor="@color/background"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_variable"/>
 
                 <TextView
                     android:id="@+id/text_profile_description"
@@ -86,7 +87,8 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/string_profile_signIn_function_description"
                     android:textColor="@color/background"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter_variable"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -102,7 +104,8 @@
                         android:backgroundTint="@color/background"
                         android:clickable="true"
                         android:text="@string/string_profile_signInOrUp_text"
-                        android:textColor="@color/foreground" />
+                        android:textColor="@color/foreground"
+                        android:fontFamily="@font/inter_variable"/>
 
                     <Button
                         android:id="@+id/button_profile_leaderboard"
@@ -114,7 +117,8 @@
                         android:backgroundTint="@color/background"
                         android:clickable="true"
                         android:text="@string/string_profile_leaderboard_text"
-                        android:textColor="@color/foreground" />
+                        android:textColor="@color/foreground"
+                        android:fontFamily="@font/inter_variable"/>
 
                 </LinearLayout>
 

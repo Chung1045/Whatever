@@ -51,13 +51,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Greetings!"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:fontFamily="@font/inter_variable"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Create an account and sync your progress as well as joining the leaderboard!"/>
+                android:text="Create an account and sync your progress as well as joining the leaderboard!"
+                android:fontFamily="@font/inter_variable"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textinput_signup_email"
@@ -65,11 +67,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Email Address*"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,11 +83,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Username*"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,12 +101,14 @@
                 android:foregroundTint="@color/foreground"
                 android:hint="Password*"
                 app:endIconMode="password_toggle"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,12 +120,14 @@
                 android:foregroundTint="@color/foreground"
                 android:hint="Confirm Password*"
                 app:endIconMode="password_toggle"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,13 +135,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Please fill in all the fields*" />
+                android:text="Please fill in all the fields*"
+                android:fontFamily="@font/inter_variable"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="By creating an account, you agree to our Terms of Service and Privacy Policy." />
+                android:text="By creating an account, you agree to our Terms of Service and Privacy Policy."
+                android:fontFamily="@font/inter_variable"/>
 
 
             <com.google.android.material.divider.MaterialDivider
@@ -146,6 +158,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Create Account"
                 android:textColor="@color/background"
+                android:fontFamily="@font/inter_variable"
                 android:backgroundTint="@color/foreground"/>
 
         </LinearLayout>
