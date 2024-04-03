@@ -30,7 +30,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     private final Handler timerHandler = new Handler();
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
-    private boolean isLevelPass = false, holdMode = false;
+    private boolean isLevelPass = false, holdMode = false, collision = false;
     private String[] levelPassMessage;
     private String[] levelHint;
     private final Random random = new Random();
@@ -280,18 +280,25 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
                     case MotionEvent.ACTION_MOVE:
                         // Move the view with the touch
                         ImageView pinball = findViewById(R.id.image_level8_ball);
-                        pinball.setX(pinball.getX() + event.getX());
-                        pinball.setY(pinball.getY() + event.getY());
 
-                        if (isTouchWalls(pinball, walls)){
-                            pinball.setTranslationX(0);
-                            pinball.setTranslationY(0);
-                            onWrongAttempt();
+                        if (!collision) {
+                            pinball.setX(pinball.getX() + event.getX());
+                            pinball.setY(pinball.getY() + event.getY());
+
+                            if (isTouchWalls(pinball, walls)){
+                                pinball.setTranslationX(0);
+                                pinball.setTranslationY(0);
+                                onWrongAttempt();
+                                view.setClickable(false);
+                                collision = true;
+                            }
                         }
 
                         break;
                     case MotionEvent.ACTION_UP:
+                        view.setClickable(true);
                         holdMode = false;
+                        collision = false;
                         break;
                 }
                 return true;
