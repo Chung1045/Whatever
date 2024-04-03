@@ -9,6 +9,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Utils utils;
@@ -28,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         layoutInit();
         listenerInit();
+        authInit();
+    }
+
+    private void authInit() {
+
     }
 
     public void listenerInit(){
