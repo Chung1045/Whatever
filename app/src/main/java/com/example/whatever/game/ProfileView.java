@@ -142,19 +142,24 @@ public class ProfileView extends AppCompatActivity {
 
     private void updateUI() {
         TextView userName = findViewById(R.id.text_profile_Username);
+        TextView profileDescription = findViewById(R.id.text_profile_description);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Button signOut = findViewById(R.id.button_profile_sign_out);
         Button signIn = findViewById(R.id.button_profile_sign_in_sign_up);
 
-
-        if(currentUser != null) {
+        if (currentUser != null && currentUser.getDisplayName() != null && !currentUser.getDisplayName().isEmpty()) {
             userName.setText(currentUser.getDisplayName());
             signOut.setVisibility(View.VISIBLE);
             signIn.setVisibility(View.GONE);
+
+            profileDescription.setText("Best Total Time: ");
+
+
         } else {
             userName.setText("Guests");
             signOut.setVisibility(View.GONE);
             signIn.setVisibility(View.VISIBLE);
+            profileDescription.setText(R.string.string_profile_signIn_function_description);
         }
     }
 

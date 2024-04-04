@@ -26,4 +26,6 @@ public class UserPreferences {
         sharedPref = a.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
     }
+
+
 }

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -79,6 +80,7 @@ public class Utils {
     public void startUrlIntent(String url){
         intentUtils.urlIntent(url);
     }
+
 
     public void playSFX(int soundResourceId){
         sfxUtils.playSound(activity, soundResourceId);

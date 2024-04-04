@@ -27,7 +27,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
@@ -35,13 +40,13 @@ public class SignUp extends AppCompatActivity {
     private Utils utils;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
-        //v = LayoutInflater.from(this).inflate(R.layout.activity_sign_up, null);
         v = findViewById(android.R.id.content);
         utils = new Utils(this, v, this);
 
@@ -58,6 +63,7 @@ public class SignUp extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         listenerInit();
 
     }
@@ -105,37 +111,67 @@ public class SignUp extends AppCompatActivity {
                 passwordLayout.setError("Password do not match");
                 passwordConfirmLayout.setError("Password do not match");
             } else {
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        utils.showSnackBarMessage("Account created successfully");
-                        user = FirebaseAuth.getInstance().getCurrentUser();
+                mDatabase.child("UserProfile").child(userName)
+                        .addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            utils.showSnackBarMessage("User Name already taken, please choose another");
+                            userNameLayout.setError("User Name already taken");
+                        } else {
+                            utils.showSnackBarMessage("Creating account");
+                            // create account
+                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    user = FirebaseAuth.getInstance().getCurrentUser();
 
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(SignUp.this, ProfileView.class));
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(userName)
-                                    .build();
+                                    // Set username
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(userName)
+                                            .build();
 
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.d(TAG, "User profile updated.");
-                                                UserPreferences.editor.putString(UserPreferences.USER_NAME, userName).commit();
-                                            }
-                                        }
+                                    user.updateProfile(profileUpdates)
+                                            .addOnCompleteListener(e -> {
+                                                if (e.isSuccessful()) {
+                                                    // Profile updated successfully
+                                                    // You can handle the success here
+                                                } else {
+                                                    // Failed to update profile
+                                                    // You can handle the failure here
+                                                }
+                                            });
+
+                                    Map<String, Object> userProfile = new HashMap<>();
+                                    userProfile.put("email", email);
+                                    userProfile.put("uid", user.getUid());
+
+                                    mDatabase.child("UserProfile").child(userName).setValue(userProfile).addOnSuccessListener(e ->{
+                                        utils.showSnackBarMessage("Account synced successfully");
+                                    }).addOnFailureListener(e -> {
+                                        utils.showSnackBarMessage("Failed to sync");
                                     });
-                            finish();
-                        }, 2000);
 
-                    } else {
-                        utils.showSnackBarMessage("Failed to create account");
+                                    new Handler().postDelayed(() -> {
+                                        startActivity(new Intent(SignUp.this, ProfileView.class));
+                                        finish();
+                                    }, 2000);
+
+                                } else {
+                                    utils.showSnackBarMessage("Failed to create account");
+                                }
+                            });
+                        }
                     }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
                 });
+
             }
         });
-
     }
 
     @Override

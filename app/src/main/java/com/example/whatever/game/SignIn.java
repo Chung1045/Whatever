@@ -1,11 +1,15 @@
 package com.example.whatever.game;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -14,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -29,7 +34,7 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_in);
-        v = LayoutInflater.from(this).inflate(R.layout.activity_sign_in, null);
+        v = findViewById(android.R.id.content);
         utils = new Utils(this, v, this);
 
         setSupportActionBar(findViewById(R.id.view_sign_in_topAppBar));
@@ -60,7 +65,45 @@ public class SignIn extends AppCompatActivity {
 
         findViewById(R.id.button_sign_in).setOnClickListener(v -> {
 
+            InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+
+            TextInputLayout emailUserNameLayout = findViewById(R.id.textinput_signin_email_username);
+            TextInputLayout passwordLayout = findViewById(R.id.textinput_signin_password);
+
+            emailUserNameLayout.setError(null);
+            passwordLayout.setError(null);
+
+            EditText emailUserNameEditText = emailUserNameLayout.getEditText();
+            EditText passwordEditText = passwordLayout.getEditText();
+
+            String emailUserName = emailUserNameEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+
+            if (emailUserName.isEmpty() || password.isEmpty()) {
+                // Handle the case where EditTexts are empty
+                emailUserNameLayout.setError("Please fill in this field");
+                passwordLayout.setError("Please fill in this field");
+                utils.showSnackBarMessage("Please fill all fields");
+            } else {
+                mAuth.signInWithEmailAndPassword(emailUserName, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        utils.showSnackBarMessage("Sign in successfully");
+                        new Handler().postDelayed(() -> {
+                            startActivity(new Intent(SignIn.this, ProfileView.class));
+                            finish();
+                        }, 2000);
+                    } else {
+                        emailUserNameLayout.setError("Please check again");
+                        passwordLayout.setError("Please check again");
+                        utils.showSnackBarMessage("Incorrect username, email or password");
+                    }
+                });
+            }
         });
+
 
     }
 
