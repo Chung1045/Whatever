@@ -59,24 +59,26 @@ public class FirebaseHelper {
 
 
     public void getEmailFromUsername(String input, Consumer<String> onSuccess) {
-        DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String email = snapshot.child("email").getValue(String.class);
-                    onSuccess.accept(email);
-                } else {
-                    // in case if that the input is actually an email address
+
+            DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String email = snapshot.child("email").getValue(String.class);
+                        onSuccess.accept(email);
+                    } else {
+                        // in case if that the input is actually an email address
+                        onSuccess.accept(input);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
                     onSuccess.accept(input);
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                onSuccess.accept(input);
-            }
-        });
     }
 
     public void isUserNameOccupied(String input, Consumer<Boolean> onSuccess) {
@@ -113,7 +115,7 @@ public class FirebaseHelper {
                     userProfilePic.put("profilePicURL", uri.toString());
                     // Now you can save this URL to Firebase Realtime Database or Firestore
                     mDatabase.child("UserProfile")
-                            .child(getUserName()).setValue(userProfilePic).addOnSuccessListener(e -> {
+                            .child(getUserName()).updateChildren(userProfilePic).addOnSuccessListener(e -> {
                                 // or use it wherever you need.
                                 onSuccess.accept(true);
                             });

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.Shader;
@@ -188,6 +189,7 @@ public class ProfileView extends AppCompatActivity {
 
         if (firebaseHelper.isLoggedIn()) {
             userName.setText(firebaseHelper.getUserName());
+            userName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             signOut.setVisibility(View.VISIBLE);
             signIn.setVisibility(View.GONE);
             editProfile.setVisibility(View.VISIBLE);
@@ -216,6 +218,7 @@ public class ProfileView extends AppCompatActivity {
                         try {
                             ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageSrc);
                             bitmap = ImageDecoder.decodeBitmap(source);
+                            userAvatar.setColorFilter(Color.TRANSPARENT);
                             userAvatar.setImageBitmap(imageCrop(bitmap));
                             firebaseHelper.updateProfileImage(imageCrop(bitmap), success ->{
                                 if (success){

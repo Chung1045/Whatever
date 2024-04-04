@@ -100,19 +100,19 @@ public class SignIn extends AppCompatActivity {
 
                 firebaseHelper.getEmailFromUsername(emailUserName, input ->{
 
-                    mAuth.signInWithEmailAndPassword(input, password).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            utils.showSnackBarMessage("Sign in successfully");
-                            new Handler().postDelayed(() -> {
-                                startActivity(new Intent(SignIn.this, ProfileView.class));
-                                finish();
-                            }, 2000);
-                        } else {
-                            emailUserNameLayout.setError("Please check again");
-                            passwordLayout.setError("Please check again");
-                            utils.showSnackBarMessage("Incorrect username, email or password");
-                        }
-                    });
+                        mAuth.signInWithEmailAndPassword(input, password).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                utils.showSnackBarMessage("Sign in successfully");
+                                new Handler().postDelayed(() -> {
+                                    startActivity(new Intent(SignIn.this, ProfileView.class));
+                                    finish();
+                                }, 2000);
+                            } else {
+                                emailUserNameLayout.setError("Please check again");
+                                passwordLayout.setError("Please check again");
+                                utils.showSnackBarMessage("Incorrect username, email or password");
+                            }
+                        });
                 });
             }
         });
