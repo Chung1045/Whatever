@@ -41,6 +41,7 @@ public class SignUp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatabaseReference mDatabase;
+    private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,61 +116,52 @@ public class SignUp extends AppCompatActivity {
                 passwordLayout.setError("Password do not match");
                 passwordConfirmLayout.setError("Password do not match");
             } else {
-                mDatabase.child("UserProfile").child(userName)
-                        .addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            utils.showSnackBarMessage("User Name already taken, please choose another");
-                            userNameLayout.setError("User Name already taken");
-                        } else {
-                            utils.showSnackBarMessage("Creating account");
-                            // create account
-                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    user = FirebaseAuth.getInstance().getCurrentUser();
+                firebaseHelper.isUserNameOccupied(userName, occupied ->{
+                    if (occupied) {
+                        utils.showSnackBarMessage("User Name already taken, please choose another");
+                        userNameLayout.setError("User Name already taken");
+                    } else {
+                        utils.showSnackBarMessage("Creating account");
+                        // create account
+                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                user = FirebaseAuth.getInstance().getCurrentUser();
 
-                                    // Set username
-                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                            .setDisplayName(userName)
-                                            .build();
+                                // Set username
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(userName)
+                                        .build();
 
-                                    user.updateProfile(profileUpdates)
-                                            .addOnCompleteListener(e -> {
-                                                if (e.isSuccessful()) {
-                                                    // Profile updated successfully
-                                                    // You can handle the success here
-                                                } else {
-                                                    // Failed to update profile
-                                                    // You can handle the failure here
-                                                }
-                                            });
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(e -> {
+                                            if (e.isSuccessful()) {
+                                                // Profile updated successfully
+                                                // You can handle the success here
+                                            } else {
+                                                // Failed to update profile
+                                                // You can handle the failure here
+                                            }
+                                        });
 
-                                    Map<String, Object> userProfile = new HashMap<>();
-                                    userProfile.put("email", email);
-                                    userProfile.put("uid", user.getUid());
+                                Map<String, Object> userProfile = new HashMap<>();
+                                userProfile.put("email", email);
+                                userProfile.put("uid", user.getUid());
 
-                                    mDatabase.child("UserProfile").child(userName).setValue(userProfile).addOnSuccessListener(e ->{
-                                        utils.showSnackBarMessage("Account synced successfully");
-                                    }).addOnFailureListener(e -> {
-                                        utils.showSnackBarMessage("Failed to sync");
-                                    });
+                                mDatabase.child("UserProfile").child(userName).setValue(userProfile).addOnSuccessListener(e ->{
+                                    utils.showSnackBarMessage("Account synced successfully");
+                                }).addOnFailureListener(e -> {
+                                    utils.showSnackBarMessage("Failed to sync");
+                                });
 
-                                    new Handler().postDelayed(() -> {
-                                        startActivity(new Intent(SignUp.this, ProfileView.class));
-                                        finish();
-                                    }, 2000);
+                                new Handler().postDelayed(() -> {
+                                    startActivity(new Intent(SignUp.this, ProfileView.class));
+                                    finish();
+                                }, 2000);
 
-                                } else {
-                                    utils.showSnackBarMessage("Failed to create account");
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                            } else {
+                                utils.showSnackBarMessage("Failed to create account");
+                            }
+                        });
                     }
 
                 });

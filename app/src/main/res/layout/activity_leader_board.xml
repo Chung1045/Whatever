@@ -76,16 +76,18 @@
                     android:text="@string/string_leaderboard_default_userName"
                     android:textColor="@color/background"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_variable"/>
 
                 <TextView
                     android:id="@+id/text_leaderboard_description"
                     android:layout_width="247dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Sign in to view ranks"
+                    android:text="@string/string_leaderboard_signIn_function_description"
                     android:textColor="@color/background"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter_variable"/>
 
                 <Button
                     android:id="@+id/button_leaderboard_sign_in_sign_up"
@@ -94,9 +96,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/background"
-                    android:text="Sign in / Sign up"
+                    android:text="@string/string_leaderboard_signInOrUp_text"
                     android:textColor="@color/foreground"
-                    android:clickable="true"/>
+                    android:clickable="true"
+                    android:fontFamily="@font/inter_variable"/>
 
             </LinearLayout>
 

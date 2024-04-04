@@ -29,7 +29,7 @@ public class ProfileView extends AppCompatActivity {
 
     private Utils utils;
     private View v;
-    private FirebaseUser currentUser;
+    private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class ProfileView extends AppCompatActivity {
         setContentView(R.layout.activity_profile_view);
 
         UserPreferences.init(this);
-        v = LayoutInflater.from(this).inflate(R.layout.activity_profile_view, null);
+        v = findViewById(android.R.id.content);
         utils = new Utils(this, v, this);
 
         setSupportActionBar(findViewById(R.id.view_profile_topAppBar));
@@ -100,20 +100,14 @@ public class ProfileView extends AppCompatActivity {
             }
         });
 
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                finish();
-            }
-        });
-
         findViewById(R.id.button_profile_sign_out).setOnClickListener(view -> {
             new MaterialAlertDialogBuilder(this)
                     .setTitle("Sign Out Confirm")
                     .setMessage("You are about to log out. Are you sure?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialog, id) -> {
-                        FirebaseAuth.getInstance().signOut();
+                        firebaseHelper.logout();
+                        utils.showSnackBarMessage("Log out successfully");
                         updateUI();
                     })
                     .setNegativeButton("No", (dialog, id) -> {
@@ -143,22 +137,23 @@ public class ProfileView extends AppCompatActivity {
     private void updateUI() {
         TextView userName = findViewById(R.id.text_profile_Username);
         TextView profileDescription = findViewById(R.id.text_profile_description);
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Button signOut = findViewById(R.id.button_profile_sign_out);
         Button signIn = findViewById(R.id.button_profile_sign_in_sign_up);
+        Button editProfile = findViewById(R.id.button_profile_editProfile);
 
-        if (currentUser != null && currentUser.getDisplayName() != null && !currentUser.getDisplayName().isEmpty()) {
-            userName.setText(currentUser.getDisplayName());
+        if (firebaseHelper.isLoggedIn()) {
+            userName.setText(firebaseHelper.getUserName());
             signOut.setVisibility(View.VISIBLE);
             signIn.setVisibility(View.GONE);
+            editProfile.setVisibility(View.VISIBLE);
 
             profileDescription.setText("Best Total Time: ");
 
-
         } else {
-            userName.setText("Guests");
+            userName.setText(R.string.string_profile_defaultUsername);
             signOut.setVisibility(View.GONE);
             signIn.setVisibility(View.VISIBLE);
+            editProfile.setVisibility(View.GONE);
             profileDescription.setText(R.string.string_profile_signIn_function_description);
         }
     }

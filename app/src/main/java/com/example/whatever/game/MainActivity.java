@@ -21,10 +21,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Utils utils;
-    private View v;
-
-    private LayoutInflater inflater;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         UserPreferences.init(this);
-        View v = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
+        View v = findViewById(android.R.id.content);
         utils = new Utils(this, v, this);
 
         layoutInit();
         listenerInit();
-        authInit();
     }
 
-    private void authInit() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    }
 
     public void listenerInit(){
         findViewById(R.id.home_selectLevelBt).setOnClickListener(this);

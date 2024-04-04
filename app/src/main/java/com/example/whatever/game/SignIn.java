@@ -36,8 +36,7 @@ public class SignIn extends AppCompatActivity {
     private Utils utils;
     private View v;
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
-    private DatabaseReference mDatabase;
+    private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class SignIn extends AppCompatActivity {
 
         listenerInit();
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -99,7 +97,8 @@ public class SignIn extends AppCompatActivity {
                 passwordLayout.setError("Please fill in this field");
                 utils.showSnackBarMessage("Please fill all fields");
             } else {
-                getEmailFromUsername(emailUserName, input ->{
+
+                firebaseHelper.getEmailFromUsername(emailUserName, input ->{
 
                     mAuth.signInWithEmailAndPassword(input, password).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -121,27 +120,6 @@ public class SignIn extends AppCompatActivity {
 
     }
 
-    // helper method to get email from username
-    public void getEmailFromUsername(String input, Consumer<String> onSuccess) {
-        DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String email = snapshot.child("email").getValue(String.class);
-                    onSuccess.accept(email);
-                } else {
-                    // in case if that the input is actually an email address
-                    onSuccess.accept(input);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                onSuccess.accept(input);
-            }
-        });
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

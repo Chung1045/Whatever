@@ -103,9 +103,10 @@
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
+                        android:fontFamily="@font/inter_variable"
                         android:text="@string/string_profile_signInOrUp_text"
                         android:textColor="@color/foreground"
-                        android:fontFamily="@font/inter_variable"/>
+                        tools:visibility="gone" />
 
                     <Button
                         android:id="@+id/button_profile_sign_out"
@@ -115,10 +116,11 @@
                         android:layout_marginBottom="16dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
+                        android:fontFamily="@font/inter_variable"
                         android:text="@string/string_profile_LogOut_text"
                         android:textColor="@color/foreground"
-                        android:fontFamily="@font/inter_variable"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <Button
                         android:id="@+id/button_profile_leaderboard"
@@ -132,6 +134,20 @@
                         android:text="@string/string_profile_leaderboard_text"
                         android:textColor="@color/foreground"
                         android:fontFamily="@font/inter_variable"/>
+
+                    <Button
+                        android:id="@+id/button_profile_editProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:backgroundTint="@color/background"
+                        android:clickable="true"
+                        android:text="Edit"
+                        android:textColor="@color/foreground"
+                        android:fontFamily="@font/inter_variable"/>
+
 
                 </LinearLayout>
 
