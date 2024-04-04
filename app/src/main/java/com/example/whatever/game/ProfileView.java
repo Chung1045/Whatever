@@ -216,8 +216,12 @@ public class ProfileView extends AppCompatActivity {
                         try {
                             ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageSrc);
                             bitmap = ImageDecoder.decodeBitmap(source);
-
                             userAvatar.setImageBitmap(imageCrop(bitmap));
+                            firebaseHelper.updateProfileImage(imageCrop(bitmap), success ->{
+                                if (success){
+                                    utils.showSnackBarMessage("Profile Image Updated and uploaded");
+                                }
+                            });
                         } catch (IOException e) {
                             utils.showSnackBarMessage("Oops! Something went wrong, please try again");
                             throw new RuntimeException(e);
