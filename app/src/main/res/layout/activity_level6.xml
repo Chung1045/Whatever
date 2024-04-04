@@ -212,6 +212,21 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/image_Level6_select_spear"
+            android:layout_width="190dp"
+            android:layout_height="268dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_selectspear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.583"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
             android:id="@+id/image_Level6_vs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -222,6 +237,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.566"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/pass"
+            android:layout_width="135dp"
+            android:layout_height="93dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.072"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.598"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level6_spear"
+            android:layout_width="131dp"
+            android:layout_height="99dp"
+            android:rotation="205"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_spear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.914"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.889"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level6_throw"
+            android:layout_width="93dp"
+            android:layout_height="91dp"
+            android:rotation="314"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_throw"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.904"
             tools:ignore="ContentDescription" />
 
         <com.airbnb.lottie.LottieAnimationView
@@ -236,6 +294,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/archerwin" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_Level6spear_lose"
+            android:layout_width="472dp"
+            android:layout_height="487dp"
+            android:layout_marginBottom="108dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.803"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/spearlose" />
         <!-- Place your Level Element here -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
