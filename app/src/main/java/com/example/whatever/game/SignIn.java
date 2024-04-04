@@ -14,12 +14,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Objects;
 
 public class SignIn extends AppCompatActivity {
 
     private Utils utils;
     private View v;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class SignIn extends AppCompatActivity {
         });
 
         listenerInit();
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -52,6 +56,10 @@ public class SignIn extends AppCompatActivity {
             public void handleOnBackPressed() {
                 finish();
             }
+        });
+
+        findViewById(R.id.button_sign_in).setOnClickListener(v -> {
+
         });
 
     }

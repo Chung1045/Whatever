@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.EdgeToEdge;
@@ -16,7 +18,10 @@ import androidx.core.os.BuildCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -24,6 +29,7 @@ public class ProfileView extends AppCompatActivity {
 
     private Utils utils;
     private View v;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,21 @@ public class ProfileView extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.button_profile_sign_out).setOnClickListener(view -> {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("Sign Out Confirm")
+                    .setMessage("You are about to log out. Are you sure?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        FirebaseAuth.getInstance().signOut();
+                        updateUI();
+                    })
+                    .setNegativeButton("No", (dialog, id) -> {
+                        dialog.cancel();
+                    })
+                    .show();
+        });
+
     }
 
     // Touch Sound Effect
@@ -111,6 +132,30 @@ public class ProfileView extends AppCompatActivity {
             utils.playSFX(R.raw.tap_sfx);
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    private void updateUI() {
+        TextView userName = findViewById(R.id.text_profile_Username);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Button signOut = findViewById(R.id.button_profile_sign_out);
+        Button signIn = findViewById(R.id.button_profile_sign_in_sign_up);
+
+
+        if(currentUser != null) {
+            userName.setText(currentUser.getDisplayName());
+            signOut.setVisibility(View.VISIBLE);
+            signIn.setVisibility(View.GONE);
+        } else {
+            userName.setText("Guests");
+            signOut.setVisibility(View.GONE);
+            signIn.setVisibility(View.VISIBLE);
+        }
     }
 
 }

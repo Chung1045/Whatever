@@ -30,6 +30,7 @@
     <string name="string_profile_leaderboard_text">Leader Board</string>
     <string name="string_profile_option_soundEffect_text">Sound Effect</string>
     <string name="string_leaderboard_default_userName">Guest</string>
+    <string name="string_profile_LogOut_text">Log Out</string>
 
     <string-array name="string_Level7_hints_array">
         <item>"Who wants to sleep with the light?"</item>
