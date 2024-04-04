@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_level_selection_account_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorOnSurface"
-            android:contentDescription="Profile" />
+            android:contentDescription="Profile"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

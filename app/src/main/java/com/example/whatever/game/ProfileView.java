@@ -1,18 +1,40 @@
 package com.example.whatever.game;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_MEDIA_IMAGES;
+import static android.Manifest.permission.READ_MEDIA_VIDEO;
+import static android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED;
+
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.ImageDecoder;
+import android.graphics.Paint;
+import android.graphics.Shader;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.os.BuildCompat;
 import androidx.core.view.ViewCompat;
@@ -23,6 +45,8 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 public class ProfileView extends AppCompatActivity {
@@ -116,6 +140,27 @@ public class ProfileView extends AppCompatActivity {
                     .show();
         });
 
+        findViewById(R.id.image_profile_profile_icon).setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            if (!checkPickerPermission()){
+                utils.showSnackBarMessage("You need to grant permission to ne able to select pictures");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    // Android 14 or above
+                    requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO, READ_MEDIA_VISUAL_USER_SELECTED}, 1);
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    // Android 13 or above
+                    requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO}, 1);
+                } else {
+                    // Android 12 or below
+                    requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, 1);
+                }
+            } else {
+                imagePickerResultLauncher.launch(intent);
+
+            }
+        });
+
     }
 
     // Touch Sound Effect
@@ -157,5 +202,56 @@ public class ProfileView extends AppCompatActivity {
             profileDescription.setText(R.string.string_profile_signIn_function_description);
         }
     }
+
+    ActivityResultLauncher<Intent> imagePickerResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                ImageView userAvatar = findViewById(R.id.image_profile_profile_icon);
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    // There are no request codes
+                    Uri selectedImageSrc = result.getData().getData();
+                    if (selectedImageSrc!= null) {
+                        utils.showSnackBarMessage("Image Selected");
+                        Bitmap bitmap;
+                        try {
+                            ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageSrc);
+                            bitmap = ImageDecoder.decodeBitmap(source);
+
+                            userAvatar.setImageBitmap(imageCrop(bitmap));
+                        } catch (IOException e) {
+                            utils.showSnackBarMessage("Oops! Something went wrong, please try again");
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }
+            });
+
+
+    private boolean checkPickerPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && (checkSelfPermission(READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED || checkSelfPermission(READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)) {
+            return true;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+                && (checkSelfPermission(READ_MEDIA_VISUAL_USER_SELECTED) == PackageManager.PERMISSION_GRANTED)) {
+            return true;
+        } else if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else return false;
+    }
+
+    private Bitmap imageCrop(Bitmap input){
+        int size = Math.min(input.getWidth(), input.getHeight());
+        int xOffset = (input.getWidth() - size) / 2;
+        int yOffset = (input.getHeight() - size) / 2;
+
+        Bitmap croppedBitmap = Bitmap.createBitmap(input, xOffset, yOffset, size, size);
+
+        // Resize the cropped bitmap to 512x512 pixels
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(croppedBitmap, 512, 512, true);
+
+        return resizedBitmap;
+    }
+
 
 }
