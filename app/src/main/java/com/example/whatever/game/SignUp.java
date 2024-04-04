@@ -89,9 +89,10 @@ public class SignUp extends AppCompatActivity {
 
             emailLayout.setError(null);
             passwordLayout.setError(null);
+            passwordLayout.setError(null);
             passwordConfirmLayout.setError(null);
 
-            if (email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || userName.isEmpty()) {
                 utils.showSnackBarMessage("Please fill all fields");
 
                 if (email.isEmpty()) {
@@ -102,6 +103,9 @@ public class SignUp extends AppCompatActivity {
                 }
                 if (passwordConfirm.isEmpty()) {
                     passwordConfirmLayout.setError("Field required");
+                }
+                if (userName.isEmpty()) {
+                    userNameLayout.setError("Field required");
                 }
             } else if (password.length() < 6) {
                 utils.showSnackBarMessage("Password must be at least 6 characters");

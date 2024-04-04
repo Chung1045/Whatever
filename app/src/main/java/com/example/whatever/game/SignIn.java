@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,14 +21,23 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class SignIn extends AppCompatActivity {
 
     private Utils utils;
     private View v;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,7 @@ public class SignIn extends AppCompatActivity {
 
         listenerInit();
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -88,23 +99,48 @@ public class SignIn extends AppCompatActivity {
                 passwordLayout.setError("Please fill in this field");
                 utils.showSnackBarMessage("Please fill all fields");
             } else {
-                mAuth.signInWithEmailAndPassword(emailUserName, password).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        utils.showSnackBarMessage("Sign in successfully");
-                        new Handler().postDelayed(() -> {
-                            startActivity(new Intent(SignIn.this, ProfileView.class));
-                            finish();
-                        }, 2000);
-                    } else {
-                        emailUserNameLayout.setError("Please check again");
-                        passwordLayout.setError("Please check again");
-                        utils.showSnackBarMessage("Incorrect username, email or password");
-                    }
+                getEmailFromUsername(emailUserName, input ->{
+
+                    mAuth.signInWithEmailAndPassword(input, password).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            utils.showSnackBarMessage("Sign in successfully");
+                            new Handler().postDelayed(() -> {
+                                startActivity(new Intent(SignIn.this, ProfileView.class));
+                                finish();
+                            }, 2000);
+                        } else {
+                            emailUserNameLayout.setError("Please check again");
+                            passwordLayout.setError("Please check again");
+                            utils.showSnackBarMessage("Incorrect username, email or password");
+                        }
+                    });
                 });
             }
         });
 
 
+    }
+
+    // helper method to get email from username
+    public void getEmailFromUsername(String input, Consumer<String> onSuccess) {
+        DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String email = snapshot.child("email").getValue(String.class);
+                    onSuccess.accept(email);
+                } else {
+                    // in case if that the input is actually an email address
+                    onSuccess.accept(input);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                onSuccess.accept(input);
+            }
+        });
     }
 
     @Override
