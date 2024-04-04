@@ -17,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.Random;
 
 public class Level6 extends AppCompatActivity implements View.OnTouchListener {
@@ -30,14 +32,34 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     private final String levelHint = "Try tapping the buttons";
     private final Random random = new Random();
 
+    LottieAnimationView win;
+    ImageView lv6_original_archer, lv6_original_player, lv6_after_archer, lv6_after_player, lv6_vs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level6);
         View v = findViewById(R.id.view_LevelLayout_Level6);
         onLevelStart(v);
+
+        lv6_original_archer = findViewById(R.id.image_Level6_original_archer);
+        lv6_original_player = findViewById(R.id.image_Level6_original_player);
+        lv6_after_archer = findViewById(R.id.image_Level6_after_archer);
+        lv6_after_player = findViewById(R.id.image_Level6_after_player);
+        lv6_vs = findViewById(R.id.image_Level6_vs);
     }
 
+    private void lottieAnimation(int id){
+        if (id == 0){
+            View v = findViewById(R.id.view_LevelLayout_Level6);
+            onLevelStart(v);
+
+            win = findViewById(R.id.animation_Level6win);
+
+            win.setVisibility(View.VISIBLE);
+            win.animate().setStartDelay(100);
+        }
+    }
     private void onLevelStart(View v){
 
         startTime = System.currentTimeMillis();
@@ -233,6 +255,28 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
+        findViewById(R.id.image_Level6_original_archer).setOnClickListener(view -> {
+            lv6_vs.setVisibility(View.GONE);
+            lv6_original_archer.setVisibility(View.GONE);
+            lv6_original_player.setVisibility(View.GONE);
+            lv6_after_archer.setVisibility(View.VISIBLE);
+            lv6_after_player.setVisibility(View.VISIBLE);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    lv6_after_archer.setVisibility(View.GONE);
+                    lv6_after_player.setVisibility(View.GONE);
+                    lottieAnimation(0);
+                }
+            }, 1000);
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    onLevelPass();
+                }
+            }, 3000);
+        });
         // place your element listener here
     }
 

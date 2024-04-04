@@ -128,10 +128,11 @@
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="Do something!"
+            android:textStyle="bold"
+            android:text="Choose the weapon \nand win the game"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="24sp"
+            android:textSize="35sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -142,13 +143,99 @@
         android:id="@+id/view_LevelLayout_Level6"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view_topbar_Level6"
-        app:layout_constraintVertical_bias="0.5"
-        tools:visibility="gone">
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible">
 
+
+        <ImageView
+            android:id="@+id/image_Level6_original_player"
+            android:layout_width="81dp"
+            android:layout_height="266dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_original_player"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.851"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.597"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level6_after_player"
+            android:layout_width="144dp"
+            android:layout_height="267dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_after_player"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.895"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.581"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level6_original_archer"
+            android:layout_width="135dp"
+            android:layout_height="265dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_original_archer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.072"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.579"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level6_after_archer"
+            android:layout_width="134dp"
+            android:layout_height="297dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_after_archer"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.072"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.548"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/image_Level6_vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_level6_vs"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.566"
+            tools:ignore="ContentDescription" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_Level6win"
+            android:layout_width="560dp"
+            android:layout_height="532dp"
+            android:layout_marginBottom="144dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.583"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/archerwin" />
         <!-- Place your Level Element here -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,7 +253,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level6_TimeUsedText"
