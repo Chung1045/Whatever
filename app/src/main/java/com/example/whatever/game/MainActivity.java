@@ -131,13 +131,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     avatar.setColorFilter(Color.TRANSPARENT);
                     avatar.setImageBitmap(output);
                 } else {
-                    avatar.setColorFilter(R.color.foreground);
                     avatar.setImageResource(R.drawable.ic_account_circle_24);
+                    avatar.setColorFilter(getColor(R.color.foreground));
                 }
             });
         } else {
-            avatar.setColorFilter(R.color.white);
             avatar.setImageResource(R.drawable.ic_account_circle_24);
+            avatar.setColorFilter(getColor(R.color.foreground));
         }
 
     }

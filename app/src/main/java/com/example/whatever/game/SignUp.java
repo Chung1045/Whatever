@@ -127,27 +127,19 @@ public class SignUp extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 user = FirebaseAuth.getInstance().getCurrentUser();
 
-                                // Set username
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(userName)
-                                        .build();
-
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(e -> {
-                                            if (e.isSuccessful()) {
-                                                // Profile updated successfully
-                                                // You can handle the success here
-                                            } else {
-                                                // Failed to update profile
-                                                // You can handle the failure here
-                                            }
-                                        });
+                                // set username
+                                firebaseHelper.updateUserName(userName, isSuccess ->{
+                                    if (isSuccess) {
+                                    }
+                                    else {
+                                    }
+                                });
 
                                 Map<String, Object> userProfile = new HashMap<>();
                                 userProfile.put("email", email);
-                                userProfile.put("uid", user.getUid());
+                                userProfile.put("username", userName);
 
-                                mDatabase.child("UserProfile").child(userName).setValue(userProfile).addOnSuccessListener(e ->{
+                                mDatabase.child("UserProfile").child(user.getUid()).setValue(userProfile).addOnSuccessListener(e ->{
                                     utils.showSnackBarMessage("Account synced successfully");
                                 }).addOnFailureListener(e -> {
                                     utils.showSnackBarMessage("Failed to sync");

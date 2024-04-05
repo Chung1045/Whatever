@@ -79,43 +79,41 @@ public class SignIn extends AppCompatActivity {
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
 
-            TextInputLayout emailUserNameLayout = findViewById(R.id.textinput_signin_email_username);
+            TextInputLayout emailLayout = findViewById(R.id.textinput_signin_email_username);
             TextInputLayout passwordLayout = findViewById(R.id.textinput_signin_password);
 
-            emailUserNameLayout.setError(null);
+            emailLayout.setError(null);
             passwordLayout.setError(null);
 
-            EditText emailUserNameEditText = emailUserNameLayout.getEditText();
+            EditText emailEditText = emailLayout.getEditText();
             EditText passwordEditText = passwordLayout.getEditText();
 
-            String emailUserName = emailUserNameEditText.getText().toString().trim();
+            String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
 
-            if (emailUserName.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 // Handle the case where EditTexts are empty
-                emailUserNameLayout.setError("Please fill in this field");
+                emailLayout.setError("Please fill in this field");
                 passwordLayout.setError("Please fill in this field");
                 utils.showSnackBarMessage("Please fill all fields");
             } else {
-
-                firebaseHelper.getEmailFromUsername(emailUserName, input ->{
-
-                        mAuth.signInWithEmailAndPassword(input, password).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                utils.showSnackBarMessage("Sign in successfully");
-                                firebaseHelper.downloadProfileImage(bitmap -> {
-                                    utils.saveAvatar(bitmap);
-                                });
-                                new Handler().postDelayed(() -> {
-                                    startActivity(new Intent(SignIn.this, ProfileView.class));
-                                    finish();
-                                }, 2000);
-                            } else {
-                                emailUserNameLayout.setError("Please check again");
-                                passwordLayout.setError("Please check again");
-                                utils.showSnackBarMessage("Incorrect username, email or password");
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        utils.showSnackBarMessage("Sign in successfully");
+                        firebaseHelper.downloadProfileImage(bitmap -> {
+                            if (bitmap != null) {
+                                utils.saveAvatar(bitmap);
                             }
                         });
+                        new Handler().postDelayed(() -> {
+                            startActivity(new Intent(SignIn.this, ProfileView.class));
+                            finish();
+                            }, 2000);
+                    } else {
+                        emailLayout.setError("Please check again");
+                        passwordLayout.setError("Please check again");
+                        utils.showSnackBarMessage("Incorrect username, email or password");
+                    }
                 });
             }
         });

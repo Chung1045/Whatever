@@ -6,6 +6,8 @@ import static android.Manifest.permission.READ_MEDIA_VIDEO;
 import static android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +27,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
@@ -33,6 +38,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -43,11 +49,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ProfileView extends AppCompatActivity {
@@ -55,6 +66,7 @@ public class ProfileView extends AppCompatActivity {
     private Utils utils;
     private View v;
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +86,8 @@ public class ProfileView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        progressBar = findViewById(R.id.progressBar_profile);
 
         layoutInit();
         listenerInit();
@@ -143,25 +157,71 @@ public class ProfileView extends AppCompatActivity {
         });
 
         findViewById(R.id.image_profile_profile_icon).setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            if (firebaseHelper.isLoggedIn()) {
 
-            if (!checkPickerPermission()){
-                utils.showSnackBarMessage("You need to grant permission to ne able to select pictures");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    // Android 14 or above
-                    requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO, READ_MEDIA_VISUAL_USER_SELECTED}, 1);
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    // Android 13 or above
-                    requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO}, 1);
+                if (!checkPickerPermission()) {
+                    utils.showSnackBarMessage("You need to grant permission to ne able to select pictures");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                        // Android 14 or above
+                        requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO, READ_MEDIA_VISUAL_USER_SELECTED}, 1);
+                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        // Android 13 or above
+                        requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO}, 1);
+                    } else {
+                        // Android 12 or below
+                        requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, 1);
+                    }
                 } else {
-                    // Android 12 or below
-                    requestPermissions(new String[]{READ_EXTERNAL_STORAGE}, 1);
+
+                    //uses new photo picker
+                    imagePickerResultLauncher.launch(new PickVisualMediaRequest.Builder()
+                            .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                            .build());
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             } else {
-                imagePickerResultLauncher.launch(intent);
-
+                utils.showSnackBarMessage("Log in to set your user avatar");
             }
         });
+
+        findViewById(R.id.text_profile_Username).setOnClickListener(view -> {
+            if (firebaseHelper.isLoggedIn()){
+                View dialogView = LayoutInflater.from(this).inflate(R.layout.dialogue_profile_editusername_layout, null);
+                TextInputLayout usernameLayout = dialogView.findViewById(R.id.textinput_dialog_username);
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle("Edit username")
+                        .setCancelable(false)
+                        .setView(dialogView) // Set dialog view to the inflated layout
+                        .setPositiveButton("Change", (dialog, which) -> {
+
+                            progressBar.setVisibility(View.VISIBLE);
+                            String changeUsername = usernameLayout.getEditText().getText().toString();
+                            firebaseHelper.isUserNameOccupied(changeUsername, isOccupied ->{
+                                if (isOccupied){
+                                    utils.showSnackBarMessage("Username is already taken");
+                                    progressBar.setVisibility(View.GONE);
+                                } else {
+                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("UserProfile").child(firebaseHelper.getUID());
+
+                                    Map<String, Object> changeInfo = new HashMap<>();
+                                    changeInfo.put("username", changeUsername);
+
+                                    ref.updateChildren(changeInfo).addOnCompleteListener(task ->{});
+
+                                    firebaseHelper.updateUserName(changeUsername, isSuccess ->{
+                                        updateUI();
+                                        progressBar.setVisibility(View.GONE);
+                                    });
+                                    utils.showSnackBarMessage("Username updated");
+                                }
+                            });
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> {
+                            progressBar.setVisibility(View.GONE);
+                        }).show();
+            }
+        });
+
 
     }
 
@@ -199,8 +259,10 @@ public class ProfileView extends AppCompatActivity {
             // Get the avatar bitmap from SharedPreferences
             utils.getBitmapFromByte(output -> {
                 if (!(output == null)){
+                    userAvatar.setColorFilter(Color.TRANSPARENT);
                     userAvatar.setImageBitmap(output);
                 } else {
+                    userAvatar.setColorFilter(getColor(R.color.background));
                     userAvatar.setImageResource(R.drawable.ic_account_circle_24);
                 }
             });
@@ -209,11 +271,13 @@ public class ProfileView extends AppCompatActivity {
 
         } else {
             userName.setText(R.string.string_profile_defaultUsername);
+            userName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             signOut.setVisibility(View.GONE);
             signIn.setVisibility(View.VISIBLE);
             edituserNameIcon.setVisibility(View.GONE);
 
             // Set a default image or placeholder when the user is not logged in
+            userAvatar.setColorFilter(getColor(R.color.background));
             userAvatar.setImageResource(R.drawable.ic_account_circle_24);
 
             profileDescription.setText(R.string.string_profile_signIn_function_description);
@@ -221,33 +285,33 @@ public class ProfileView extends AppCompatActivity {
     }
 
 
-    ActivityResultLauncher<Intent> imagePickerResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
+    ActivityResultLauncher<PickVisualMediaRequest> imagePickerResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.PickVisualMedia(),
             result -> {
                 ImageView userAvatar = findViewById(R.id.image_profile_profile_icon);
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    // There are no request codes
-                    Uri selectedImageSrc = result.getData().getData();
-                    if (selectedImageSrc!= null) {
-                        utils.showSnackBarMessage("Image Selected");
+                ContentResolver cr = this.getContentResolver();
+                    if (result!= null) {
                         Bitmap bitmap;
                         try {
-                            ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageSrc);
+                            ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), result);
                             bitmap = ImageDecoder.decodeBitmap(source);
                             utils.saveAvatar(imageCrop(bitmap));
                             userAvatar.setImageBitmap(imageCrop(bitmap));
                             firebaseHelper.updateProfileImage(imageCrop(bitmap), success ->{
                                 if (success){
                                     utils.showSnackBarMessage("Profile Image Updated");
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             });
                         } catch (IOException e) {
                             utils.showSnackBarMessage("Oops! Something went wrong, please try again");
+                            progressBar.setVisibility(View.GONE);
                             throw new RuntimeException(e);
                         }
 
+                    } else {
+                        progressBar.setVisibility(View.GONE);
                     }
-                }
             });
 
 

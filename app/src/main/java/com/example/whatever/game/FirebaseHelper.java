@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,10 +39,10 @@ public class FirebaseHelper {
     }
 
     public boolean isLoggedIn() {
-        return mAuth.getCurrentUser()!= null;
+        return mAuth.getCurrentUser() != null;
     }
 
-    public String getUserName(){
+    public String getUserName() {
         if (isLoggedIn()) {
             user = mAuth.getCurrentUser();
             if (!(user.getDisplayName() == null)) {
@@ -54,55 +55,59 @@ public class FirebaseHelper {
         }
     }
 
+    public void getEmailFromUsername(String input, Consumer<String> onSuccess) {
+
+        DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String email = snapshot.child("email").getValue(String.class);
+                    onSuccess.accept(email);
+                } else {
+                    // in case if that the input is actually an email address
+                    onSuccess.accept(input);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                onSuccess.accept(input);
+            }
+        });
+
+    }
+
+    public String getUID(){
+        return user.getUid();
+    }
+
     public void logout() {
         mAuth.signOut();
     }
 
-
-    public void getEmailFromUsername(String input, Consumer<String> onSuccess) {
-
-            DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
-            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        String email = snapshot.child("email").getValue(String.class);
-                        onSuccess.accept(email);
-                    } else {
-                        // in case if that the input is actually an email address
-                        onSuccess.accept(input);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    onSuccess.accept(input);
-                }
-            });
-
-    }
-
     public void isUserNameOccupied(String input, Consumer<Boolean> onSuccess) {
-        mDatabase.child("UserProfile").child(input)
-                .addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+        mDatabase.child("UserProfile")
+                .orderByChild("username")
+                .equalTo(input)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            onSuccess.accept(true);
-                        } else {
-                            onSuccess.accept(false);
-                        }
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean usernameExists = snapshot.exists();
+                        onSuccess.accept(usernameExists);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        onSuccess.accept(false);
                     }
                 });
     }
 
+
+
     public void updateProfileImage(Bitmap input, Consumer<Boolean> onSuccess) {
-        if (isLoggedIn()){
+        if (isLoggedIn()) {
             StorageReference storageRef = mStorage.getReference()
                     .child("UserProfilePics").child(user.getUid() + ".jpg");
 
@@ -116,7 +121,7 @@ public class FirebaseHelper {
                     userProfilePic.put("profilePicURL", uri.toString());
                     // Now you can save this URL to Firebase Realtime Database or Firestore
                     mDatabase.child("UserProfile")
-                            .child(getUserName()).updateChildren(userProfilePic).addOnSuccessListener(e -> {
+                            .child(user.getUid()).updateChildren(userProfilePic).addOnSuccessListener(e -> {
                                 // or use it wherever you need.
                                 onSuccess.accept(true);
                             });
@@ -129,14 +134,14 @@ public class FirebaseHelper {
     }
 
     public void downloadProfileImage(Consumer<Bitmap> onSuccess) {
-        if (isLoggedIn()){
+        if (isLoggedIn()) {
             user = mAuth.getCurrentUser();
             StorageReference storageRef = mStorage.getReference()
                     .child("UserProfilePics").child(user.getUid() + ".jpg");
 
             storageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                if (bitmap!= null) {
+                if (bitmap != null) {
                     onSuccess.accept(bitmap);
                 } else {
                     onSuccess.accept(null);
@@ -146,6 +151,23 @@ public class FirebaseHelper {
                 onSuccess.accept(null);
             });
         }
+    }
+
+    public void updateUserName(String input, Consumer<Boolean> onSuccess) {
+        if (isLoggedIn()) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(input)
+                    .build();
+
+            getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    onSuccess.accept(true);
+                } else {
+                    onSuccess.accept(false);
+                }
+            });
+        }
+
     }
 
 }

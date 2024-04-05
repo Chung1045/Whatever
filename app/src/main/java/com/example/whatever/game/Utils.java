@@ -84,7 +84,7 @@ public class Utils {
     }
 
     public void removeAvatar(){
-        UserPreferences.editor.putString(UserPreferences.USER_AVATAR, null);
+        UserPreferences.editor.putString(UserPreferences.USER_AVATAR, null).commit();
     }
 
     public void showActionSnackBar(String message, String buttonText){
