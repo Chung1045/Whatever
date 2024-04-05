@@ -74,6 +74,8 @@ public class SignIn extends AppCompatActivity {
 
         findViewById(R.id.button_sign_in).setOnClickListener(v -> {
 
+            findViewById(R.id.progressBar_signin).setVisibility(View.VISIBLE);
+
             InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -96,6 +98,7 @@ public class SignIn extends AppCompatActivity {
                 emailLayout.setError("Please fill in this field");
                 passwordLayout.setError("Please fill in this field");
                 utils.showSnackBarMessage("Please fill all fields");
+                findViewById(R.id.progressBar_signin).setVisibility(View.GONE);
             } else {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -106,6 +109,7 @@ public class SignIn extends AppCompatActivity {
                             }
                         });
                         new Handler().postDelayed(() -> {
+                            findViewById(R.id.progressBar_signin).setVisibility(View.GONE);
                             startActivity(new Intent(SignIn.this, ProfileView.class));
                             finish();
                             }, 2000);
@@ -113,6 +117,7 @@ public class SignIn extends AppCompatActivity {
                         emailLayout.setError("Please check again");
                         passwordLayout.setError("Please check again");
                         utils.showSnackBarMessage("Incorrect username, email or password");
+                        findViewById(R.id.progressBar_signin).setVisibility(View.GONE);
                     }
                 });
             }

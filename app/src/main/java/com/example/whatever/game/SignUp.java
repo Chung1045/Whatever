@@ -78,6 +78,9 @@ public class SignUp extends AppCompatActivity {
         });
 
         findViewById(R.id.button_sign_up_createAccount).setOnClickListener(view -> {
+
+            findViewById(R.id.progressBar_signup).setVisibility(View.VISIBLE);
+
             TextInputLayout userNameLayout = findViewById(R.id.textinput_signup_username_layout);
             TextInputLayout emailLayout = findViewById(R.id.textinput_signup_email_layout);
             TextInputLayout passwordLayout = findViewById(R.id.textinput_signup_password_layout);
@@ -108,18 +111,24 @@ public class SignUp extends AppCompatActivity {
                 if (userName.isEmpty()) {
                     userNameLayout.setError("Field required");
                 }
+
+                findViewById(R.id.progressBar_signup).setVisibility(View.GONE);
+
             } else if (password.length() < 6) {
                 utils.showSnackBarMessage("Password must be at least 6 characters");
                 passwordLayout.setError("Password must be at least 6 characters");
+                findViewById(R.id.progressBar_signup).setVisibility(View.GONE);
             } else if (!password.equals(passwordConfirm)) {
                 utils.showSnackBarMessage("Passwords do not match");
                 passwordLayout.setError("Password do not match");
                 passwordConfirmLayout.setError("Password do not match");
+                findViewById(R.id.progressBar_signup).setVisibility(View.GONE);
             } else {
                 firebaseHelper.isUserNameOccupied(userName, occupied ->{
                     if (occupied) {
                         utils.showSnackBarMessage("User Name already taken, please choose another");
                         userNameLayout.setError("User Name already taken");
+                        findViewById(R.id.progressBar_signup).setVisibility(View.GONE);
                     } else {
                         utils.showSnackBarMessage("Creating account");
                         // create account
@@ -146,12 +155,14 @@ public class SignUp extends AppCompatActivity {
                                 });
 
                                 new Handler().postDelayed(() -> {
+                                    findViewById(R.id.progressBar_signup).setVisibility(View.GONE);
                                     startActivity(new Intent(SignUp.this, ProfileView.class));
                                     finish();
                                 }, 2000);
 
                             } else {
                                 utils.showSnackBarMessage("Failed to create account");
+                                findViewById(R.id.progressBar_signup).setVisibility(View.GONE);
                             }
                         });
                     }
