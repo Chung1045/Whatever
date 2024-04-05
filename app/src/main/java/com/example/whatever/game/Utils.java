@@ -1,5 +1,8 @@
 package com.example.whatever.game;
 
+import static com.example.whatever.game.UserPreferences.editor;
+import static com.example.whatever.game.UserPreferences.sharedPref;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,13 +10,16 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+import android.util.Base64;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -22,6 +28,11 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.ByteArrayOutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.function.Consumer;
 
 public class Utils {
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 123;
@@ -34,6 +45,7 @@ public class Utils {
     private DialogUtils dialogUtils;
     private IntentUtils intentUtils;
     private SFXUtils sfxUtils;
+    private ImageUtils imageUtils;
 
     public Utils(Activity a, View v, Context c){
         this.activity = a;
@@ -51,6 +63,7 @@ public class Utils {
         dialogUtils = new DialogUtils(c);
         intentUtils = new IntentUtils(c);
         sfxUtils = new SFXUtils(c);
+        imageUtils = new ImageUtils();
     }
 
     // Functions
@@ -60,6 +73,18 @@ public class Utils {
 
     public void showSnackBarMessage(String message){
         snackBarUtils.setSnackBarMessage(message);
+    }
+
+    public void getBitmapFromByte(Consumer<Bitmap> consumer){
+        consumer.accept(imageUtils.getAvatarFromSharedPreferences());
+    }
+
+    public void saveAvatar(Bitmap bitmap){
+        imageUtils.saveAvatarToSharedPreferences(bitmap);
+    }
+
+    public void removeAvatar(){
+        UserPreferences.editor.putString(UserPreferences.USER_AVATAR, null);
     }
 
     public void showActionSnackBar(String message, String buttonText){
@@ -253,6 +278,48 @@ public class Utils {
             sfxPlayer = MediaPlayer.create(c, R.raw.correct_sfx);
             sfxPlayer.setOnCompletionListener(mediaPlayer -> MediaPlayer.create(c, R.raw.clapping_sfx).start());
             sfxPlayer.start();
+        }
+
+    }
+
+    public class ImageUtils {
+
+        public void saveAvatarToSharedPreferences(Bitmap avatarBitmap) {
+
+            // Convert bitmap to Base64 string
+            String avatarBase64 = bitmapToBase64(avatarBitmap);
+
+            // Save Base64 string to SharedPreferences
+            UserPreferences.editor.putString(UserPreferences.USER_AVATAR, avatarBase64).commit();
+        }
+
+        // Retrieve cropped user avatar image from SharedPreferences
+        public Bitmap getAvatarFromSharedPreferences() {
+
+            // Retrieve Base64 string from SharedPreferences
+            String avatarBase64 = UserPreferences.sharedPref.getString(UserPreferences.USER_AVATAR,null);
+
+            // Convert Base64 string to bitmap
+            return base64ToBitmap(avatarBase64);
+        }
+
+        // Convert Bitmap to Base64 string
+        private String bitmapToBase64(Bitmap bitmap) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        }
+
+        // Convert Base64 string to Bitmap
+        private Bitmap base64ToBitmap(String base64) {
+            if (base64 != null && !base64.isEmpty()) {
+                byte[] decodedBytes = Base64.decode(base64, Base64.DEFAULT);
+                return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            } else {
+                // Handle the case when the Base64 string is null or empty
+                return null; // Or you can return a default Bitmap if needed
+            }
         }
 
     }

@@ -49,19 +49,22 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_level_selection_account_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp"
             android:src="@drawable/ic_account_circle_24"
+            app:strokeColor="@color/foreground"
+            app:strokeWidth="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorOnSurface"
             android:contentDescription="Profile"
+            android:tooltipText="Profile"
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

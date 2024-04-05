@@ -4,10 +4,12 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
@@ -21,6 +23,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Utils utils;
+    private FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         layoutInit();
         listenerInit();
+        fetchProfileImage();
+    }
+
+    private void fetchProfileImage() {
+        if (firebaseHelper.isLoggedIn()) {
+            firebaseHelper.downloadProfileImage(bitmap -> {
+                if (bitmap != null) {
+                    utils.saveAvatar(bitmap);
+                }
+            });
+        }
     }
 
 
@@ -101,4 +115,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return super.dispatchTouchEvent(event);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    private void updateUI() {
+        ImageView avatar = findViewById(R.id.image_home_account_image);
+
+        if (firebaseHelper.isLoggedIn()){
+            utils.getBitmapFromByte(output -> {
+                if (!(output == null)){
+                    avatar.setColorFilter(Color.TRANSPARENT);
+                    avatar.setImageBitmap(output);
+                } else {
+                    avatar.setColorFilter(R.color.foreground);
+                    avatar.setImageResource(R.drawable.ic_account_circle_24);
+                }
+            });
+        } else {
+            avatar.setColorFilter(R.color.white);
+            avatar.setImageResource(R.drawable.ic_account_circle_24);
+        }
+
+    }
+
 }

@@ -103,6 +103,9 @@ public class SignIn extends AppCompatActivity {
                         mAuth.signInWithEmailAndPassword(input, password).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 utils.showSnackBarMessage("Sign in successfully");
+                                firebaseHelper.downloadProfileImage(bitmap -> {
+                                    utils.saveAvatar(bitmap);
+                                });
                                 new Handler().postDelayed(() -> {
                                     startActivity(new Intent(SignIn.this, ProfileView.class));
                                     finish();
@@ -119,7 +122,6 @@ public class SignIn extends AppCompatActivity {
 
 
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

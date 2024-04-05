@@ -1,6 +1,7 @@
 package com.example.whatever.game;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import androidx.annotation.NonNull;
 
@@ -123,6 +124,26 @@ public class FirebaseHelper {
 
             }).addOnFailureListener(e -> {
                 onSuccess.accept(false);
+            });
+        }
+    }
+
+    public void downloadProfileImage(Consumer<Bitmap> onSuccess) {
+        if (isLoggedIn()){
+            user = mAuth.getCurrentUser();
+            StorageReference storageRef = mStorage.getReference()
+                    .child("UserProfilePics").child(user.getUid() + ".jpg");
+
+            storageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(bytes -> {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                if (bitmap!= null) {
+                    onSuccess.accept(bitmap);
+                } else {
+                    onSuccess.accept(null);
+                }
+
+            }).addOnFailureListener(e -> {
+                onSuccess.accept(null);
             });
         }
     }

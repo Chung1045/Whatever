@@ -133,6 +133,7 @@ public class ProfileView extends AppCompatActivity {
                     .setPositiveButton("Yes", (dialog, id) -> {
                         firebaseHelper.logout();
                         utils.showSnackBarMessage("Log out successfully");
+                        utils.removeAvatar();
                         updateUI();
                     })
                     .setNegativeButton("No", (dialog, id) -> {
@@ -185,14 +186,24 @@ public class ProfileView extends AppCompatActivity {
         TextView profileDescription = findViewById(R.id.text_profile_description);
         Button signOut = findViewById(R.id.button_profile_sign_out);
         Button signIn = findViewById(R.id.button_profile_sign_in_sign_up);
-        Button editProfile = findViewById(R.id.button_profile_editProfile);
+        ImageView userAvatar = findViewById(R.id.image_profile_profile_icon);
+        ImageView edituserNameIcon = findViewById(R.id.image_profile_edit);
 
         if (firebaseHelper.isLoggedIn()) {
             userName.setText(firebaseHelper.getUserName());
             userName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             signOut.setVisibility(View.VISIBLE);
             signIn.setVisibility(View.GONE);
-            editProfile.setVisibility(View.VISIBLE);
+            edituserNameIcon.setVisibility(View.VISIBLE);
+
+            // Get the avatar bitmap from SharedPreferences
+            utils.getBitmapFromByte(output -> {
+                if (!(output == null)){
+                    userAvatar.setImageBitmap(output);
+                } else {
+                    userAvatar.setImageResource(R.drawable.ic_account_circle_24);
+                }
+            });
 
             profileDescription.setText("Best Total Time: ");
 
@@ -200,10 +211,15 @@ public class ProfileView extends AppCompatActivity {
             userName.setText(R.string.string_profile_defaultUsername);
             signOut.setVisibility(View.GONE);
             signIn.setVisibility(View.VISIBLE);
-            editProfile.setVisibility(View.GONE);
+            edituserNameIcon.setVisibility(View.GONE);
+
+            // Set a default image or placeholder when the user is not logged in
+            userAvatar.setImageResource(R.drawable.ic_account_circle_24);
+
             profileDescription.setText(R.string.string_profile_signIn_function_description);
         }
     }
+
 
     ActivityResultLauncher<Intent> imagePickerResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -218,11 +234,11 @@ public class ProfileView extends AppCompatActivity {
                         try {
                             ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageSrc);
                             bitmap = ImageDecoder.decodeBitmap(source);
-                            userAvatar.setColorFilter(Color.TRANSPARENT);
+                            utils.saveAvatar(imageCrop(bitmap));
                             userAvatar.setImageBitmap(imageCrop(bitmap));
                             firebaseHelper.updateProfileImage(imageCrop(bitmap), success ->{
                                 if (success){
-                                    utils.showSnackBarMessage("Profile Image Updated and uploaded");
+                                    utils.showSnackBarMessage("Profile Image Updated");
                                 }
                             });
                         } catch (IOException e) {

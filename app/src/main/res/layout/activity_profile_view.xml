@@ -50,15 +50,18 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_profile_profile_icon"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="16dp"
+                android:padding="5dp"
                 android:src="@drawable/ic_account_circle_24"
+                android:background="?selectableItemBackgroundBorderless"
+                app:strokeColor="@color/background"
+                app:strokeWidth="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                app:tint="@color/background"/>
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -87,6 +90,7 @@
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/image_profile_edit"
                         android:layout_width="24sp"
                         android:layout_height="24sp"
                         android:layout_gravity="bottom"
@@ -109,15 +113,14 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/button_profile_sign_in_sign_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
                         android:fontFamily="@font/inter_variable"
@@ -129,8 +132,8 @@
                         android:id="@+id/button_profile_sign_out"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
                         android:fontFamily="@font/inter_variable"
@@ -144,27 +147,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
                         android:text="@string/string_profile_leaderboard_text"
                         android:textColor="@color/foreground"
                         android:fontFamily="@font/inter_variable"/>
-
-                    <Button
-                        android:id="@+id/button_profile_editProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/background"
-                        android:clickable="true"
-                        android:text="Edit"
-                        android:textColor="@color/foreground"
-                        android:fontFamily="@font/inter_variable"/>
-
 
                 </LinearLayout>
 

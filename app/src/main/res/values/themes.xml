@@ -22,6 +22,8 @@
     <style name="roundedImageViewRounded">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+        <item name="strokeWidth">2dp</item> <!-- Width of the outline -->
+        <item name="strokeColor">@color/foreground</item>
     </style>
 
 
