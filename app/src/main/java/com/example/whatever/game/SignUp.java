@@ -66,6 +66,7 @@ public class SignUp extends AppCompatActivity {
         findViewById(R.id.button_sign_up_createAccount).setOnClickListener(view -> {
 
             findViewById(R.id.progressBar_signup).setVisibility(View.VISIBLE);
+            utils.hideKeyboard();
 
             TextInputLayout userNameLayout = findViewById(R.id.textinput_signup_username_layout);
             TextInputLayout emailLayout = findViewById(R.id.textinput_signup_email_layout);

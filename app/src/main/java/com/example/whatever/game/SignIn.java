@@ -66,10 +66,7 @@ public class SignIn extends AppCompatActivity {
 
             findViewById(R.id.progressBar_signin).setVisibility(View.VISIBLE);
 
-            InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            }
+            utils.hideKeyboard();
 
             TextInputLayout emailLayout = findViewById(R.id.textinput_signin_email_username);
             TextInputLayout passwordLayout = findViewById(R.id.textinput_signin_password);
