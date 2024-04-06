@@ -29,11 +29,12 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String levelHint = "Can you steal the weapon?";
     private final Random random = new Random();
 
-    LottieAnimationView win, spearLose;
-    ImageView lv6_original_archer, lv6_original_player, lv6_after_archer, lv6_after_player, lv6_vs, lv6_pass, lv6_spear, lv6_throw, lv6_spearselect;
+    LottieAnimationView win, spearLose, throwLose;
+    ImageView lv6_original_archer, lv6_original_player, lv6_after_archer, lv6_after_player, lv6_vs, lv6_pass, lv6_spear, lv6_throw, lv6_spearselect, lv6_throwselect;
+    TextView lv6_you, lv6_enemy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,14 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         lv6_after_player = findViewById(R.id.image_Level6_after_player);
         lv6_vs = findViewById(R.id.image_Level6_vs);
         lv6_spearselect = findViewById(R.id.image_Level6_select_spear);
+        lv6_throwselect = findViewById(R.id.image_Level6_select_throw);
+        lv6_you = findViewById(R.id.tv_you);
+        lv6_enemy = findViewById(R.id.tv_enemy);
     }
 
     private void lottieAnimation(int id){
         spearLose = findViewById(R.id.animation_Level6spear_lose);
+        throwLose = findViewById(R.id.animation_Level6throw_lose);
         win = findViewById(R.id.animation_Level6win);
         switch (id){
             case 0:
@@ -66,6 +71,13 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                 spearLose.setVisibility(View.VISIBLE);
                 spearLose.animate().setStartDelay(100);
                 break;
+
+            case 2:
+                throwLose.setVisibility(View.VISIBLE);
+                throwLose.animate().setStartDelay(100);
+                break;
+
+
         }
     }
     private void onLevelStart(View v){
@@ -285,13 +297,14 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.image_Level6_spear).setOnClickListener(view -> {
-            utils.playWrongSFX();
             removeItem();
             lv6_spearselect.setVisibility(View.VISIBLE);
+            lv6_original_archer.setVisibility(View.VISIBLE);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     lv6_spearselect.setVisibility(View.GONE);
+                    lv6_original_archer.setVisibility(View.GONE);
                     lottieAnimation(1);
                 }
             }, 500);
@@ -306,6 +319,22 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.image_Level6_throw).setOnClickListener(view -> {
             removeItem();
+            lv6_throwselect.setVisibility(View.VISIBLE);
+            lv6_original_archer.setVisibility(View.VISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    lv6_throwselect.setVisibility(View.GONE);
+                    lv6_original_archer.setVisibility(View.GONE);
+                    lottieAnimation(2);
+                }
+            }, 500);
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    resetState();
+                }
+            }, 3000);
         });
         // place your element listener here
     }
@@ -317,6 +346,8 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         lv6_original_player.setVisibility(View.GONE);
         lv6_spear.setVisibility(View.GONE);
         lv6_throw.setVisibility(View.GONE);
+        lv6_you.setVisibility(View.GONE);
+        lv6_enemy.setVisibility(View.GONE);
     }
     private void resetState(){
         View textView = findViewById(R.id.timer_text_view);
