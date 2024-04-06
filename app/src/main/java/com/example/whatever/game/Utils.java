@@ -18,6 +18,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Base64;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.util.Base64;
 
@@ -107,6 +108,9 @@ public class Utils {
         intentUtils.urlIntent(url);
     }
 
+    public void hideKeyboard(){
+        hideKeyboardFunction(view, activity);
+    }
 
     public void playSFX(int soundResourceId){
         sfxUtils.playSound(activity, soundResourceId);
@@ -346,6 +350,13 @@ public class Utils {
             }
         }
 
+    }
+
+    private void hideKeyboardFunction(View v, Activity activity){
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 
 }

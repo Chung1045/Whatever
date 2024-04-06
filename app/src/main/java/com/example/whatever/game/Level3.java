@@ -5,39 +5,27 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
-public class Level3 extends AppCompatActivity implements View.OnTouchListener {
+public class Level3 extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener {
     private Utils utils;
     private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
+    private final String[] levelPassMessage = new String[]{"Why would a sheep want to be a fox?", "Tricky?", "Fox skinned sheep???"};
     private final String levelHint = "Sheep is behind the fox. Move the fox far away!";
     private final Random random = new Random();
-    //New
-    ImageButton fox1;
-    int btnNum = 1;
-    ViewGroup _root;
-    //New
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +62,12 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
         fox2.setOnTouchListener(this);
         fox3.setOnTouchListener(this);
         fox4.setOnTouchListener(this);
-        sheep.setOnClickListener(view -> {
-            onLevelPass();
-        });
+        fox1.setOnClickListener(this);
+        fox2.setOnClickListener(this);
+        fox3.setOnClickListener(this);
+        fox4.setOnClickListener(this);
+
+        sheep.setOnClickListener(view -> onLevelPass());
     }
 
     private void topBarInit(){
@@ -137,20 +128,21 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(Level3.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level3_NavigateBackBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level3.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level3_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level3.this, LevelSelect.class)));
 
         findViewById(R.id.button_Level3_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level3.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level3_NextLevelBt).setOnClickListener(view -> {
             startActivity(new Intent(Level3.this, Level4.class));
+            finish();
         });
 
     }
@@ -191,7 +183,7 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
         timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level3_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -233,7 +225,7 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -300,5 +292,10 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener {
             utils.playSFX(R.raw.tap_sfx);
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void onClick(View view) {
+        onWrongAttempt();
     }
 }

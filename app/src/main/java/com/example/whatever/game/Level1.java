@@ -113,20 +113,24 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(Level1.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
         findViewById(R.id.button_Level1_NavigateBackBt).setOnClickListener(view -> {
             startActivity(new Intent(Level1.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level1_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level1.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level1_NextLevelBt).setOnClickListener(view -> {
             startActivity(new Intent(Level1.this, Level2.class));
+            finish();
         });
 
     }
@@ -206,6 +210,8 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
 
     public void onWrongAttempt(){
         utils.playWrongSFX();
+        EditText input = findViewById(R.id.text_Level1_Edit);
+        input.setError("Wrong");
     }
 
     // AKA Stopwatch Timer
@@ -236,7 +242,9 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.button_Level1_SubmitBt).setOnClickListener(view -> {
+            utils.hideKeyboard();
             EditText input = findViewById(R.id.text_Level1_Edit);
+            input.setError(null);
             String data = input.getText().toString();
             verify(data.toUpperCase());
 
@@ -245,7 +253,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     private void verify(String s){
         if (s.equals("FATHER"))
             onLevelPass();
-        else return;
+        else onWrongAttempt();
     }
 
     private void resetState(){

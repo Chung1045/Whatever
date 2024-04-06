@@ -71,10 +71,14 @@ public class LeaderBoard extends AppCompatActivity {
 
     private void listenerInit(){
 
-        findViewById(R.id.button_leaderboard_sign_in_sign_up).setOnClickListener(view -> startActivity(new Intent(LeaderBoard.this, SignIn.class)));
+        findViewById(R.id.button_leaderboard_sign_in_sign_up).setOnClickListener(view -> {
+            startActivity(new Intent(LeaderBoard.this, SignIn.class));
+            finish();
+        });
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                startActivity(new Intent(LeaderBoard.this, ProfileView.class));
                 finish();
             }
         });

@@ -1,6 +1,5 @@
 package com.example.whatever.game;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,12 +10,8 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
@@ -27,8 +22,8 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String[] levelPassMessage = new String[]{"\"Totally\" Correct", "Can it become as big as the universe?", "Yes Cuz why not?"};
+    private final String levelHint = "Who is the \"biggest?\"";
     private final Random random = new Random();
 
     @Override
@@ -113,20 +108,24 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(com.example.whatever.game.Level2.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
         findViewById(R.id.button_Level2_NavigateBackBt).setOnClickListener(view -> {
             startActivity(new Intent(com.example.whatever.game.Level2.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level2_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(com.example.whatever.game.Level2.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level2_NextLevelBt).setOnClickListener(view -> {
             startActivity(new Intent(com.example.whatever.game.Level2.this, Level3.class));
+            finish();
         });
 
     }
@@ -241,6 +240,7 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.image_Level2_forth).setOnClickListener(view -> {
+            startActivity(new Intent(Level2.this, LevelSelect.class));
             finish();
         });
         // place your element listener here

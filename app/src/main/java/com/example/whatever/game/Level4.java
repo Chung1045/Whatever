@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,8 +26,8 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String[] levelPassMessage = new String[]{"You must be good at math isnt it?", "I wonder how big it can be......", "Can we count through aleph null?"};
+    private final String levelHint = "It's a fibonacci sequence, just google it";
     private final Random random = new Random();
 
     @Override
@@ -42,9 +42,6 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
-        EditText Answer;
-        Button Reset, Enter;
-
 
         UserPreferences.init(this);
 
@@ -55,23 +52,6 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
         listenerInit();
-
-        Answer = findViewById(R.id.text_Level4_Answer);
-        Reset = findViewById(R.id.button_Level4_ResetBt);
-        Enter = findViewById(R.id.button_Level4_Enter2Bt);
-
-
-        Reset.setOnClickListener(view -> {
-            Answer.setText(" ");
-        });
-        Enter.setOnClickListener(view -> {
-            if(Integer.valueOf(Answer.getText().toString()) == 13){
-                closeKeyboard();
-                onLevelPass();
-            }else{
-                onWrongAttempt();
-            }
-        });
     }
 
     private void topBarInit(){
@@ -83,36 +63,36 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level4_SettingsBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
 
             findViewById(R.id.button_Level4_SettingsBt).startAnimation(fadeout);
-            findViewById(R.id.button_Level4_EnterBt).startAnimation(fadeout);
+            findViewById(R.id.button_Level4_ResetBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_HintBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_SettingsBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level4_EnterBt).setVisibility(View.GONE);
+            findViewById(R.id.button_Level4_ResetBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level4_HintBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level4_CloseBt).startAnimation(fadein);
-            findViewById(R.id.button_Level4_SoundBt).startAnimation(fadein);
+            findViewById(R.id.button_Level4_CloseBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level4_SoundBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level4_CloseBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level4_SoundBt).setVisibility(View.VISIBLE);
         });
 
         findViewById(R.id.button_Level4_CloseBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
             findViewById(R.id.button_Level4_CloseBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_CloseBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level4_SoundBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_SoundBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level4_SettingsBt).startAnimation(fadein);
-            findViewById(R.id.button_Level4_EnterBt).startAnimation(fadein);
-            findViewById(R.id.button_Level4_HintBt).startAnimation(fadein);
+            findViewById(R.id.button_Level4_SettingsBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level4_ResetBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level4_HintBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level4_SettingsBt).setVisibility(View.VISIBLE);
-            findViewById(R.id.button_Level4_EnterBt).setVisibility(View.VISIBLE);
+            findViewById(R.id.button_Level4_ResetBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level4_HintBt).setVisibility(View.VISIBLE);
         });
 
@@ -132,20 +112,24 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(Level4.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
         findViewById(R.id.button_Level4_NavigateBackBt).setOnClickListener(view -> {
             startActivity(new Intent(Level4.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level4_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level4.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level4_NextLevelBt).setOnClickListener(view -> {
             startActivity(new Intent(Level4.this, Level5.class));
+            finish();
         });
 
     }
@@ -186,7 +170,7 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
         timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level4_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -224,11 +208,13 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     public void onWrongAttempt(){
+        EditText answer = findViewById(R.id.text_Level4_Answer);
+        answer.setError("Wrong");
         utils.playWrongSFX();
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -242,16 +228,31 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
 
     // Listener for Level elements
     private void listenerInit() {
-        findViewById(R.id.button_Level4_EnterBt).setOnClickListener(view -> {
+        findViewById(R.id.button_Level4_ResetBt).setOnClickListener(view -> {
             startTime = System.currentTimeMillis();
             elapsedTime = 0L;
             timerHandler.postDelayed(updateTimerThread, 0);
             resetState();
         });
 
-        findViewById(R.id.button_Level4_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+        EditText answer = findViewById(R.id.text_Level4_Answer);
+        findViewById(R.id.button_Level4_ResetAnswerBt).setOnClickListener(v -> answer.setText(""));
+
+        findViewById(R.id.button_Level4_Enter2Bt).setOnClickListener(view -> {
+            answer.setError(null);
+            if (!answer.getText().toString().isEmpty()){
+                if(Integer.parseInt(answer.getText().toString()) == 13){
+                    closeKeyboard();
+                    onLevelPass();
+                } else {
+                    onWrongAttempt();
+                }
+            } else {
+                onWrongAttempt();
+            }
         });
+
+        findViewById(R.id.button_Level4_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint));
 
         // place your element listener here
     }

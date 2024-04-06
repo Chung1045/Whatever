@@ -114,13 +114,20 @@ public class ProfileView extends AppCompatActivity {
         MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
         sfxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, sfxSwitch.isChecked()).commit());
 
-        findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> startActivity(new Intent(ProfileView.this, SignIn.class)));
+        findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> {
+            startActivity(new Intent(ProfileView.this, SignIn.class));
+            finish();
+        });
 
-        findViewById(R.id.button_profile_leaderboard).setOnClickListener(view -> startActivity(new Intent(ProfileView.this, LeaderBoard.class)));
+        findViewById(R.id.button_profile_leaderboard).setOnClickListener(view -> {
+            startActivity(new Intent(ProfileView.this, LeaderBoard.class));
+            finish();
+        });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                startActivity(new Intent(ProfileView.this, MainActivity.class));
                 finish();
             }
         });

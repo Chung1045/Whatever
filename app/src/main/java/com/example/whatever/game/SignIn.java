@@ -49,11 +49,15 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void listenerInit(){
-        findViewById(R.id.button_sign_in_create_account).setOnClickListener(v -> startActivity(new Intent(SignIn.this, SignUp.class)));
+        findViewById(R.id.button_sign_in_create_account).setOnClickListener(v -> {
+            startActivity(new Intent(SignIn.this, SignUp.class));
+            finish();
+        });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                startActivity(new Intent(SignIn.this, ProfileView.class));
                 finish();
             }
         });
@@ -117,6 +121,7 @@ public class SignIn extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(SignIn.this, ProfileView.class));
             this.finish();
             return true;
         }

@@ -75,7 +75,7 @@
                 app:tint="?attr/colorOnSurface" />
 
             <ImageView
-                android:id="@+id/button_Level4_EnterBt"
+                android:id="@+id/button_Level4_ResetBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -157,25 +157,31 @@
 
         <EditText
             android:id="@+id/text_Level4_Answer"
-            android:layout_width="56dp"
-            android:layout_height="47dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:layout_marginTop="104dp"
             android:ems="10"
+            android:gravity="center_horizontal"
             android:inputType="number"
             android:singleLine="true"
+            android:fontFamily="@font/inter_variable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_Level4_Question2" />
+            app:layout_constraintTop_toBottomOf="@+id/text_Level4_Question2"
+            tools:ignore="Autofill" />
 
         <Button
-            android:id="@+id/button_Level4_ResetBt"
+            android:id="@+id/button_Level4_ResetAnswerBt"
             android:layout_width="123dp"
             android:layout_height="71dp"
             android:layout_marginStart="48dp"
             android:layout_marginBottom="192dp"
             android:text="Reset"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_variable"
+            android:textColor="@color/background"
+            android:backgroundTint="@color/foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -186,7 +192,10 @@
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="192dp"
             android:text="Enter"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_variable"
+            android:textColor="@color/background"
+            android:backgroundTint="@color/foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
