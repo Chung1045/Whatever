@@ -27,6 +27,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar_signup"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/view_sign_up_appBarLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_sign_up_layout"
         android:layout_width="0dp"
@@ -51,73 +63,83 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Greetings!"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:fontFamily="@font/inter_variable"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Create an account and sync your progress as well as joining the leaderboard!"/>
+                android:text="Create an account and sync your progress as well as joining the leaderboard!"
+                android:fontFamily="@font/inter_variable"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textinput_signup_email"
+                android:id="@+id/textinput_signup_email_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Email Address*"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textinput_signup_Username"
+                android:id="@+id/textinput_signup_username_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Username*"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textinput_signup_password"
+                android:id="@+id/textinput_signup_password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:foregroundTint="@color/foreground"
                 android:hint="Password*"
                 app:endIconMode="password_toggle"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textinput_signup_password_check"
+                android:id="@+id/textinput_signup_password_check_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:foregroundTint="@color/foreground"
                 android:hint="Confirm Password*"
                 app:endIconMode="password_toggle"
-                app:boxStrokeColor="@color/textFieldBorderColor">
+                app:boxStrokeColor="@color/textFieldBorderColor"
+                android:fontFamily="@font/inter_variable">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/inter_variable"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,13 +147,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Please fill in all the fields*" />
+                android:text="Please fill in all the fields*"
+                android:fontFamily="@font/inter_variable"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="By creating an account, you agree to our Terms of Service and Privacy Policy." />
+                android:text="By creating an account, you agree to our Terms of Service and Privacy Policy."
+                android:fontFamily="@font/inter_variable"/>
 
 
             <com.google.android.material.divider.MaterialDivider
@@ -146,6 +170,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Create Account"
                 android:textColor="@color/background"
+                android:fontFamily="@font/inter_variable"
                 android:backgroundTint="@color/foreground"/>
 
         </LinearLayout>

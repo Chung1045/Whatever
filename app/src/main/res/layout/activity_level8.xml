@@ -24,7 +24,7 @@
             android:layout_marginTop="15dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:contentDescription="Level Selection"
+            android:contentDescription="@string/string_TopAppBar_backBtDescription"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp"
             android:src="@drawable/baseline_arrow_back_24"
@@ -49,7 +49,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Hint"
+                android:contentDescription="@string/string_TopAppBar_hintBtDescription"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_lightbulb_outline_24"
@@ -64,7 +64,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Reset"
+                android:contentDescription="@string/string_TopAppBar_resetBtDescription"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_refresh_24"
@@ -79,7 +79,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Settings"
+                android:contentDescription="@string/string_TopAppBar_settingBtDescription"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_settings_24"
@@ -94,7 +94,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Toggle Sound"
+                android:contentDescription="@string/string_TopAppBar_soundBtDescription"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/ic_volume_on_24"
@@ -110,7 +110,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Close"
+                android:contentDescription="@string/string_topAppBar_SettingCloseDescription"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_close_24"
@@ -124,11 +124,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="123dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="Do something!"
+            android:text="@string/string_Level8_title"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
@@ -144,10 +144,406 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view_topbar_Level8"
-        app:layout_constraintVertical_bias="0.5"
-        tools:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/view_topbar_Level8"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/image_level8_ball"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/image_level8_ball"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.573"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall1"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall2"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.765"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall3"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.601"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall4"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.343"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall5"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.176"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall6"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.847"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall7"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.678"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall8"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.423"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall9"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.26"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall10"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.086"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall11"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.26"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall12"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.422"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall13"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.765"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall14"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.086"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall15"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.915"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall16"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.343"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall17"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.678"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall18"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.847"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall19"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.176"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall20"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.176"
+                tools:ignore="ContentDescription"/>
+
+
+            <ImageView
+                android:id="@+id/image_level8_wall21"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginEnd="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/image_level8_wall22"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.914"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall22"
+                android:layout_width="10dp"
+                android:layout_height="00dp"
+                android:layout_marginHorizontal="70dp"
+                android:layout_marginVertical="70dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall23"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall24"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall25"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                android:id="@+id/image_level8_wall26"
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:src="@drawable/drawable_level8_wall_resizeable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/image_level8_exit"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/image_level8_exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.418"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.464"
+                tools:ignore="ContentDescription"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Place your Level Element here -->
 
@@ -174,7 +570,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="XX:XX"
+            android:text="@string/string_LevelPass_timeUsedPlaceHolder"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -189,7 +585,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="92dp"
             android:fontFamily="@font/inter_variable"
-            android:text="Level Completed"
+            android:text="@string/string_LevelPass_levelPassTitle"
             android:textColor="@color/foreground"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +598,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="Time used"
+            android:text="@string/string_LevelPass_timeUsedText"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +611,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="Best Time"
+            android:text="@string/string_LevelPass_bestTimeUsedText"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +623,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="XX:XX"
+            android:text="@string/string_LevelPass_bestTimeUsedPlaceHolder"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +638,7 @@
             android:layout_marginTop="232dp"
             android:fontFamily="@font/inter_variable"
             android:paddingHorizontal="10dp"
-            android:text="I have done something"
+            android:text="@string/string_LevelPass_messagePlaceholder"
             android:textColor="@color/foreground"
             android:textSize="18sp"
             android:textStyle="normal"
@@ -271,22 +667,11 @@
                 android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_home_24"
                 android:drawableTint="@color/background"
-                android:text="Level Select"
+                android:text="@string/string_LevelPass_levelSelect"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/button_Level8_NextLevelBt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/foreground"
-                android:drawableEnd="@drawable/baseline_arrow_forward_24"
-                android:drawableTint="@color/background"
-                android:text="Next Level"
-                android:textColor="@color/background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 

@@ -1,6 +1,12 @@
 package com.example.whatever.game;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -10,32 +16,49 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
-public class Level8 extends AppCompatActivity implements View.OnTouchListener {
+public class Level8 extends AppCompatActivity implements View.OnTouchListener, SensorEventListener {
     private Utils utils;
     private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
-    private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private boolean isLevelPass = false, holdMode = false, collision = false;
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private ImageView[] walls;
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level8);
         View v = findViewById(R.id.view_LevelLayout_Level8);
+        wallsInit();
         onLevelStart(v);
+        handler.post(interactMode);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level8_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level8_hints_array);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+    }
+
+    private void wallsInit() {
+        walls = new ImageView[26];
+        for (int i = 0; i < 26; i++) {
+            @SuppressLint("DiscouragedApi") int resId = getResources().getIdentifier("image_level8_wall" + (i + 1), "id", getPackageName());
+            walls[i] = findViewById(resId);
+        }
     }
 
     private void onLevelStart(View v){
@@ -63,8 +86,8 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level8_SettingsBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
 
             findViewById(R.id.button_Level8_SettingsBt).startAnimation(fadeout);
@@ -73,24 +96,24 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
             findViewById(R.id.button_Level8_SettingsBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level8_ResetBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level8_HintBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level8_CloseBt).startAnimation(fadein);
-            findViewById(R.id.button_Level8_SoundBt).startAnimation(fadein);
+            findViewById(R.id.button_Level8_CloseBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level8_SoundBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level8_CloseBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level8_SoundBt).setVisibility(View.VISIBLE);
         });
 
         findViewById(R.id.button_Level8_CloseBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
             findViewById(R.id.button_Level8_CloseBt).startAnimation(fadeout);
             findViewById(R.id.button_Level8_CloseBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level8_SoundBt).startAnimation(fadeout);
             findViewById(R.id.button_Level8_SoundBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level8_SettingsBt).startAnimation(fadein);
-            findViewById(R.id.button_Level8_ResetBt).startAnimation(fadein);
-            findViewById(R.id.button_Level8_HintBt).startAnimation(fadein);
+            findViewById(R.id.button_Level8_SettingsBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level8_ResetBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level8_HintBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level8_SettingsBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level8_ResetBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level8_HintBt).setVisibility(View.VISIBLE);
@@ -116,17 +139,9 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level8_NavigateBackBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level8.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level8_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level8.this, LevelSelect.class)));
 
-        findViewById(R.id.button_Level8_HomeBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level8.this, LevelSelect.class));
-        });
-
-        findViewById(R.id.button_Level8_NextLevelBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level8.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level8_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level8.this, LevelSelect.class)));
 
     }
 
@@ -136,6 +151,8 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
+            sensorManager.unregisterListener(this);
+            handler.removeCallbacks(interactMode);
         }
     }
 
@@ -145,6 +162,8 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            handler.post(interactMode);
         }
     }
 
@@ -152,21 +171,28 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
     protected void onStop() {
         super.onStop();
         timerHandler.removeCallbacks(updateTimerThread);
+        sensorManager.unregisterListener(this);
+        handler.removeCallbacks(interactMode);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         timerHandler.removeCallbacks(updateTimerThread);
+        sensorManager.unregisterListener(this);
+        handler.removeCallbacks(interactMode);
     }
 
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
         timerHandler.removeCallbacks(updateTimerThread);
+        sensorManager.unregisterListener(this);
+        handler.removeCallbacks(interactMode);
+
         TextView timeUsedCount = findViewById(R.id.text_Level8_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -190,7 +216,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
             findViewById(R.id.text_Level8_BestTimeUsedTitle).setVisibility(View.GONE);
             findViewById(R.id.text_Level8_Best_TimeUsedText).setVisibility(View.GONE);
         } else {
-            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0L);
+            long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0L);
             TextView bestTimeUsed = findViewById(R.id.text_Level8_Best_TimeUsedText);
 
             long seconds = bestTime / 1000;
@@ -221,6 +247,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
     };
 
     // Listener for Level elements
+    @SuppressLint("ClickableViewAccessibility")
     private void listenerInit() {
         findViewById(R.id.button_Level8_ResetBt).setOnClickListener(view -> {
             startTime = System.currentTimeMillis();
@@ -229,17 +256,54 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
             resetState();
         });
 
-        findViewById(R.id.button_Level8_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+        findViewById(R.id.button_Level8_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]));
+
+        findViewById(R.id.image_level8_exit).setOnTouchListener(this);
+        // place your element listener here
+
+        findViewById(R.id.image_level8_ball).setOnTouchListener((view, event) -> {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    holdMode = true;
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    // Move the view with the touch
+                    ImageView pinball = findViewById(R.id.image_level8_ball);
+
+                    if (!collision) {
+                        pinball.setX(pinball.getX() + event.getX());
+                        pinball.setY(pinball.getY() + event.getY());
+
+                        if (isTouchWalls(pinball, walls)){
+                            pinball.setTranslationX(0);
+                            pinball.setTranslationY(0);
+                            onWrongAttempt();
+                            view.setClickable(false);
+                            collision = true;
+                        }
+                    }
+
+                    break;
+                case MotionEvent.ACTION_UP:
+                    view.setClickable(true);
+                    holdMode = false;
+                    collision = false;
+                    break;
+            }
+            return true;
         });
 
-        // place your element listener here
     }
 
     private void resetState(){
-        View textView = findViewById(R.id.timer_text_view);
-        textView.setTranslationX(0);
-        textView.setTranslationY(0);
+        ImageView exit = findViewById(R.id.image_level8_exit);
+        exit.setTranslationX(0);
+        exit.setTranslationY(0);
+
+        ImageView pinball = findViewById(R.id.image_level8_ball);
+        pinball.setTranslationX(0);
+        pinball.setTranslationY(0);
         // add you move-able / state changeable elements here
     }
 
@@ -275,4 +339,80 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener {
         }
         return super.dispatchTouchEvent(event);
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        ImageView pinball = findViewById(R.id.image_level8_ball);
+
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = sensorEvent.values[0];
+            float y = sensorEvent.values[1];
+
+            // Scale down accelerometer values for translation
+            float scaleFactor = 0.6f; // Adjust as needed
+            float translationX = x * scaleFactor;
+            float translationY = y * scaleFactor;
+
+            // Update ball position
+            pinball.setX(pinball.getX() - translationX);
+            pinball.setY(pinball.getY() + translationY);
+
+
+            if (isTouchWalls(pinball, walls)){
+                pinball.setTranslationX(0);
+                pinball.setTranslationY(0);
+                onWrongAttempt();
+            }
+
+            if (isTouchExit(pinball)){
+                onLevelPass();
+            }
+
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    public boolean isTouchWalls(View targetView, View[] views) {
+        Rect targetRect = new Rect();
+        targetView.getGlobalVisibleRect(targetRect);
+
+        for (View view : views) {
+            if (view.equals(targetView)) {
+                continue; // Skip checking against itself
+            }
+
+            Rect rect = new Rect();
+            view.getGlobalVisibleRect(rect);
+
+            if (rect.intersects(targetRect.left, targetRect.top, targetRect.right, targetRect.bottom)) {
+                return true; // If any view intersects with the target, return true
+            }
+        }
+
+        return false; // None of the views intersect with the target
+    }
+
+    public boolean isTouchExit(View targetView) {
+        Rect targetRect = new Rect();
+        targetView.getGlobalVisibleRect(targetRect);
+
+        Rect exitRect = new Rect();
+        findViewById(R.id.image_level8_exit).getGlobalVisibleRect(exitRect);
+
+        return targetRect.intersect(exitRect.left, exitRect.top, exitRect.right, exitRect.bottom);
+    }
+
+    private final Runnable interactMode = new Runnable() {
+        @Override
+        public void run() {
+            if (holdMode) {
+                sensorManager.unregisterListener(Level8.this);
+            }  else sensorManager.registerListener(Level8.this, accelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+        }
+    };
+
 }

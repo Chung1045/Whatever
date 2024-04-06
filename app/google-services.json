@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "141287263155",
+    "project_id": "whatever-eff0d",
+    "storage_bucket": "whatever-eff0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141287263155:android:1c1191b87916e71547d9c6",
+        "android_client_info": {
+          "package_name": "com.example.whatever.game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaVJEiTH8olU1Z5BDI-MCuJ3bIkJ_qOD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

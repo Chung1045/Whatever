@@ -1,6 +1,14 @@
 package com.example.whatever.game;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -9,14 +17,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public class Level7 extends AppCompatActivity implements View.OnTouchListener {
@@ -24,25 +29,40 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     private Utils utils;
     private long startTime = 0L, elapsedTime = 0L;
     private final Handler timerHandler = new Handler();
+    private final Handler darkEnvironmentHandler = new Handler();
     private int minutes, seconds, milliseconds, deltaX, deltaY;
+    private int curtainState = 0;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
+    private boolean isSwitchOn = true, isLampOn = true;
+    private SensorManager sensorManager;
+    private Sensor lightSensor;
+    private View layoutView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level7);
-        View v = findViewById(R.id.view_LevelLayout_Level7);
-        onLevelStart(v);
+        layoutView = findViewById(R.id.view_LevelLayout_Level7);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level7_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level7_hints_array);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
+        onLevelStart(layoutView);
+
     }
 
     private void onLevelStart(View v){
 
         startTime = System.currentTimeMillis();
-        timerHandler.postDelayed(updateTimerThread, 0);
 
         UserPreferences.init(this);
 
@@ -53,6 +73,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
         listenerInit();
+        windowView();
     }
 
     private void topBarInit(){
@@ -82,16 +103,16 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level7_CloseBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
             findViewById(R.id.button_Level7_CloseBt).startAnimation(fadeout);
             findViewById(R.id.button_Level7_CloseBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level7_SoundBt).startAnimation(fadeout);
             findViewById(R.id.button_Level7_SoundBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level7_SettingsBt).startAnimation(fadein);
-            findViewById(R.id.button_Level7_ResetBt).startAnimation(fadein);
-            findViewById(R.id.button_Level7_HintBt).startAnimation(fadein);
+            findViewById(R.id.button_Level7_SettingsBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level7_ResetBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level7_HintBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level7_SettingsBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level7_ResetBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level7_HintBt).setVisibility(View.VISIBLE);
@@ -117,17 +138,11 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level7_NavigateBackBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level7.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level7_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, LevelSelect.class)));
 
-        findViewById(R.id.button_Level7_HomeBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level7.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level7_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, LevelSelect.class)));
 
-        findViewById(R.id.button_Level7_NextLevelBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level7.this, Level8.class));
-        });
+        findViewById(R.id.button_Level7_NextLevelBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, Level8.class)));
 
     }
 
@@ -138,6 +153,9 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
         }
+        timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     @Override
@@ -146,6 +164,8 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
+            darkEnvironmentHandler.post(checkDarkEnvironment);
+            sensorManager.registerListener(lightSensorListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
@@ -153,21 +173,28 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     protected void onStop() {
         super.onStop();
         timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
     }
 
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
         timerHandler.removeCallbacks(updateTimerThread);
+        darkEnvironmentHandler.removeCallbacks(checkDarkEnvironment);
+        sensorManager.unregisterListener(lightSensorListener);
+
         TextView timeUsedCount = findViewById(R.id.text_Level7_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -191,7 +218,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             findViewById(R.id.text_Level7_BestTimeUsedTitle).setVisibility(View.GONE);
             findViewById(R.id.text_Level7_Best_TimeUsedText).setVisibility(View.GONE);
         } else {
-            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0L);
+            long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0L);
             TextView bestTimeUsed = findViewById(R.id.text_Level7_Best_TimeUsedText);
 
             long seconds = bestTime / 1000;
@@ -221,6 +248,65 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         }
     };
 
+    private Runnable checkDarkEnvironment = () -> {
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+        ImageView light = findViewById(R.id.image_Level7_Light);
+        ImageView darkOverlay = findViewById(R.id.image_level7_dark_overlay);
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                isSwitchOn = false;
+
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+                light.setImageResource(R.drawable.image_level7_light_off);
+                darkOverlay.setVisibility(View.VISIBLE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                }
+
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                isSwitchOn = true;
+
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+                light.setImageResource(R.drawable.image_level7_light_on);
+                darkOverlay.setVisibility(View.GONE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                }
+
+                break;
+
+
+        }
+
+    };
+
+    private void windowView(){
+        Calendar currentTime = Calendar.getInstance();
+        int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        ImageView window = findViewById(R.id.image_Level7_Window);
+
+        if (currentHour >= 6 && currentHour < 12) {
+            window.setImageResource(R.drawable.image_level7_window_morning);
+        } else if (currentHour >= 12 && currentHour < 18) {
+            window.setImageResource(R.drawable.image_level7_window_noon);
+        } else if (currentHour >= 18 && currentHour < 21) {
+            window.setImageResource(R.drawable.image_level7_window_evening);
+        } else {
+            window.setImageResource(R.drawable.image_level7_window_night);
+        }
+    }
+
     // Listener for Level elements
     private void listenerInit() {
         findViewById(R.id.button_Level7_ResetBt).setOnClickListener(view -> {
@@ -230,18 +316,69 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             resetState();
         });
 
-        findViewById(R.id.button_Level7_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
-        });
+        findViewById(R.id.button_Level7_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]));
 
         // place your element listener here
+
+        findViewById(R.id.image_Level7_Cabinet).setOnClickListener(view -> onWrongAttempt());
+
+        findViewById(R.id.image_Level7_Light).setOnClickListener(view -> onWrongAttempt());
+
+        findViewById(R.id.image_Level7_Switch).setOnClickListener(view -> onWrongAttempt());
+
+        findViewById(R.id.image_Level7_Bed).setOnClickListener(view -> {
+            if (!isSwitchOn && !isLampOn && curtainState == 2) {
+                onLevelPass();
+            } else onWrongAttempt();
+        });
+
+        findViewById(R.id.image_Level7_Lamp).setOnClickListener(view -> {
+            ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+            ImageView lampGlow = findViewById(R.id.image_Level7_LampGlow);
+            isLampOn =!isLampOn;
+            if (isLampOn) {
+                lampGlow.setVisibility(View.VISIBLE);
+                lamp.setImageResource(R.drawable.image_level7_lamp);
+                utils.playSFX(R.raw.sfx_level7_lamp_on);
+            } else {
+                lampGlow.setVisibility(View.GONE);
+                if (isSwitchOn){
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                } else lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                utils.playSFX(R.raw.sfx_level7_lamp_off);
+            }
+        });
+
+        findViewById(R.id.image_Level7_Curtain).setOnClickListener(view -> {
+            ImageView curtain = findViewById(R.id.image_Level7_Curtain);
+
+            if (curtainState < 2){
+                curtainState += 1;
+            } else curtainState = 0;
+
+            switch (curtainState) {
+                case 0:
+                    curtain.setImageResource(R.drawable.image_level7_curtain_open);
+                    break;
+                case 1:
+                    curtain.setImageResource(R.drawable.image_level7_curtain_half_open);
+                    break;
+                case 2:
+                    curtain.setImageResource(R.drawable.image_level7_curtain_closed);
+                    break;
+            }
+
+            utils.playSFX(R.raw.sfx_level7_curtain_move);
+
+        });
     }
 
     private void resetState(){
-        View textView = findViewById(R.id.timer_text_view);
-        textView.setTranslationX(0);
-        textView.setTranslationY(0);
         // add you move-able / state changeable elements here
+        windowView();
+        curtainState = 0;
+        ImageView curtain = findViewById(R.id.image_Level7_Curtain);
+        curtain.setImageResource(R.drawable.image_level7_curtain_open);
     }
 
     // Listener for dragging move-able elements
@@ -276,4 +413,116 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         }
         return super.dispatchTouchEvent(event);
     }
+
+    private SensorEventListener lightSensorListener = new SensorEventListener() {
+
+        boolean isSFXOnPlayed = false;
+        boolean isSFXOffPlayed = false;
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float lightValue = event.values[0];
+            ImageView lampGlow = findViewById(R.id.image_Level7_LampGlow);
+            ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+            // Handle changes in light sensor value here
+            if (lightValue < 100 ) {
+                isLampOn = false;
+                lampGlow.setVisibility(View.GONE);
+                if (isSwitchOn) {
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                } else lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                if (!isSFXOnPlayed) {
+                    utils.playSFX(R.raw.sfx_level7_lamp_off);
+                    isSFXOnPlayed = true;
+                    isSFXOffPlayed = false;
+                }
+            } else {
+                isLampOn = true;
+                lampGlow.setVisibility(View.VISIBLE);
+                lamp.setImageResource(R.drawable.image_level7_lamp);
+                if (!isSFXOffPlayed) {
+                    utils.playSFX(R.raw.sfx_level7_lamp_on);
+                    isSFXOffPlayed = true;
+                    isSFXOnPlayed = false;
+                }
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // Handle accuracy changes if needed
+        }
+
+    };
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        ConstraintLayout topAppBar = findViewById(R.id.view_topbar_Level7);
+        ImageView lightSwitch = findViewById(R.id.image_Level7_Switch);
+        ImageView light = findViewById(R.id.image_Level7_Light);
+        ImageView darkOverlay = findViewById(R.id.image_level7_dark_overlay);
+
+        int nightModeFlags = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                isSwitchOn = false;
+
+                layoutView.setBackgroundColor(Color.BLACK);
+                topAppBar.setBackgroundColor(Color.BLACK);
+                toggleTheme(Color.WHITE);
+
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_off);
+                light.setImageResource(R.drawable.image_level7_light_off);
+                darkOverlay.setVisibility(View.VISIBLE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp_off);
+                }
+
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                isSwitchOn = true;
+
+                layoutView.setBackgroundColor(Color.WHITE);
+                topAppBar.setBackgroundColor(Color.WHITE);
+                toggleTheme(Color.BLACK);
+
+                lightSwitch.setImageResource(R.drawable.image_level7_switch_on);
+                light.setImageResource(R.drawable.image_level7_light_on);
+                darkOverlay.setVisibility(View.GONE);
+                utils.playSFX(R.raw.sfx_level7_switch_toggle);
+
+                if (!isLampOn) {
+                    ImageView lamp = findViewById(R.id.image_Level7_Lamp);
+                    lamp.setImageResource(R.drawable.image_level7_lamp);
+                }
+
+                break;
+
+        }
+
+    }
+
+    private void toggleTheme(int colorResource){
+        ImageView backBt = findViewById(R.id.button_Level7_NavigateBackBt);
+        ImageView hintBt = findViewById(R.id.button_Level7_HintBt);
+        ImageView resetBt = findViewById(R.id.button_Level7_ResetBt);
+        ImageView settingsBt = findViewById(R.id.button_Level7_SettingsBt);
+        ImageView closeSettingBt = findViewById(R.id.button_Level7_CloseBt);
+        ImageView soundBt = findViewById(R.id.button_Level7_SoundBt);
+        TextView title = findViewById(R.id.text_Level7_Title);
+
+        backBt.setColorFilter(colorResource);
+        hintBt.setColorFilter(colorResource);
+        resetBt.setColorFilter(colorResource);
+        settingsBt.setColorFilter(colorResource);
+        closeSettingBt.setColorFilter(colorResource);
+        soundBt.setColorFilter(colorResource);
+        title.setTextColor(colorResource);
+    }
+
 }

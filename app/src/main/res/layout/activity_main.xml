@@ -14,7 +14,7 @@
         android:fontFamily="@font/inter_variable"
         android:text="@string/app_name"
         android:textColor="?attr/colorOnSurface"
-        android:textSize="48dp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -28,8 +28,8 @@
         android:layout_height="80dp"
         android:layout_marginBottom="168dp"
         android:fontFamily="@font/inter_variable"
-        android:text="Okay?"
-        android:textSize="28dp"
+        android:text="@string/string_home_selectLevel_text"
+        android:textSize="28sp"
         android:backgroundTint="@color/buttonBackground"
         android:textColor="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,9 +44,9 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/buttonBackground"
         android:fontFamily="@font/inter_variable"
-        android:text="Continue Level"
+        android:text="@string/string_home_contiueLevel_text"
         android:textColor="@color/background"
-        android:textSize="28dp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/home_selectLevelBt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -60,20 +60,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_home_account_image"
             android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_account_circle_24"
             android:background="?selectableItemBackgroundBorderless"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp"
+            app:strokeColor="@color/foreground"
+            app:strokeWidth="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/colorOnSurface" />
+            app:tint="?attr/colorOnSurface"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

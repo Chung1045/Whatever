@@ -47,21 +47,25 @@
             tools:layout_editor_absoluteX="5dp"
             tools:layout_editor_absoluteY="5dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_leaderboard_leaderboard_icon"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginEnd="16dp"
+                android:padding="5dp"
                 android:src="@drawable/ic_account_circle_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/background" />
+                app:tint="@color/background"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/background"
+                app:strokeWidth="3dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,19 +77,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:gravity="center_horizontal"
-                    android:text="Guest"
+                    android:text="@string/string_leaderboard_default_userName"
                     android:textColor="@color/background"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_variable"/>
 
                 <TextView
                     android:id="@+id/text_leaderboard_description"
                     android:layout_width="247dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Sign in to view ranks"
+                    android:text="@string/string_leaderboard_signIn_function_description"
                     android:textColor="@color/background"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter_variable"/>
 
                 <Button
                     android:id="@+id/button_leaderboard_sign_in_sign_up"
@@ -94,9 +100,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/background"
-                    android:text="Sign in / Sign up"
+                    android:text="@string/string_leaderboard_signInOrUp_text"
                     android:textColor="@color/foreground"
-                    android:clickable="true"/>
+                    android:clickable="true"
+                    android:fontFamily="@font/inter_variable"/>
 
             </LinearLayout>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="background">#FF000000</color>
     <color name="foreground">#FFFFFFFF</color>
     <color name="buttonBackground">#FFFFFFFF</color>
@@ -8,5 +8,5 @@
     <color name="resultScreenButtonForeground">#FF000000</color>
     <color name="cardBackground">#FFFFFFFF</color>
     <color name="textFieldBorderColor">#FFFFFFFF</color>
-    <color name="mtrl_textinput_default_box_stroke_color">#FF2d2d2d</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFFFFFFF</color>
 </resources>

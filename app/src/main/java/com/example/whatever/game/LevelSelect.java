@@ -3,22 +3,26 @@ package com.example.whatever.game;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 public class LevelSelect extends AppCompatActivity implements View.OnClickListener {
 
     private Utils utils;
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_select);
 
-        View v = LayoutInflater.from(this).inflate(R.layout.activity_level_select, null);
+        @SuppressLint("InflateParams") View v = LayoutInflater.from(this).inflate(R.layout.activity_level_select, null);
         utils = new Utils(this, v, this);
 
         listenerInit();
@@ -91,6 +95,26 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
             utils.playSFX(R.raw.tap_sfx);
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ImageView avatar = findViewById(R.id.image_level_selection_account_icon);
+        if (firebaseHelper.isLoggedIn()){
+            utils.getBitmapFromByte(output -> {
+                if (!(output == null)){
+                    avatar.setColorFilter(Color.TRANSPARENT);
+                    avatar.setImageBitmap(output);
+                } else {
+                    avatar.setColorFilter(R.color.foreground);
+                    avatar.setImageResource(R.drawable.ic_account_circle_24);
+                }
+            });
+        } else {
+            avatar.setColorFilter(R.color.white);
+            avatar.setImageResource(R.drawable.ic_account_circle_24);
+        }
     }
 
 }

@@ -4,18 +4,16 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Utils utils;
-    private View v;
-
-    private LayoutInflater inflater;
-
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +21,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         UserPreferences.init(this);
-        View v = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
+        View v = findViewById(android.R.id.content);
         utils = new Utils(this, v, this);
 
         layoutInit();
         listenerInit();
+        fetchProfileImage();
     }
+
+    private void fetchProfileImage() {
+        if (firebaseHelper.isLoggedIn()) {
+            firebaseHelper.downloadProfileImage(bitmap -> {
+                if (bitmap != null) {
+                    utils.saveAvatar(bitmap);
+                }
+            });
+        }
+    }
+
 
     public void listenerInit(){
         findViewById(R.id.home_selectLevelBt).setOnClickListener(this);
@@ -95,4 +105,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return super.dispatchTouchEvent(event);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    private void updateUI() {
+        ImageView avatar = findViewById(R.id.image_home_account_image);
+
+        if (firebaseHelper.isLoggedIn()){
+            utils.getBitmapFromByte(output -> {
+                if (!(output == null)){
+                    avatar.setColorFilter(Color.TRANSPARENT);
+                    avatar.setImageBitmap(output);
+                } else {
+                    avatar.setImageResource(R.drawable.ic_account_circle_24);
+                    avatar.setColorFilter(getColor(R.color.foreground));
+                }
+            });
+        } else {
+            avatar.setImageResource(R.drawable.ic_account_circle_24);
+            avatar.setColorFilter(getColor(R.color.foreground));
+        }
+
+    }
+
 }

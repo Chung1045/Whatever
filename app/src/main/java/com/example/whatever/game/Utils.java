@@ -1,5 +1,8 @@
 package com.example.whatever.game;
 
+import static com.example.whatever.game.UserPreferences.editor;
+import static com.example.whatever.game.UserPreferences.sharedPref;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,11 +10,16 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Toast;
+import android.util.Base64;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -20,6 +28,11 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.ByteArrayOutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.function.Consumer;
 
 public class Utils {
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 123;
@@ -32,6 +45,7 @@ public class Utils {
     private DialogUtils dialogUtils;
     private IntentUtils intentUtils;
     private SFXUtils sfxUtils;
+    private ImageUtils imageUtils;
 
     public Utils(Activity a, View v, Context c){
         this.activity = a;
@@ -49,6 +63,7 @@ public class Utils {
         dialogUtils = new DialogUtils(c);
         intentUtils = new IntentUtils(c);
         sfxUtils = new SFXUtils(c);
+        imageUtils = new ImageUtils();
     }
 
     // Functions
@@ -58,6 +73,18 @@ public class Utils {
 
     public void showSnackBarMessage(String message){
         snackBarUtils.setSnackBarMessage(message);
+    }
+
+    public void getBitmapFromByte(Consumer<Bitmap> consumer){
+        consumer.accept(imageUtils.getAvatarFromSharedPreferences());
+    }
+
+    public void saveAvatar(Bitmap bitmap){
+        imageUtils.saveAvatarToSharedPreferences(bitmap);
+    }
+
+    public void removeAvatar(){
+        UserPreferences.editor.putString(UserPreferences.USER_AVATAR, null).commit();
     }
 
     public void showActionSnackBar(String message, String buttonText){
@@ -80,12 +107,37 @@ public class Utils {
         intentUtils.urlIntent(url);
     }
 
+
     public void playSFX(int soundResourceId){
         sfxUtils.playSound(activity, soundResourceId);
     }
     public void playWrongSFX(){ sfxUtils.playSound(activity, R.raw.wrong_sfx); }
     public void playEnterLevelSFX(){ sfxUtils.playSound(activity, R.raw.enter_level_sfx);}
     public void playCorrectSFX(){ sfxUtils.playCorrectSFXSound(activity);}
+
+    public String getBestTotaltime(){
+        Long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
+        Long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
+        Long bestTimeLevel3 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0);
+        Long bestTimeLevel4 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0);
+        Long bestTimeLevel5 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0);
+        Long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
+        Long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
+        Long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+
+        if (bestTimeLevel1 == 0 || bestTimeLevel2 == 0 || bestTimeLevel3 == 0 || bestTimeLevel4 == 0
+                || bestTimeLevel5 == 0 || bestTimeLevel6 == 0 || bestTimeLevel7 == 0 || bestTimeLevel8 == 0){
+            return "Finish all level to see your best total time.";
+        } else {
+            long totalTime = bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 + bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8;
+            long seconds = totalTime / 1000;
+            long minutes = seconds / 60;
+            seconds = seconds % 60;
+            int milliseconds = (int) (totalTime % 1000);
+            return "Best total time : " + String.format("%02d:%02d:%02d.%02d", minutes, seconds, milliseconds);
+        }
+
+    }
 
     //Classes to handel the functions
     public class ToastUtils {
@@ -250,6 +302,48 @@ public class Utils {
             sfxPlayer = MediaPlayer.create(c, R.raw.correct_sfx);
             sfxPlayer.setOnCompletionListener(mediaPlayer -> MediaPlayer.create(c, R.raw.clapping_sfx).start());
             sfxPlayer.start();
+        }
+
+    }
+
+    public class ImageUtils {
+
+        public void saveAvatarToSharedPreferences(Bitmap avatarBitmap) {
+
+            // Convert bitmap to Base64 string
+            String avatarBase64 = bitmapToBase64(avatarBitmap);
+
+            // Save Base64 string to SharedPreferences
+            UserPreferences.editor.putString(UserPreferences.USER_AVATAR, avatarBase64).commit();
+        }
+
+        // Retrieve cropped user avatar image from SharedPreferences
+        public Bitmap getAvatarFromSharedPreferences() {
+
+            // Retrieve Base64 string from SharedPreferences
+            String avatarBase64 = UserPreferences.sharedPref.getString(UserPreferences.USER_AVATAR,null);
+
+            // Convert Base64 string to bitmap
+            return base64ToBitmap(avatarBase64);
+        }
+
+        // Convert Bitmap to Base64 string
+        private String bitmapToBase64(Bitmap bitmap) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        }
+
+        // Convert Base64 string to Bitmap
+        private Bitmap base64ToBitmap(String base64) {
+            if (base64 != null && !base64.isEmpty()) {
+                byte[] decodedBytes = Base64.decode(base64, Base64.DEFAULT);
+                return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            } else {
+                // Handle the case when the Base64 string is null or empty
+                return null; // Or you can return a default Bitmap if needed
+            }
         }
 
     }

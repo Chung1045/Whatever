@@ -28,6 +28,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+    <ProgressBar
+        android:id="@+id/progressBar_profile"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="408dp"
+        android:layout_height="8dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/view_profile_appBarLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
@@ -38,7 +50,8 @@
         android:elevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_appBarLayout"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,43 +61,82 @@
             tools:layout_editor_absoluteX="5dp"
             tools:layout_editor_absoluteY="5dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_profile_profile_icon"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginEnd="16dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="5dp"
                 android:src="@drawable/ic_account_circle_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/background" />
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/background"
+                app:strokeWidth="3dp" />
+
+            <ImageView
+                android:id="@+id/image_profile_profile_ico_edit_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                android:src="@drawable/outline_edit_24"
+                app:layout_constraintBottom_toBottomOf="@+id/image_profile_profile_icon"
+                app:layout_constraintEnd_toEndOf="@+id/image_profile_profile_icon"
+                app:tint="@color/foreground"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/text_profile_Username"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal"
-                    android:text="Guest"
-                    android:textColor="@color/background"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_profile_Username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="?selectableItemBackground"
+                        android:fontFamily="@font/inter_variable"
+                        android:gravity="center_horizontal"
+                        android:text="@string/string_profile_defaultUsername"
+                        android:textColor="@color/background"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/image_profile_edit"
+                        android:layout_width="24sp"
+                        android:layout_height="24sp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/outline_edit_24"
+                        app:tint="@color/background" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/text_profile_description"
                     android:layout_width="247dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Sign in to save progress / view ranks"
+                    android:fontFamily="@font/inter_variable"
+                    android:text="@string/string_profile_signIn_function_description"
                     android:textColor="@color/background"
                     android:textSize="18sp" />
 
@@ -97,23 +149,40 @@
                         android:id="@+id/button_profile_sign_in_sign_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
-                        android:text="Sign in / Sign up"
-                        android:textColor="@color/foreground" />
+                        android:fontFamily="@font/inter_variable"
+                        android:text="@string/string_profile_signInOrUp_text"
+                        android:textColor="@color/foreground"
+                        tools:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/button_profile_sign_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/background"
+                        android:clickable="true"
+                        android:fontFamily="@font/inter_variable"
+                        android:text="@string/string_profile_LogOut_text"
+                        android:textColor="@color/foreground"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <Button
                         android:id="@+id/button_profile_leaderboard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:backgroundTint="@color/background"
                         android:clickable="true"
-                        android:text="Leader Board"
+                        android:fontFamily="@font/inter_variable"
+                        android:text="@string/string_profile_leaderboard_text"
                         android:textColor="@color/foreground" />
 
                 </LinearLayout>
@@ -131,26 +200,34 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        tools:visibility="visible">
 
         <com.google.android.material.divider.MaterialDivider
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="15dp"
+            android:text="Settings" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/switchBarLayout_profile_sfx"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground">
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:layout_marginVertical="10dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_volume_on_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,10 +237,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="Sound Effect"
-                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                android:text="@string/string_profile_option_soundEffect_text"
                 android:textColor="@color/foreground"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -172,20 +249,46 @@
                 android:id="@+id/switch_profile_sfx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
                 android:layout_marginVertical="10dp"
+                android:layout_marginEnd="16dp"
                 android:checked="true"
-                app:trackTint="@color/foreground"
-                app:thumbTint="@color/background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbTint="@color/background"
+                app:trackTint="@color/foreground" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:layout_marginStart="15dp"
+            android:text="References" />
+
+        <ListView
+            android:id="@+id/listView_profile_references"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

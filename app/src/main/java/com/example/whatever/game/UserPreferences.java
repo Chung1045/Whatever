@@ -19,6 +19,7 @@ public class UserPreferences {
     public static final String BEST_TIME_LEVEL_TEMPLATE = "bestTimeLevelTemplate";
     public static final String LAST_PLAYED_LEVEL = "lastPlayedLevel";
     public static final String USER_NAME = "userName";
+    public static final String USER_AVATAR = "userAvatar";
     public static final String BEST_TIME_USED_TOTAL = "bestTimeUsedTotal";
     public static SharedPreferences sharedPref;
     public static SharedPreferences.Editor editor;
@@ -26,4 +27,6 @@ public class UserPreferences {
         sharedPref = a.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
     }
+
+
 }
