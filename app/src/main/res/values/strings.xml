@@ -60,6 +60,12 @@
         <item>"Shh, there a better way to do it"</item>
     </string-array>
 
+    <string-array name="string_profile_references_array">
+        <item>"Firebase Authentication"</item>
+        <item>"Firebase Realtime Database"</item>
+        <item>"Firebase Storage"</item>
+        <item>"Lottie Animations"</item>
+    </string-array>
 
 
 </resources>

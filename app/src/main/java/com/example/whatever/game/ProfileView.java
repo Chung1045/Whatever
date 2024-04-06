@@ -18,9 +18,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
@@ -38,6 +41,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -79,6 +84,16 @@ public class ProfileView extends AppCompatActivity {
 
         MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
         sfxSwitch.setChecked(UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false));
+
+        ListView listView = findViewById(R.id.listView_profile_references);
+
+        // Sample data
+        String[] data = getResources().getStringArray(R.array.string_profile_references_array);
+        ArrayList<String> dataList = new ArrayList<>(Arrays.asList(data));
+
+        // Create and set the custom adapter
+        ListViewAdapter adapter = new ListViewAdapter(dataList, this);
+        listView.setAdapter(adapter);
 
     }
 

@@ -149,7 +149,7 @@ public class SignUp extends AppCompatActivity {
                                 userProfile.put("username", userName);
 
                                 mDatabase.child("UserProfile").child(user.getUid()).setValue(userProfile).addOnSuccessListener(e ->{
-                                    utils.showSnackBarMessage("Account synced successfully");
+                                    utils.showSnackBarMessage("Account created and synced");
                                 }).addOnFailureListener(e -> {
                                     utils.showSnackBarMessage("Failed to sync");
                                 });
