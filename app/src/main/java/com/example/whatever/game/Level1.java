@@ -238,12 +238,12 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         findViewById(R.id.button_Level1_SubmitBt).setOnClickListener(view -> {
             EditText input = findViewById(R.id.text_Level1_Edit);
             String data = input.getText().toString();
-            verify(data);
+            verify(data.toUpperCase());
 
         });// place your element listener here
     }
     private void verify(String s){
-        if (s.equals("Father"))
+        if (s.equals("FATHER"))
             onLevelPass();
         else return;
     }
