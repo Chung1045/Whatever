@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -235,6 +236,13 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
+        findViewById(R.id.image_Level2_fifth).setOnClickListener(view -> {
+            onLevelPass();
+        });
+
+        findViewById(R.id.image_Level2_forth).setOnClickListener(view -> {
+            finish();
+        });
         // place your element listener here
     }
 

@@ -24,7 +24,7 @@
             android:layout_marginTop="15dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:contentDescription="@string/string_TopAppBar_backBtDescription"
+            android:contentDescription="Level Selection"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp"
             android:src="@drawable/baseline_arrow_back_24"
@@ -49,7 +49,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_hintBtDescription"
+                android:contentDescription="Hint"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_lightbulb_outline_24"
@@ -64,7 +64,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_resetBtDescription"
+                android:contentDescription="Reset"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_refresh_24"
@@ -79,7 +79,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_settingBtDescription"
+                android:contentDescription="Settings"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_settings_24"
@@ -94,7 +94,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_soundBtDescription"
+                android:contentDescription="Toggle Sound"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/ic_volume_on_24"
@@ -110,7 +110,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_topAppBar_SettingCloseDescription"
+                android:contentDescription="Close"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_close_24"
@@ -128,13 +128,15 @@
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="@string/string_Level2_title"
+            android:text="Which One is the Biggest?"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="24sp"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -144,12 +146,90 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view_topbar_Level2"
-        app:layout_constraintVertical_bias="0.5"
-        tools:visibility="gone">
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible">
 
         <!-- Place your Level Element here -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_Level2_fifth"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="260dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/drawable_level2_pic5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="150dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_Level2_first"
+                    android:layout_width="96dp"
+                    android:layout_height="95dp"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/drawable_level2_pic1" />
+
+                <ImageView
+                    android:id="@+id/image_Level2_second"
+                    android:layout_width="195dp"
+                    android:layout_height="176dp"
+                    android:layout_marginStart="50dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/drawable_level2_pic2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_Level2_third"
+                    android:layout_width="272dp"
+                    android:layout_height="169dp"
+                    android:layout_marginStart="30dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/drawable_level2_pic3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/image_Level2_forth"
+                    android:layout_width="298dp"
+                    android:layout_height="219dp"
+                    android:layout_marginStart="30dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/drawable_level2_pic4" />
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +246,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level2_TimeUsedText"
@@ -174,7 +254,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_timeUsedPlaceHolder"
+            android:text="XX:XX"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -189,7 +269,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="92dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_levelPassTitle"
+            android:text="Level Completed"
             android:textColor="@color/foreground"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +282,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_timeUsedText"
+            android:text="Time used"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +295,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_bestTimeUsedText"
+            android:text="Best Time"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +307,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_bestTimeUsedPlaceHolder"
+            android:text="XX:XX"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +322,7 @@
             android:layout_marginTop="232dp"
             android:fontFamily="@font/inter_variable"
             android:paddingHorizontal="10dp"
-            android:text="@string/string_LevelPass_messagePlaceholder"
+            android:text="I have done something"
             android:textColor="@color/foreground"
             android:textSize="18sp"
             android:textStyle="normal"
@@ -271,11 +351,10 @@
                 android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_home_24"
                 android:drawableTint="@color/background"
-                android:text="@string/string_LevelPass_levelSelect"
+                android:text="Level Select"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/button_Level2_NextLevelBt"
@@ -284,11 +363,10 @@
                 android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_arrow_forward_24"
                 android:drawableTint="@color/background"
-                android:text="@string/string_LevelPass_nextLevel"
+                android:text="Next Level"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
 
