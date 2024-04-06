@@ -1,12 +1,13 @@
 package com.example.whatever.game;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,14 +17,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Objects;
 
 public class LeaderBoard extends AppCompatActivity {
 
     private Utils utils;
-    private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +84,26 @@ public class LeaderBoard extends AppCompatActivity {
         TextView userName = findViewById(R.id.text_leaderboard_Username);
         TextView profileDescription = findViewById(R.id.text_leaderboard_description);
         Button signIn = findViewById(R.id.button_leaderboard_sign_in_sign_up);
+        ImageView userAvatar = findViewById(R.id.image_leaderboard_leaderboard_icon);
 
         if (firebaseHelper.isLoggedIn()){
             userName.setText(firebaseHelper.getUserName());
             signIn.setVisibility(View.GONE);
+            utils.getBitmapFromByte(output -> {
+                if (!(output == null)){
+                    userAvatar.setColorFilter(Color.TRANSPARENT);
+                    userAvatar.setImageBitmap(output);
+                } else {
+                    userAvatar.setColorFilter(getColor(R.color.background));
+                    userAvatar.setImageResource(R.drawable.ic_account_circle_24);
+                }
+            });
             profileDescription.setText("Best Total Time: ");
         } else {
             userName.setText("Guests");
             signIn.setVisibility(View.VISIBLE);
+            userAvatar.setColorFilter(getColor(R.color.background));
+            userAvatar.setImageResource(R.drawable.ic_account_circle_24);
             profileDescription.setText(R.string.string_leaderboard_signIn_function_description);
         }
 

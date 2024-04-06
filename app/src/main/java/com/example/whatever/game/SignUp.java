@@ -1,33 +1,20 @@
 package com.example.whatever.game;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
-
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,20 +23,19 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
-    private View v;
     private Utils utils;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private DatabaseReference mDatabase;
-    private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
-        v = findViewById(android.R.id.content);
-        utils = new Utils(this, v, this);
+        View v1 = findViewById(android.R.id.content);
+        utils = new Utils(this, v1, this);
 
         setSupportActionBar(findViewById(R.id.view_sign_up_topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -86,10 +72,10 @@ public class SignUp extends AppCompatActivity {
             TextInputLayout passwordLayout = findViewById(R.id.textinput_signup_password_layout);
             TextInputLayout passwordConfirmLayout = findViewById(R.id.textinput_signup_password_check_layout);
 
-            String userName = String.valueOf(userNameLayout.getEditText().getText());
-            String email = String.valueOf(emailLayout.getEditText().getText());
-            String password = String.valueOf(passwordLayout.getEditText().getText());
-            String passwordConfirm = String.valueOf(passwordConfirmLayout.getEditText().getText());
+            String userName = String.valueOf(Objects.requireNonNull(userNameLayout.getEditText()).getText());
+            String email = String.valueOf(Objects.requireNonNull(emailLayout.getEditText()).getText());
+            String password = String.valueOf(Objects.requireNonNull(passwordLayout.getEditText()).getText());
+            String passwordConfirm = String.valueOf(Objects.requireNonNull(passwordConfirmLayout.getEditText()).getText());
 
             emailLayout.setError(null);
             passwordLayout.setError(null);
@@ -137,22 +123,13 @@ public class SignUp extends AppCompatActivity {
                                 user = FirebaseAuth.getInstance().getCurrentUser();
 
                                 // set username
-                                firebaseHelper.updateUserName(userName, isSuccess ->{
-                                    if (isSuccess) {
-                                    }
-                                    else {
-                                    }
-                                });
+                                firebaseHelper.updateUserName(userName, isSuccess ->{});
 
                                 Map<String, Object> userProfile = new HashMap<>();
                                 userProfile.put("email", email);
                                 userProfile.put("username", userName);
 
-                                mDatabase.child("UserProfile").child(user.getUid()).setValue(userProfile).addOnSuccessListener(e ->{
-                                    utils.showSnackBarMessage("Account created and synced");
-                                }).addOnFailureListener(e -> {
-                                    utils.showSnackBarMessage("Failed to sync");
-                                });
+                                mDatabase.child("UserProfile").child(user.getUid()).setValue(userProfile).addOnSuccessListener(e -> utils.showSnackBarMessage("Account created and synced")).addOnFailureListener(e -> utils.showSnackBarMessage("Failed to sync"));
 
                                 new Handler().postDelayed(() -> {
                                     findViewById(R.id.progressBar_signup).setVisibility(View.GONE);

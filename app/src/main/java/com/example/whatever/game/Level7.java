@@ -20,7 +20,6 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -104,16 +103,16 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level7_CloseBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
             findViewById(R.id.button_Level7_CloseBt).startAnimation(fadeout);
             findViewById(R.id.button_Level7_CloseBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level7_SoundBt).startAnimation(fadeout);
             findViewById(R.id.button_Level7_SoundBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level7_SettingsBt).startAnimation(fadein);
-            findViewById(R.id.button_Level7_ResetBt).startAnimation(fadein);
-            findViewById(R.id.button_Level7_HintBt).startAnimation(fadein);
+            findViewById(R.id.button_Level7_SettingsBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level7_ResetBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level7_HintBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level7_SettingsBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level7_ResetBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level7_HintBt).setVisibility(View.VISIBLE);
@@ -139,17 +138,11 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level7_NavigateBackBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level7.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level7_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, LevelSelect.class)));
 
-        findViewById(R.id.button_Level7_HomeBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level7.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level7_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, LevelSelect.class)));
 
-        findViewById(R.id.button_Level7_NextLevelBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level7.this, Level8.class));
-        });
+        findViewById(R.id.button_Level7_NextLevelBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, Level8.class)));
 
     }
 
@@ -201,7 +194,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
 
         TextView timeUsedCount = findViewById(R.id.text_Level7_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -225,7 +218,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             findViewById(R.id.text_Level7_BestTimeUsedTitle).setVisibility(View.GONE);
             findViewById(R.id.text_Level7_Best_TimeUsedText).setVisibility(View.GONE);
         } else {
-            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0L);
+            long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0L);
             TextView bestTimeUsed = findViewById(R.id.text_Level7_Best_TimeUsedText);
 
             long seconds = bestTime / 1000;
@@ -323,23 +316,15 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
             resetState();
         });
 
-        findViewById(R.id.button_Level7_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
-        });
+        findViewById(R.id.button_Level7_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]));
 
         // place your element listener here
 
-        findViewById(R.id.image_Level7_Cabinet).setOnClickListener(view -> {
-            onWrongAttempt();
-        });
+        findViewById(R.id.image_Level7_Cabinet).setOnClickListener(view -> onWrongAttempt());
 
-        findViewById(R.id.image_Level7_Light).setOnClickListener(view -> {
-            onWrongAttempt();
-        });
+        findViewById(R.id.image_Level7_Light).setOnClickListener(view -> onWrongAttempt());
 
-        findViewById(R.id.image_Level7_Switch).setOnClickListener(view -> {
-            onWrongAttempt();
-        });
+        findViewById(R.id.image_Level7_Switch).setOnClickListener(view -> onWrongAttempt());
 
         findViewById(R.id.image_Level7_Bed).setOnClickListener(view -> {
             if (!isSwitchOn && !isLampOn && curtainState == 2) {

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class ListViewAdapter extends ArrayAdapter<String> {
@@ -21,6 +23,7 @@ public class ListViewAdapter extends ArrayAdapter<String> {
         this.mContext = context;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;

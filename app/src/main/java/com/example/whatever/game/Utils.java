@@ -115,6 +115,30 @@ public class Utils {
     public void playEnterLevelSFX(){ sfxUtils.playSound(activity, R.raw.enter_level_sfx);}
     public void playCorrectSFX(){ sfxUtils.playCorrectSFXSound(activity);}
 
+    public String getBestTotaltime(){
+        Long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
+        Long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
+        Long bestTimeLevel3 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0);
+        Long bestTimeLevel4 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0);
+        Long bestTimeLevel5 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0);
+        Long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
+        Long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
+        Long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+
+        if (bestTimeLevel1 == 0 || bestTimeLevel2 == 0 || bestTimeLevel3 == 0 || bestTimeLevel4 == 0
+                || bestTimeLevel5 == 0 || bestTimeLevel6 == 0 || bestTimeLevel7 == 0 || bestTimeLevel8 == 0){
+            return "Finish all level to see your best total time.";
+        } else {
+            long totalTime = bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 + bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8;
+            long seconds = totalTime / 1000;
+            long minutes = seconds / 60;
+            seconds = seconds % 60;
+            int milliseconds = (int) (totalTime % 1000);
+            return "Best total time : " + String.format("%02d:%02d:%02d.%02d", minutes, seconds, milliseconds);
+        }
+
+    }
+
     //Classes to handel the functions
     public class ToastUtils {
         public void showMessage(Context context, String message){

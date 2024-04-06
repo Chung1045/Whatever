@@ -23,10 +23,10 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class FirebaseHelper {
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private final FirebaseAuth mAuth;
+    private final DatabaseReference mDatabase;
     private FirebaseUser user;
-    private FirebaseStorage mStorage;
+    private final FirebaseStorage mStorage;
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
@@ -55,6 +55,7 @@ public class FirebaseHelper {
         }
     }
 
+    // May reuse later on
     public void getEmailFromUsername(String input, Consumer<String> onSuccess) {
 
         DatabaseReference userRef = mDatabase.child("UserProfile").child(input);
@@ -115,21 +116,16 @@ public class FirebaseHelper {
             input.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
             UploadTask uploadTask = storageRef.putBytes(data);
-            uploadTask.addOnSuccessListener(taskSnapshot -> {
-                storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    Map<String, Object> userProfilePic = new HashMap<>();
-                    userProfilePic.put("profilePicURL", uri.toString());
-                    // Now you can save this URL to Firebase Realtime Database or Firestore
-                    mDatabase.child("UserProfile")
-                            .child(user.getUid()).updateChildren(userProfilePic).addOnSuccessListener(e -> {
-                                // or use it wherever you need.
-                                onSuccess.accept(true);
-                            });
-                });
-
-            }).addOnFailureListener(e -> {
-                onSuccess.accept(false);
-            });
+            uploadTask.addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                Map<String, Object> userProfilePic = new HashMap<>();
+                userProfilePic.put("profilePicURL", uri.toString());
+                // Now you can save this URL to Firebase Realtime Database or Firestore
+                mDatabase.child("UserProfile")
+                        .child(user.getUid()).updateChildren(userProfilePic).addOnSuccessListener(e -> {
+                            // or use it wherever you need.
+                            onSuccess.accept(true);
+                        });
+            })).addOnFailureListener(e -> onSuccess.accept(false));
         }
     }
 
@@ -141,15 +137,9 @@ public class FirebaseHelper {
 
             storageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                if (bitmap != null) {
-                    onSuccess.accept(bitmap);
-                } else {
-                    onSuccess.accept(null);
-                }
+                onSuccess.accept(bitmap);
 
-            }).addOnFailureListener(e -> {
-                onSuccess.accept(null);
-            });
+            }).addOnFailureListener(e -> onSuccess.accept(null));
         }
     }
 

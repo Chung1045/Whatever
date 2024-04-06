@@ -76,7 +76,23 @@
                 app:strokeColor="@color/background"
                 app:strokeWidth="3dp" />
 
+            <ImageView
+                android:id="@+id/image_profile_profile_ico_edit_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:background="@drawable/circle"
+                android:padding="5dp"
+                android:src="@drawable/outline_edit_24"
+                app:layout_constraintBottom_toBottomOf="@+id/image_profile_profile_icon"
+                app:layout_constraintEnd_toEndOf="@+id/image_profile_profile_icon"
+                app:tint="@color/foreground"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
@@ -272,7 +288,7 @@
         <ListView
             android:id="@+id/listView_profile_references"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

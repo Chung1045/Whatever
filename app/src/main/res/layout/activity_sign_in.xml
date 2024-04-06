@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Email or User Name"
+                android:hint="Email Address"
                 android:fontFamily="@font/inter_variable"
                 app:boxStrokeColor="@color/textFieldBorderColor">
 

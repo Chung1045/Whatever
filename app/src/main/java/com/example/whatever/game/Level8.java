@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Sensor;
@@ -15,12 +16,8 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
@@ -37,7 +34,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private ImageView[] walls;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     private void wallsInit() {
         walls = new ImageView[26];
         for (int i = 0; i < 26; i++) {
-            int resId = getResources().getIdentifier("image_level8_wall" + (i + 1), "id", getPackageName());
+            @SuppressLint("DiscouragedApi") int resId = getResources().getIdentifier("image_level8_wall" + (i + 1), "id", getPackageName());
             walls[i] = findViewById(resId);
         }
     }
@@ -89,8 +86,8 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
 
         findViewById(R.id.button_Level8_SettingsBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
 
             findViewById(R.id.button_Level8_SettingsBt).startAnimation(fadeout);
@@ -99,24 +96,24 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
             findViewById(R.id.button_Level8_SettingsBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level8_ResetBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level8_HintBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level8_CloseBt).startAnimation(fadein);
-            findViewById(R.id.button_Level8_SoundBt).startAnimation(fadein);
+            findViewById(R.id.button_Level8_CloseBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level8_SoundBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level8_CloseBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level8_SoundBt).setVisibility(View.VISIBLE);
         });
 
         findViewById(R.id.button_Level8_CloseBt).setOnClickListener(view -> {
             Animation fadeout = new AlphaAnimation(1, 0);
-            Animation fadein = new AlphaAnimation(0, 1);
-            fadein.setDuration(500);
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setDuration(500);
             fadeout.setDuration(500);
             findViewById(R.id.button_Level8_CloseBt).startAnimation(fadeout);
             findViewById(R.id.button_Level8_CloseBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level8_SoundBt).startAnimation(fadeout);
             findViewById(R.id.button_Level8_SoundBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level8_SettingsBt).startAnimation(fadein);
-            findViewById(R.id.button_Level8_ResetBt).startAnimation(fadein);
-            findViewById(R.id.button_Level8_HintBt).startAnimation(fadein);
+            findViewById(R.id.button_Level8_SettingsBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level8_ResetBt).startAnimation(fadeIn);
+            findViewById(R.id.button_Level8_HintBt).startAnimation(fadeIn);
             findViewById(R.id.button_Level8_SettingsBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level8_ResetBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level8_HintBt).setVisibility(View.VISIBLE);
@@ -142,13 +139,9 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level8_NavigateBackBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level8.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level8_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level8.this, LevelSelect.class)));
 
-        findViewById(R.id.button_Level8_HomeBt).setOnClickListener(view -> {
-            startActivity(new Intent(Level8.this, LevelSelect.class));
-        });
+        findViewById(R.id.button_Level8_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level8.this, LevelSelect.class)));
 
     }
 
@@ -199,7 +192,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
 
         TextView timeUsedCount = findViewById(R.id.text_Level8_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -223,7 +216,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
             findViewById(R.id.text_Level8_BestTimeUsedTitle).setVisibility(View.GONE);
             findViewById(R.id.text_Level8_Best_TimeUsedText).setVisibility(View.GONE);
         } else {
-            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0L);
+            long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0L);
             TextView bestTimeUsed = findViewById(R.id.text_Level8_Best_TimeUsedText);
 
             long seconds = bestTime / 1000;
@@ -254,6 +247,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     };
 
     // Listener for Level elements
+    @SuppressLint("ClickableViewAccessibility")
     private void listenerInit() {
         findViewById(R.id.button_Level8_ResetBt).setOnClickListener(view -> {
             startTime = System.currentTimeMillis();
@@ -262,47 +256,42 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
             resetState();
         });
 
-        findViewById(R.id.button_Level8_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
-        });
+        findViewById(R.id.button_Level8_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]));
 
         findViewById(R.id.image_level8_exit).setOnTouchListener(this);
         // place your element listener here
 
-        findViewById(R.id.image_level8_ball).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                switch (event.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN:
-                        holdMode = true;
-                        break;
+        findViewById(R.id.image_level8_ball).setOnTouchListener((view, event) -> {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    holdMode = true;
+                    break;
 
-                    case MotionEvent.ACTION_MOVE:
-                        // Move the view with the touch
-                        ImageView pinball = findViewById(R.id.image_level8_ball);
+                case MotionEvent.ACTION_MOVE:
+                    // Move the view with the touch
+                    ImageView pinball = findViewById(R.id.image_level8_ball);
 
-                        if (!collision) {
-                            pinball.setX(pinball.getX() + event.getX());
-                            pinball.setY(pinball.getY() + event.getY());
+                    if (!collision) {
+                        pinball.setX(pinball.getX() + event.getX());
+                        pinball.setY(pinball.getY() + event.getY());
 
-                            if (isTouchWalls(pinball, walls)){
-                                pinball.setTranslationX(0);
-                                pinball.setTranslationY(0);
-                                onWrongAttempt();
-                                view.setClickable(false);
-                                collision = true;
-                            }
+                        if (isTouchWalls(pinball, walls)){
+                            pinball.setTranslationX(0);
+                            pinball.setTranslationY(0);
+                            onWrongAttempt();
+                            view.setClickable(false);
+                            collision = true;
                         }
+                    }
 
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        view.setClickable(true);
-                        holdMode = false;
-                        collision = false;
-                        break;
-                }
-                return true;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    view.setClickable(true);
+                    holdMode = false;
+                    collision = false;
+                    break;
             }
+            return true;
         });
 
     }
@@ -417,7 +406,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
         return targetRect.intersect(exitRect.left, exitRect.top, exitRect.right, exitRect.bottom);
     }
 
-    private Runnable interactMode = new Runnable() {
+    private final Runnable interactMode = new Runnable() {
         @Override
         public void run() {
             if (holdMode) {

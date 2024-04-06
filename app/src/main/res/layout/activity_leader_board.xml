@@ -47,16 +47,20 @@
             tools:layout_editor_absoluteX="5dp"
             tools:layout_editor_absoluteY="5dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_leaderboard_leaderboard_icon"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginEnd="16dp"
+                android:padding="5dp"
                 android:src="@drawable/ic_account_circle_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/background" />
+                app:tint="@color/background"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/background"
+                app:strokeWidth="3dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

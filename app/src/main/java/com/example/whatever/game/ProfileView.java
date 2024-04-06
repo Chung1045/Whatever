@@ -5,7 +5,6 @@ import static android.Manifest.permission.READ_MEDIA_IMAGES;
 import static android.Manifest.permission.READ_MEDIA_VIDEO;
 import static android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -18,9 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -50,7 +47,6 @@ import java.util.Objects;
 public class ProfileView extends AppCompatActivity {
 
     private Utils utils;
-    private View v;
     private FirebaseHelper firebaseHelper = new FirebaseHelper();
     private ProgressBar progressBar;
 
@@ -61,8 +57,8 @@ public class ProfileView extends AppCompatActivity {
         setContentView(R.layout.activity_profile_view);
 
         UserPreferences.init(this);
-        v = findViewById(android.R.id.content);
-        utils = new Utils(this, v, this);
+        View v1 = findViewById(android.R.id.content);
+        utils = new Utils(this, v1, this);
 
         setSupportActionBar(findViewById(R.id.view_profile_topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -116,17 +112,11 @@ public class ProfileView extends AppCompatActivity {
         });
 
         MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
-        sfxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, sfxSwitch.isChecked()).commit();
-        });
+        sfxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, sfxSwitch.isChecked()).commit());
 
-        findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> {
-            startActivity(new Intent(ProfileView.this, SignIn.class));
-        });
+        findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> startActivity(new Intent(ProfileView.this, SignIn.class)));
 
-        findViewById(R.id.button_profile_leaderboard).setOnClickListener(view -> {
-            startActivity(new Intent(ProfileView.this, LeaderBoard.class));
-        });
+        findViewById(R.id.button_profile_leaderboard).setOnClickListener(view -> startActivity(new Intent(ProfileView.this, LeaderBoard.class)));
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -135,22 +125,18 @@ public class ProfileView extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button_profile_sign_out).setOnClickListener(view -> {
-            new MaterialAlertDialogBuilder(this)
-                    .setTitle("Sign Out Confirm")
-                    .setMessage("You are about to log out. Are you sure?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", (dialog, id) -> {
-                        firebaseHelper.logout();
-                        utils.showSnackBarMessage("Log out successfully");
-                        utils.removeAvatar();
-                        updateUI();
-                    })
-                    .setNegativeButton("No", (dialog, id) -> {
-                        dialog.cancel();
-                    })
-                    .show();
-        });
+        findViewById(R.id.button_profile_sign_out).setOnClickListener(view -> new MaterialAlertDialogBuilder(this)
+                .setTitle("Sign Out Confirm")
+                .setMessage("You are about to log out. Are you sure?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    firebaseHelper.logout();
+                    utils.showSnackBarMessage("Log out successfully");
+                    utils.removeAvatar();
+                    updateUI();
+                })
+                .setNegativeButton("No", (dialog, id) -> dialog.cancel())
+                .show());
 
         findViewById(R.id.image_profile_profile_icon).setOnClickListener(view -> {
             if (firebaseHelper.isLoggedIn()) {
@@ -160,7 +146,7 @@ public class ProfileView extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                         // Android 14 or above
                         requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO, READ_MEDIA_VISUAL_USER_SELECTED}, 1);
-                    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU) {
                         // Android 13 or above
                         requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO}, 1);
                     } else {
@@ -191,7 +177,7 @@ public class ProfileView extends AppCompatActivity {
                         .setPositiveButton("Change", (dialog, which) -> {
 
                             progressBar.setVisibility(View.VISIBLE);
-                            String changeUsername = usernameLayout.getEditText().getText().toString();
+                            String changeUsername = Objects.requireNonNull(usernameLayout.getEditText()).getText().toString();
                             firebaseHelper.isUserNameOccupied(changeUsername, isOccupied ->{
                                 if (isOccupied){
                                     utils.showSnackBarMessage("Username is already taken");
@@ -212,9 +198,7 @@ public class ProfileView extends AppCompatActivity {
                                 }
                             });
                         })
-                        .setNegativeButton("Cancel", (dialog, which) -> {
-                            progressBar.setVisibility(View.GONE);
-                        }).show();
+                        .setNegativeButton("Cancel", (dialog, which) -> progressBar.setVisibility(View.GONE)).show();
 
                 usernameLayout.requestFocus();
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -247,14 +231,17 @@ public class ProfileView extends AppCompatActivity {
         Button signOut = findViewById(R.id.button_profile_sign_out);
         Button signIn = findViewById(R.id.button_profile_sign_in_sign_up);
         ImageView userAvatar = findViewById(R.id.image_profile_profile_icon);
-        ImageView edituserNameIcon = findViewById(R.id.image_profile_edit);
+        ImageView editUserNameIcon = findViewById(R.id.image_profile_edit);
+        ImageView editUserIconIndicator = findViewById(R.id.image_profile_profile_ico_edit_circle);
 
         if (firebaseHelper.isLoggedIn()) {
             userName.setText(firebaseHelper.getUserName());
             userName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             signOut.setVisibility(View.VISIBLE);
             signIn.setVisibility(View.GONE);
-            edituserNameIcon.setVisibility(View.VISIBLE);
+            editUserNameIcon.setVisibility(View.VISIBLE);
+            profileDescription.setText(utils.getBestTotaltime());
+            editUserIconIndicator.setVisibility(View.VISIBLE);
 
             // Get the avatar bitmap from SharedPreferences
             utils.getBitmapFromByte(output -> {
@@ -267,14 +254,13 @@ public class ProfileView extends AppCompatActivity {
                 }
             });
 
-            profileDescription.setText("Best Total Time: ");
-
         } else {
             userName.setText(R.string.string_profile_defaultUsername);
             userName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             signOut.setVisibility(View.GONE);
             signIn.setVisibility(View.VISIBLE);
-            edituserNameIcon.setVisibility(View.GONE);
+            editUserNameIcon.setVisibility(View.GONE);
+            editUserIconIndicator.setVisibility(View.GONE);
 
             // Set a default image or placeholder when the user is not logged in
             userAvatar.setColorFilter(getColor(R.color.background));
@@ -289,7 +275,6 @@ public class ProfileView extends AppCompatActivity {
             new ActivityResultContracts.PickVisualMedia(),
             result -> {
                 ImageView userAvatar = findViewById(R.id.image_profile_profile_icon);
-                ContentResolver cr = this.getContentResolver();
                     if (result!= null) {
                         Bitmap bitmap;
                         try {
@@ -322,9 +307,7 @@ public class ProfileView extends AppCompatActivity {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
                 && (checkSelfPermission(READ_MEDIA_VISUAL_USER_SELECTED) == PackageManager.PERMISSION_GRANTED)) {
             return true;
-        } else if (checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else return false;
+        } else return checkSelfPermission(READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     private Bitmap imageCrop(Bitmap input){
@@ -335,9 +318,8 @@ public class ProfileView extends AppCompatActivity {
         Bitmap croppedBitmap = Bitmap.createBitmap(input, xOffset, yOffset, size, size);
 
         // Resize the cropped bitmap to 512x512 pixels
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(croppedBitmap, 512, 512, true);
 
-        return resizedBitmap;
+        return Bitmap.createScaledBitmap(croppedBitmap, 512, 512, true);
     }
 
 

@@ -3,6 +3,7 @@ package com.example.whatever.game;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,14 +15,14 @@ import android.widget.ImageView;
 public class LevelSelect extends AppCompatActivity implements View.OnClickListener {
 
     private Utils utils;
-    private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_select);
 
-        View v = LayoutInflater.from(this).inflate(R.layout.activity_level_select, null);
+        @SuppressLint("InflateParams") View v = LayoutInflater.from(this).inflate(R.layout.activity_level_select, null);
         utils = new Utils(this, v, this);
 
         listenerInit();

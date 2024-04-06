@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,38 +12,27 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class SignIn extends AppCompatActivity {
 
     private Utils utils;
-    private View v;
     private FirebaseAuth mAuth;
-    private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_in);
-        v = findViewById(android.R.id.content);
-        utils = new Utils(this, v, this);
+        View v1 = findViewById(android.R.id.content);
+        utils = new Utils(this, v1, this);
 
         setSupportActionBar(findViewById(R.id.view_sign_in_topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -61,9 +49,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void listenerInit(){
-        findViewById(R.id.button_sign_in_create_account).setOnClickListener(v -> {
-            startActivity(new Intent(SignIn.this, SignUp.class));
-        });
+        findViewById(R.id.button_sign_in_create_account).setOnClickListener(v -> startActivity(new Intent(SignIn.this, SignUp.class)));
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -90,7 +76,9 @@ public class SignIn extends AppCompatActivity {
             EditText emailEditText = emailLayout.getEditText();
             EditText passwordEditText = passwordLayout.getEditText();
 
+            assert emailEditText != null;
             String email = emailEditText.getText().toString().trim();
+            assert passwordEditText != null;
             String password = passwordEditText.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
