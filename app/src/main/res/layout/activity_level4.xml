@@ -9,12 +9,30 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_topbar_Level4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="728dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/text_Level4_Question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="123dp"
+            android:fontFamily="@font/inter_variable"
+            android:paddingBottom="10dp"
+            android:text="What is the next number?"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/button_Level4_NavigateBackBt"
@@ -24,7 +42,7 @@
             android:layout_marginTop="15dp"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:contentDescription="@string/string_TopAppBar_backBtDescription"
+            android:contentDescription="Level Selection"
             android:paddingHorizontal="5dp"
             android:paddingVertical="5dp"
             android:src="@drawable/baseline_arrow_back_24"
@@ -49,7 +67,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_hintBtDescription"
+                android:contentDescription="Hint"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_lightbulb_outline_24"
@@ -57,14 +75,14 @@
                 app:tint="?attr/colorOnSurface" />
 
             <ImageView
-                android:id="@+id/button_Level4_ResetBt"
+                android:id="@+id/button_Level4_EnterBt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_resetBtDescription"
+                android:contentDescription="Reset"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_refresh_24"
@@ -79,7 +97,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_settingBtDescription"
+                android:contentDescription="Settings"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_settings_24"
@@ -94,7 +112,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_TopAppBar_soundBtDescription"
+                android:contentDescription="Toggle Sound"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/ic_volume_on_24"
@@ -110,7 +128,7 @@
                 android:layout_marginEnd="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/string_topAppBar_SettingCloseDescription"
+                android:contentDescription="Close"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
                 android:src="@drawable/baseline_close_24"
@@ -120,21 +138,57 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/text_Level4_Title"
+            android:id="@+id/text_Level4_Question2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="123dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="192dp"
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="@string/string_Level4_title"
+            android:text="1, 1, 2, 3, 5, 8, ?"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.571"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/text_Level4_Answer"
+            android:layout_width="56dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="104dp"
+            android:ems="10"
+            android:inputType="number"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level4_Question2" />
+
+        <Button
+            android:id="@+id/button_Level4_ResetBt"
+            android:layout_width="123dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="192dp"
+            android:text="Reset"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_Level4_Enter2Bt"
+            android:layout_width="132dp"
+            android:layout_height="74dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="192dp"
+            android:text="Enter"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +220,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level4_TimeUsedText"
@@ -174,7 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_timeUsedPlaceHolder"
+            android:text="XX:XX"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -189,7 +243,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="92dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_levelPassTitle"
+            android:text="Level Completed"
             android:textColor="@color/foreground"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +256,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_timeUsedText"
+            android:text="Time used"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +269,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_bestTimeUsedText"
+            android:text="Best Time"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +281,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter_variable"
-            android:text="@string/string_LevelPass_bestTimeUsedPlaceHolder"
+            android:text="XX:XX"
             android:textColor="@color/foreground"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -242,7 +296,7 @@
             android:layout_marginTop="232dp"
             android:fontFamily="@font/inter_variable"
             android:paddingHorizontal="10dp"
-            android:text="@string/string_LevelPass_messagePlaceholder"
+            android:text="I have done something"
             android:textColor="@color/foreground"
             android:textSize="18sp"
             android:textStyle="normal"
@@ -271,11 +325,10 @@
                 android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_home_24"
                 android:drawableTint="@color/background"
-                android:text="@string/string_LevelPass_levelSelect"
+                android:text="Level Select"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/button_Level4_NextLevelBt"
@@ -284,11 +337,10 @@
                 android:backgroundTint="@color/foreground"
                 android:drawableEnd="@drawable/baseline_arrow_forward_24"
                 android:drawableTint="@color/background"
-                android:text="@string/string_LevelPass_nextLevel"
+                android:text="Next Level"
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
 

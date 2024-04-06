@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,15 +8,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
@@ -42,6 +42,9 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
+        EditText Answer;
+        Button Reset, Enter;
+
 
         UserPreferences.init(this);
 
@@ -52,6 +55,23 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
         listenerInit();
+
+        Answer = findViewById(R.id.text_Level4_Answer);
+        Reset = findViewById(R.id.button_Level4_ResetBt);
+        Enter = findViewById(R.id.button_Level4_Enter2Bt);
+
+
+        Reset.setOnClickListener(view -> {
+            Answer.setText(" ");
+        });
+        Enter.setOnClickListener(view -> {
+            if(Integer.valueOf(Answer.getText().toString()) == 13){
+                closeKeyboard();
+                onLevelPass();
+            }else{
+                onWrongAttempt();
+            }
+        });
     }
 
     private void topBarInit(){
@@ -68,10 +88,10 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
             fadeout.setDuration(500);
 
             findViewById(R.id.button_Level4_SettingsBt).startAnimation(fadeout);
-            findViewById(R.id.button_Level4_ResetBt).startAnimation(fadeout);
+            findViewById(R.id.button_Level4_EnterBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_HintBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_SettingsBt).setVisibility(View.GONE);
-            findViewById(R.id.button_Level4_ResetBt).setVisibility(View.GONE);
+            findViewById(R.id.button_Level4_EnterBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level4_HintBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level4_CloseBt).startAnimation(fadein);
             findViewById(R.id.button_Level4_SoundBt).startAnimation(fadein);
@@ -89,10 +109,10 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
             findViewById(R.id.button_Level4_SoundBt).startAnimation(fadeout);
             findViewById(R.id.button_Level4_SoundBt).setVisibility(View.GONE);
             findViewById(R.id.button_Level4_SettingsBt).startAnimation(fadein);
-            findViewById(R.id.button_Level4_ResetBt).startAnimation(fadein);
+            findViewById(R.id.button_Level4_EnterBt).startAnimation(fadein);
             findViewById(R.id.button_Level4_HintBt).startAnimation(fadein);
             findViewById(R.id.button_Level4_SettingsBt).setVisibility(View.VISIBLE);
-            findViewById(R.id.button_Level4_ResetBt).setVisibility(View.VISIBLE);
+            findViewById(R.id.button_Level4_EnterBt).setVisibility(View.VISIBLE);
             findViewById(R.id.button_Level4_HintBt).setVisibility(View.VISIBLE);
         });
 
@@ -222,7 +242,7 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
 
     // Listener for Level elements
     private void listenerInit() {
-        findViewById(R.id.button_Level4_ResetBt).setOnClickListener(view -> {
+        findViewById(R.id.button_Level4_EnterBt).setOnClickListener(view -> {
             startTime = System.currentTimeMillis();
             elapsedTime = 0L;
             timerHandler.postDelayed(updateTimerThread, 0);
@@ -274,5 +294,12 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
             utils.playSFX(R.raw.tap_sfx);
         }
         return super.dispatchTouchEvent(event);
+    }
+    private void closeKeyboard(){
+        View view = this.getCurrentFocus();
+        if(view != null){
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(),0);
+        }
     }
 }
