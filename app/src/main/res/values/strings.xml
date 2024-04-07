@@ -67,5 +67,36 @@
         <item>"Lottie Animations"</item>
     </string-array>
 
+    <string-array name="names">
+        <item>Roman</item>
+        <item>Vasilisa</item>
+        <item>Nikolai</item>
+        <item>Ivan</item>
+        <item>Hiroshi</item>
+        <item>Yuta</item>
+        <item>Amagi</item>
+        <item>Kazusa</item>
+        <item>Yuko</item>
+        <item>Morisawa</item>
+        <item>Sena</item>
+        <item>Hikari</item>
+        <item>Tairitsu</item>
+        <item>PAFF</item>
+        <item>Yuu</item>
+        <item>Neko OwO</item>
+        <item>Kuzuha</item>
+        <item>Kane</item>
+        <item>Kanata</item>
+        <item>Kenmochi</item>
+        <item>Akina</item>
+        <item>Akito</item>
+        <item>Toya</item>
+        <item>Nagumo</item>
+        <item>Takamine</item>
+        <item>Tsusaka</item>
+        <item>Ivy</item>
+        <item>Vanessa</item>
+    </string-array>
+
 
 </resources>

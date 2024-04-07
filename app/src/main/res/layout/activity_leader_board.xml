@@ -20,19 +20,19 @@
             android:id="@+id/view_leaderboard_topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
             android:background="@color/background"
+            android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:title="Leader Board" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/cardBackground"
         android:elevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,10 +57,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/background"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 app:strokeColor="@color/background"
-                app:strokeWidth="3dp"/>
+                app:strokeWidth="3dp"
+                app:tint="@color/background" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -76,22 +76,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter_variable"
                     android:gravity="center_horizontal"
                     android:text="@string/string_leaderboard_default_userName"
                     android:textColor="@color/background"
                     android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/inter_variable"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/text_leaderboard_description"
                     android:layout_width="247dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/inter_variable"
                     android:text="@string/string_leaderboard_signIn_function_description"
                     android:textColor="@color/background"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter_variable"/>
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/button_leaderboard_sign_in_sign_up"
@@ -100,16 +101,29 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/background"
-                    android:text="@string/string_leaderboard_signInOrUp_text"
-                    android:textColor="@color/foreground"
                     android:clickable="true"
-                    android:fontFamily="@font/inter_variable"/>
+                    android:fontFamily="@font/inter_variable"
+                    android:text="@string/string_leaderboard_signInOrUp_text"
+                    android:textColor="@color/foreground" />
 
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_leaderboard_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

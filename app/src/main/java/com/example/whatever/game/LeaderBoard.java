@@ -16,13 +16,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class LeaderBoard extends AppCompatActivity {
 
     private Utils utils;
     private final FirebaseHelper firebaseHelper = new FirebaseHelper();
+    ArrayList<itemModel> recyclerItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,28 @@ public class LeaderBoard extends AppCompatActivity {
         });
 
         listenerInit();
+        leaderBoardRecyclerViewInit();
 
+    }
+
+    private void leaderBoardRecyclerViewInit() {
+
+        RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
+        recyclerViewItemInit();
+
+        LeaderboardViewRecyclerAdapter adapter = new LeaderboardViewRecyclerAdapter(this, recyclerItems);
+
+        leaderboard.setAdapter(adapter);
+        leaderboard.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    private void recyclerViewItemInit() {
+        String[] names = getResources().getStringArray(R.array.names);
+
+        for (int i = 0; i < names.length; i++) {
+            recyclerItems.add(new itemModel(names[i], i + 1)); // Increment position value by 1 to start counting from 1
+        }
     }
 
     @Override
@@ -102,7 +128,7 @@ public class LeaderBoard extends AppCompatActivity {
                     userAvatar.setImageResource(R.drawable.ic_account_circle_24);
                 }
             });
-            profileDescription.setText("Best Total Time: ");
+            profileDescription.setText(utils.getBestTotaltime());
         } else {
             userName.setText("Guests");
             signIn.setVisibility(View.VISIBLE);
