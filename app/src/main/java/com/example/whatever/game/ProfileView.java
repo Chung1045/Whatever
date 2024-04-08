@@ -47,7 +47,7 @@ import java.util.Objects;
 public class ProfileView extends AppCompatActivity {
 
     private Utils utils;
-    private FirebaseHelper firebaseHelper = new FirebaseHelper();
+    private final FirebaseHelper firebaseHelper = new FirebaseHelper();
     private ProgressBar progressBar;
 
     @Override
