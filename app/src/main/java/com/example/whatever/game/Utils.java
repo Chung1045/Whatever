@@ -4,6 +4,7 @@ import static com.example.whatever.game.UserPreferences.editor;
 import static com.example.whatever.game.UserPreferences.sharedPref;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;

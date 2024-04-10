@@ -38,7 +38,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/background" />
+            app:tint="@color/background"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
 
         <TextView
             android:id="@+id/userName"
@@ -56,16 +57,17 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/recycler_item_bestTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="20dp"
         android:text="XXmXXs"
+        android:textColor="@color/background"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/background"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
