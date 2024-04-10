@@ -27,118 +27,184 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ProgressBar
+        android:id="@+id/progressBar_leaderboard"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="-1dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_leaderboard_appBarLayout"
+        tools:visibility="visible" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/view_leaderboard_swipeRefreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_leaderboard_appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/view_leaderboard_appBarLayout"
+        tools:visibility="visible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_leaderboard_appBarLayout">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView2"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/cardBackground"
-                android:elevation="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/cardBackground"
+                    android:elevation="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        tools:layout_editor_absoluteX="5dp"
+                        tools:layout_editor_absoluteY="5dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/image_leaderboard_leaderboard_icon"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginEnd="16dp"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_account_circle_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                            app:strokeColor="@color/background"
+                            app:strokeWidth="3dp"
+                            app:tint="@color/background" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/text_leaderboard_Username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_variable"
+                                android:gravity="center_horizontal"
+                                android:text="@string/string_leaderboard_default_userName"
+                                android:textColor="@color/background"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_leaderboard_description"
+                                android:layout_width="247dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:fontFamily="@font/inter_variable"
+                                android:text="@string/string_leaderboard_signIn_function_description"
+                                android:textColor="@color/background"
+                                android:textSize="18sp" />
+
+                            <Button
+                                android:id="@+id/button_leaderboard_sign_in_sign_up"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:backgroundTint="@color/background"
+                                android:clickable="true"
+                                android:fontFamily="@font/inter_variable"
+                                android:text="@string/string_leaderboard_signInOrUp_text"
+                                android:textColor="@color/foreground" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_leaderboard_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+                    tools:visibility="gone" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="5dp"
-                    tools:layout_editor_absoluteX="5dp"
-                    tools:layout_editor_absoluteY="5dp">
+                    android:id="@+id/view_leaderboard_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/image_leaderboard_leaderboard_icon"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginEnd="16dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_account_circle_24"
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:src="@drawable/ic_launcher_monochrome_icon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                        app:strokeColor="@color/background"
-                        app:strokeWidth="3dp"
-                        app:tint="@color/background" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.371"
+                        app:tint="@color/foreground" />
 
-                        <TextView
-                            android:id="@+id/text_leaderboard_Username"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/inter_variable"
-                            android:gravity="center_horizontal"
-                            android:text="@string/string_leaderboard_default_userName"
-                            android:textColor="@color/background"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_leaderboard_description"
-                            android:layout_width="247dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:fontFamily="@font/inter_variable"
-                            android:text="@string/string_leaderboard_signIn_function_description"
-                            android:textColor="@color/background"
-                            android:textSize="18sp" />
-
-                        <Button
-                            android:id="@+id/button_leaderboard_sign_in_sign_up"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:backgroundTint="@color/background"
-                            android:clickable="true"
-                            android:fontFamily="@font/inter_variable"
-                            android:text="@string/string_leaderboard_signInOrUp_text"
-                            android:textColor="@color/foreground" />
-
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/inter_variable"
+                        android:text="Wow! Such empty"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                        app:tint="@color/foreground" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_leaderboard_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
-                app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

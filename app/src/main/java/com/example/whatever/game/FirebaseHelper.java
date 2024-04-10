@@ -188,9 +188,10 @@ public class FirebaseHelper {
         long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
         long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+        long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
 
         return bestTimeLevel1 != 0 && bestTimeLevel2 != 0 && bestTimeLevel3 != 0 && bestTimeLevel4 != 0
-                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0;
+                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0 && bestTimeLevel9!= 0;
     }
 
     public Map<String, Object> firebaseGetBestTime(Activity activity){
@@ -203,18 +204,22 @@ public class FirebaseHelper {
         Long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
         Long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         Long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+        Long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        int dinoCount = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0);
 
         Map<String, Object> result = new HashMap<>();
-        result.put("bestTimeLevel1", bestTimeLevel1);
-        result.put("bestTimeLevel2", bestTimeLevel2);
-        result.put("bestTimeLevel3", bestTimeLevel3);
-        result.put("bestTimeLevel4", bestTimeLevel4);
-        result.put("bestTimeLevel5", bestTimeLevel5);
-        result.put("bestTimeLevel6", bestTimeLevel6);
-        result.put("bestTimeLevel7", bestTimeLevel7);
-        result.put("bestTimeLevel8", bestTimeLevel8);
-        result.put("bestTotalTime", bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 +
-                bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8);
+        result.put("bestTimeLevel1", String.valueOf(bestTimeLevel1));
+        result.put("bestTimeLevel2", String.valueOf(bestTimeLevel2));
+        result.put("bestTimeLevel3", String.valueOf(bestTimeLevel3));
+        result.put("bestTimeLevel4", String.valueOf(bestTimeLevel4));
+        result.put("bestTimeLevel5", String.valueOf(bestTimeLevel5));
+        result.put("bestTimeLevel6", String.valueOf(bestTimeLevel6));
+        result.put("bestTimeLevel7", String.valueOf(bestTimeLevel7));
+        result.put("bestTimeLevel8", String.valueOf(bestTimeLevel8));
+        result.put("bestTimeLevel9", String.valueOf(bestTimeLevel9));
+        result.put("bestTotalTime", String.valueOf(bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 +
+                bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8 + bestTimeLevel9));
+        result.put("dinoCount", dinoCount);
         return result;
 
     }
@@ -228,7 +233,7 @@ public class FirebaseHelper {
                 for (DataSnapshot user : snapshot.getChildren()){
                     String uid = user.getKey();
                     String userName = user.child("username").getValue(String.class);
-                    String bestTimeString = user.child("bestTime").getValue(String.class);
+                    String bestTimeString = user.child("bestTotalTime").getValue(String.class);
                     String profilePicURL = user.child("profilePicURL").getValue(String.class);
 
                     Log.d("Record", "Uid = " + uid + ", UserName = " + userName + ", BestTime = " + bestTimeString + ", ProfilePicURL = " + profilePicURL);
@@ -283,6 +288,64 @@ public class FirebaseHelper {
                 }
             }
 
+        });
+
+    }
+
+    public void retrieveProgress(){
+        mDatabase.child("UserProfile").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String Level1 = snapshot.child("bestTimeLevel1").getValue(String.class);
+                String Level2 = snapshot.child("bestTimeLevel2").getValue(String.class);
+                String Level3 = snapshot.child("bestTimeLevel3").getValue(String.class);
+                String Level4 = snapshot.child("bestTimeLevel4").getValue(String.class);
+                String Level5 = snapshot.child("bestTimeLevel5").getValue(String.class);
+                String Level6 = snapshot.child("bestTimeLevel6").getValue(String.class);
+                String Level7 = snapshot.child("bestTimeLevel7").getValue(String.class);
+                String Level8 = snapshot.child("bestTimeLevel8").getValue(String.class);
+                String bestTotalTime = snapshot.child("bestTotalTime").getValue(String.class);
+                int dinoCount = snapshot.child("dinoCount").getValue(Integer.class);
+
+                if (Level1!= null &&!Level1.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL1, Long.parseLong(Level1));
+                }
+                if (Level2!= null &&!Level2.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL2, Long.parseLong(Level2));
+                }
+                if (Level3!= null &&!Level3.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL3, Long.parseLong(Level3));
+                }
+                if (Level4!= null &&!Level4.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL4, Long.parseLong(Level4));
+                }
+                if (Level5!= null &&!Level5.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL5, Long.parseLong(Level5));
+                }
+                if (Level6!= null &&!Level6.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL6, Long.parseLong(Level6));
+                }
+                if (Level7!= null &&!Level7.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL7, Long.parseLong(Level7));
+                }
+                if (Level8!= null &&!Level8.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL8, Long.parseLong(Level8));
+                }
+                if (bestTotalTime!= null &&!bestTotalTime.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_USED_TOTAL, Long.parseLong(bestTotalTime));
+                }
+                if (!(dinoCount == 0)) {
+                    UserPreferences.editor.putInt(UserPreferences.DINO_COUNT, dinoCount);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
 
     }

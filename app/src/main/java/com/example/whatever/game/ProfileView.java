@@ -137,10 +137,13 @@ public class ProfileView extends AppCompatActivity {
                 .setMessage("You are about to log out. Are you sure?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    firebaseHelper.logout();
-                    utils.showSnackBarMessage("Log out successfully");
-                    utils.removeAvatar();
-                    updateUI();
+                    firebaseHelper.updateBestTime(this, isComplete -> {
+                        firebaseHelper.logout();
+                        utils.showSnackBarMessage("Log out successfully");
+                        utils.removeAvatar();
+                        utils.logoutRemoveRecord();
+                        updateUI();
+                    });
                 })
                 .setNegativeButton("No", (dialog, id) -> dialog.cancel())
                 .show());

@@ -9,16 +9,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +33,7 @@ public class LeaderBoard extends AppCompatActivity {
 
     private Utils utils;
     private final FirebaseHelper firebaseHelper = new FirebaseHelper();
-    List<HashMap<String, Object>> leaderBoardItems = new ArrayList<>();
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class LeaderBoard extends AppCompatActivity {
         });
 
         firebaseHelper.updateBestTime(this, successful ->{});
+        progress = findViewById(R.id.progressBar_leaderboard);
 
         updateUI();
         listenerInit();
@@ -58,15 +62,24 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
     private void recyclerViewItemInit(Consumer<List<LeaderboardViewModel>> callback) {
+        progress.setVisibility(View.VISIBLE);
+
+        ConstraintLayout emptyView = findViewById(R.id.view_leaderboard_empty);
+        RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
+
         firebaseHelper.getLeaderboard(newLeaderboardData -> {
             if (newLeaderboardData != null) {
-                utils.showToastMessage("Fetched" + newLeaderboardData.size());
-                Log.d("LeaderBoard", "Fetched");
-                List<LeaderboardViewModel> convertedData = convertToLeaderboardViewModels(newLeaderboardData);
-                callback.accept(convertedData);
+                if (newLeaderboardData.size() == 0) {
+                    leaderboard.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
+                } else {
+                    List<LeaderboardViewModel> convertedData = convertToLeaderboardViewModels(newLeaderboardData);
+                    callback.accept(convertedData);
+                }
             } else {
-                utils.showToastMessage("Error");
-                Log.d("LeaderBoard", "Error");
+                utils.showToastMessage("Try again");
+                progress.setVisibility(View.GONE);
             }
         });
     }
@@ -81,13 +94,12 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
     private void leaderBoardRecyclerViewInit() {
-        utils.showToastMessage("start");
-        Log.d("LeaderBoard", "start fetch");
         RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
         recyclerViewItemInit(newLeaderboardData -> {
             LeaderboardViewRecyclerAdapter adapter = new LeaderboardViewRecyclerAdapter(this, newLeaderboardData);
             leaderboard.setAdapter(adapter);
             leaderboard.setLayoutManager(new LinearLayoutManager(this));
+
         });
     }
 
@@ -130,6 +142,14 @@ public class LeaderBoard extends AppCompatActivity {
                 finish();
             }
         });
+
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.view_leaderboard_swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            recyclerViewItemInit(newLeaderboardData -> {
+                leaderBoardRecyclerViewInit();
+            });
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     private void updateUI(){
@@ -163,5 +183,7 @@ public class LeaderBoard extends AppCompatActivity {
         }
 
     }
+
+
 
 }

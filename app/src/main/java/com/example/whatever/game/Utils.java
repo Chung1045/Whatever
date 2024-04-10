@@ -379,4 +379,8 @@ public class Utils {
         }
     }
 
+    public void logoutRemoveRecord(){
+        UserPreferences.editor.clear().commit();
+    }
+
 }
