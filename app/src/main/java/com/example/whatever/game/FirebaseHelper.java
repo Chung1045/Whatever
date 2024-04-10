@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -157,6 +158,59 @@ public class FirebaseHelper {
                 }
             });
         }
+
+    }
+
+    public void updateBestTime(Activity activity, Consumer<Boolean> onSuccess) {
+        if (isLoggedIn()) {
+            if (isAllLevelPassed(activity)) {
+                Map<String, Object> bestTimeMap = firebaseGetBestTime(activity);
+                mDatabase.child("UserProfile")
+                        .child(user.getUid()).updateChildren(bestTimeMap)
+                        .addOnSuccessListener(e -> onSuccess.accept(true))
+                        .addOnFailureListener(e -> onSuccess.accept(false));
+            } else onSuccess.accept(false);
+        }
+    }
+
+    public boolean isAllLevelPassed(Activity activity){
+        UserPreferences.init(activity);
+        long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
+        long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
+        long bestTimeLevel3 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0);
+        long bestTimeLevel4 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0);
+        long bestTimeLevel5 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0);
+        long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
+        long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
+        long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+
+        return bestTimeLevel1 != 0 && bestTimeLevel2 != 0 && bestTimeLevel3 != 0 && bestTimeLevel4 != 0
+                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0;
+    }
+
+    public Map<String, Object> firebaseGetBestTime(Activity activity){
+        UserPreferences.init(activity);
+        Long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
+        Long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
+        Long bestTimeLevel3 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0);
+        Long bestTimeLevel4 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0);
+        Long bestTimeLevel5 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0);
+        Long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
+        Long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
+        Long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("bestTimeLevel1", bestTimeLevel1);
+        result.put("bestTimeLevel2", bestTimeLevel2);
+        result.put("bestTimeLevel3", bestTimeLevel3);
+        result.put("bestTimeLevel4", bestTimeLevel4);
+        result.put("bestTimeLevel5", bestTimeLevel5);
+        result.put("bestTimeLevel6", bestTimeLevel6);
+        result.put("bestTimeLevel7", bestTimeLevel7);
+        result.put("bestTimeLevel8", bestTimeLevel8);
+        result.put("bestTotalTime", bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 +
+                bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8);
+        return result;
 
     }
 

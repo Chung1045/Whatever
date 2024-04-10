@@ -80,6 +80,7 @@ public class LeaderBoard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(LeaderBoard.this, ProfileView.class));
             this.finish();
             return true;
         }
@@ -129,6 +130,9 @@ public class LeaderBoard extends AppCompatActivity {
                 }
             });
             profileDescription.setText(utils.getBestTotaltime());
+            if (utils.isAllLevelPassed()){
+                firebaseHelper.updateBestTime(this, successful ->{});
+            }
         } else {
             userName.setText("Guests");
             signIn.setVisibility(View.VISIBLE);
