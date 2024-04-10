@@ -3,6 +3,7 @@ package com.example.whatever.game;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,8 +59,15 @@ public class LeaderBoard extends AppCompatActivity {
 
     private void recyclerViewItemInit(Consumer<List<LeaderboardViewModel>> callback) {
         firebaseHelper.getLeaderboard(newLeaderboardData -> {
-            List<LeaderboardViewModel> convertedData = convertToLeaderboardViewModels(newLeaderboardData);
-            callback.accept(convertedData);
+            if (newLeaderboardData != null) {
+                utils.showToastMessage("Fetched" + newLeaderboardData.size());
+                Log.d("LeaderBoard", "Fetched");
+                List<LeaderboardViewModel> convertedData = convertToLeaderboardViewModels(newLeaderboardData);
+                callback.accept(convertedData);
+            } else {
+                utils.showToastMessage("Error");
+                Log.d("LeaderBoard", "Error");
+            }
         });
     }
 
@@ -73,6 +81,8 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
     private void leaderBoardRecyclerViewInit() {
+        utils.showToastMessage("start");
+        Log.d("LeaderBoard", "start fetch");
         RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
         recyclerViewItemInit(newLeaderboardData -> {
             LeaderboardViewRecyclerAdapter adapter = new LeaderboardViewRecyclerAdapter(this, newLeaderboardData);

@@ -3,6 +3,7 @@ package com.example.whatever.game;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +21,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -225,21 +228,31 @@ public class FirebaseHelper {
                 for (DataSnapshot user : snapshot.getChildren()){
                     String uid = user.getKey();
                     String userName = user.child("username").getValue(String.class);
-                    Long bestTime = user.child("bestTotalTime").getValue(Long.class);
+                    String bestTimeString = user.child("bestTime").getValue(String.class);
                     String profilePicURL = user.child("profilePicURL").getValue(String.class);
 
+                    Log.d("Record", "Uid = " + uid + ", UserName = " + userName + ", BestTime = " + bestTimeString + ", ProfilePicURL = " + profilePicURL);
+
                     // Check if bestTime is not zero
-                    if (bestTime != null && bestTime != 0){
+                    if (bestTimeString!= null &&!bestTimeString.equals("0")){
+                        Log.d("Record", "Accept data");
                         HashMap<String, Object> userMap = new HashMap<>();
                         userMap.put("uid", uid);
                         userMap.put("username", userName);
-                        userMap.put("bestTime", bestTime);
+                        userMap.put("bestTime", Long.parseLong(bestTimeString));
                         userMap.put("profilePicURL", profilePicURL);
 
                         // Add the user data to the leaderboard list
                         leaderboardList.add(userMap);
+                    } else {
+                        Log.d("Record", "Discard data");
                     }
                 }
+                Log.d("Record", "Leaderboard size = " + leaderboardList.size() + "\n Data = " + leaderboardList + "\n Now going to sort");
+                // Sort the leaderboard list by bestTime in ascending order
+                sortByBestTimeAscending(leaderboardList);
+                Log.d("Record", "Sorted: " + leaderboardList);
+
                 // Call the callback with the leaderboard data
                 callback.accept(leaderboardList);
             }
@@ -248,9 +261,30 @@ public class FirebaseHelper {
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle database error
             }
+
+            private void sortByBestTimeAscending(List<HashMap<String, Object>> leaderboardList) {
+                // Define a custom Comparator
+                Comparator<HashMap<String, Object>> comparator = new Comparator<HashMap<String, Object>>() {
+                    @Override
+                    public int compare(HashMap<String, Object> item1, HashMap<String, Object> item2) {
+                        // Retrieve the bestTime values from the HashMaps
+                        float bestTime1 = ((Number) item1.get("bestTime")).floatValue();
+                        float bestTime2 = ((Number) item2.get("bestTime")).floatValue();
+
+                        // Compare the bestTime values
+                        return Float.compare(bestTime1, bestTime2);
+                    }
+                };
+
+                // Sort the list using the custom Comparator
+                Collections.sort(leaderboardList, comparator);
+                for (int i = 0; i < leaderboardList.size(); i++) {
+                    leaderboardList.get(i).put("position", i + 1);
+                }
+            }
+
         });
+
     }
-
-
 
 }
