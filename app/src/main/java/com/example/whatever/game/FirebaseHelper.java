@@ -19,7 +19,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -213,5 +215,42 @@ public class FirebaseHelper {
         return result;
 
     }
+
+    public void getLeaderboard(Consumer<List<HashMap<String, Object>>> callback) {
+        List<HashMap<String, Object>> leaderboardList = new ArrayList<>();
+
+        mDatabase.child("UserProfile").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot user : snapshot.getChildren()){
+                    String uid = user.getKey();
+                    String userName = user.child("username").getValue(String.class);
+                    Long bestTime = user.child("bestTotalTime").getValue(Long.class);
+                    String profilePicURL = user.child("profilePicURL").getValue(String.class);
+
+                    // Check if bestTime is not zero
+                    if (bestTime != null && bestTime != 0){
+                        HashMap<String, Object> userMap = new HashMap<>();
+                        userMap.put("uid", uid);
+                        userMap.put("username", userName);
+                        userMap.put("bestTime", bestTime);
+                        userMap.put("profilePicURL", profilePicURL);
+
+                        // Add the user data to the leaderboard list
+                        leaderboardList.add(userMap);
+                    }
+                }
+                // Call the callback with the leaderboard data
+                callback.accept(leaderboardList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
+            }
+        });
+    }
+
+
 
 }

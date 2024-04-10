@@ -319,6 +319,21 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet_ErrorCode" />
 
+                    <TextView
+                        android:id="@+id/text_level9_dino_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="108dp"
+                        android:layout_marginEnd="20dp"
+                        android:fontFamily="@font/inter_variable"
+                        android:gravity="right"
+                        android:text="000"
+                        android:textSize="20sp"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/foreground" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

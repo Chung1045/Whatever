@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -27,7 +29,7 @@ public class LeaderBoard extends AppCompatActivity {
 
     private Utils utils;
     private final FirebaseHelper firebaseHelper = new FirebaseHelper();
-    ArrayList<itemModel> recyclerItems = new ArrayList<>();
+    List<HashMap<String, Object>> leaderBoardItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,30 +48,39 @@ public class LeaderBoard extends AppCompatActivity {
             return insets;
         });
 
+        firebaseHelper.updateBestTime(this, successful ->{});
+
+        updateUI();
         listenerInit();
         leaderBoardRecyclerViewInit();
 
     }
 
-    private void leaderBoardRecyclerViewInit() {
-
-        RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
-        recyclerViewItemInit();
-
-        LeaderboardViewRecyclerAdapter adapter = new LeaderboardViewRecyclerAdapter(this, recyclerItems);
-
-        leaderboard.setAdapter(adapter);
-        leaderboard.setLayoutManager(new LinearLayoutManager(this));
-
+    private void recyclerViewItemInit(Consumer<List<LeaderboardViewModel>> callback) {
+        firebaseHelper.getLeaderboard(newLeaderboardData -> {
+            List<LeaderboardViewModel> convertedData = convertToLeaderboardViewModels(newLeaderboardData);
+            callback.accept(convertedData);
+        });
     }
 
-    private void recyclerViewItemInit() {
-        String[] names = getResources().getStringArray(R.array.names);
-
-        for (int i = 0; i < names.length; i++) {
-            recyclerItems.add(new itemModel(names[i], i + 1)); // Increment position value by 1 to start counting from 1
+    private List<LeaderboardViewModel> convertToLeaderboardViewModels(List<HashMap<String, Object>> data) {
+        List<LeaderboardViewModel> convertedData = new ArrayList<>();
+        for (HashMap<String, Object> userData : data) {
+            LeaderboardViewModel viewModel = new LeaderboardViewModel(userData);
+            convertedData.add(viewModel);
         }
+        return convertedData;
     }
+
+    private void leaderBoardRecyclerViewInit() {
+        RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
+        recyclerViewItemInit(newLeaderboardData -> {
+            LeaderboardViewRecyclerAdapter adapter = new LeaderboardViewRecyclerAdapter(this, newLeaderboardData);
+            leaderboard.setAdapter(adapter);
+            leaderboard.setLayoutManager(new LinearLayoutManager(this));
+        });
+    }
+
 
     @Override
     protected void onResume() {

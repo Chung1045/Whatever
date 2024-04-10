@@ -4,21 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.whatever.game.LeaderboardViewModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class LeaderboardViewRecyclerAdapter extends RecyclerView.Adapter<LeaderboardViewRecyclerAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<itemModel> names;
+    private List<LeaderboardViewModel> leaderboardData;
 
-    public LeaderboardViewRecyclerAdapter(Context context, ArrayList<itemModel> names){
+    public LeaderboardViewRecyclerAdapter(Context context, List<LeaderboardViewModel> leaderboardData){
         this.context = context;
-        this.names = names;
+        this.leaderboardData = leaderboardData;
     }
 
     @NonNull
@@ -33,27 +37,33 @@ public class LeaderboardViewRecyclerAdapter extends RecyclerView.Adapter<Leaderb
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // Assign / update data to views
-        holder.userName.setText(names.get(position).getUserName());
-        holder.position.setText(String.valueOf(names.get(position).getPosition()));
+        LeaderboardViewModel item = leaderboardData.get(position);
+        holder.userName.setText(item.getUserName());
+        holder.position.setText(String.valueOf(item.getPosition()));
+
+        // Load profile image using Picasso
+        Picasso.get().load(item.getProfilePicURL()).into(holder.profileImage);
     }
+
 
     @Override
     public int getItemCount() {
         // Return the size of the list
-        return names.size();
+        return leaderboardData.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         // Define views for the recycler view item
         private TextView userName;
         private TextView position;
+        private ImageView profileImage;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             userName = itemView.findViewById(R.id.userName);
             position = itemView.findViewById(R.id.position);
-
+            profileImage = itemView.findViewById(R.id.recycler_item_useravatar);
         }
     }
-
 }

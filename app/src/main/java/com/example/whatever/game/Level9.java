@@ -59,11 +59,24 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         UserPreferences.editor.putInt(UserPreferences.LAST_PLAYED_LEVEL, 9).commit();
         progressBar = findViewById(R.id.progressBar_Level9_web);
 
+
+
         topBarInit();
         utils = new Utils(this, v, this);
         utils.playEnterLevelSFX();
+        uiInit();
         listenerInit();
         swipeRefreshLayoutInit();
+    }
+
+    private void uiInit() {
+        TextView dinoCount = findViewById(R.id.text_level9_dino_count);
+        int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT,0);
+
+        if (count != 0){
+            dinoCount.setVisibility(View.VISIBLE);
+            dinoCount.setText(String.valueOf(count));
+        }
     }
 
     private void swipeRefreshLayoutInit() {
@@ -317,11 +330,17 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     private void listenerInit() {
 
         findViewById(R.id.image_level9_dino).setOnClickListener(view -> {
-            Boolean isJumping = false;
             ImageView dinoImageView = findViewById(R.id.image_level9_dino);
+            TextView dinoCount = findViewById(R.id.text_level9_dino_count);
+            dinoCount.setVisibility(View.VISIBLE);
 
             // Play the sound effect for the dino jump
             utils.playSFX(R.raw.sfx_level9_jump_dino);
+
+            UserPreferences.editor.putInt(UserPreferences.DINO_COUNT,
+                    UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0) + 1).commit();
+            int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT,0);
+            dinoCount.setText(String.valueOf(count));
 
             // Define the vertical displacement for the jump (60dp)
             int jumpHeight = (int) getResources().getDimension(R.dimen.dino_jump_height);
