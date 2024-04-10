@@ -320,9 +320,6 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void resetState(){
-        View textView = findViewById(R.id.timer_text_view);
-        textView.setTranslationX(0);
-        textView.setTranslationY(0);
         // add you move-able / state changeable elements here
     }
 

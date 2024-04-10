@@ -55,12 +55,12 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         lv6_throwselect = findViewById(R.id.image_Level6_select_throw);
         lv6_you = findViewById(R.id.tv_you);
         lv6_enemy = findViewById(R.id.tv_enemy);
-    }
-
-    private void lottieAnimation(int id){
         spearLose = findViewById(R.id.animation_Level6spear_lose);
         throwLose = findViewById(R.id.animation_Level6throw_lose);
         win = findViewById(R.id.animation_Level6win);
+    }
+
+    private void lottieAnimation(int id){
         switch (id){
             case 0:
                 win.setVisibility(View.VISIBLE);
@@ -350,9 +350,21 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         lv6_enemy.setVisibility(View.GONE);
     }
     private void resetState(){
-        View textView = findViewById(R.id.timer_text_view);
-        textView.setTranslationX(0);
-        textView.setTranslationY(0);
+        lv6_you.setVisibility(View.VISIBLE);
+        lv6_enemy.setVisibility(View.VISIBLE);
+        lv6_original_archer.setVisibility(View.VISIBLE);
+        lv6_original_player.setVisibility(View.VISIBLE);
+        lv6_pass.setVisibility(View.VISIBLE);
+        lv6_vs.setVisibility(View.VISIBLE);
+        lv6_spear.setVisibility(View.VISIBLE);
+        lv6_throw.setVisibility(View.VISIBLE);
+        win.setVisibility(View.GONE);
+        throwLose.setVisibility(View.GONE);
+        spearLose.setVisibility(View.GONE);
+        lv6_after_archer.setVisibility(View.GONE);
+        lv6_after_player.setVisibility(View.GONE);
+        lv6_throwselect.setVisibility(View.GONE);
+        lv6_spearselect.setVisibility(View.GONE);
         // add you move-able / state changeable elements here
     }
 
