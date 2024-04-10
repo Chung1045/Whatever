@@ -224,14 +224,28 @@
                     android:id="@+id/view_Level9_variableLayout_noInternet"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:visibility="gone">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/drawable_level9_dino_ground"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_level9_dino"
+                        app:layout_constraintEnd_toEndOf="@+id/image_level9_dino"
+                        app:layout_constraintStart_toStartOf="@+id/image_level9_dino"
+                        app:layout_constraintTop_toTopOf="@+id/image_level9_dino" />
+
 
                     <ImageView
                         android:id="@+id/image_level9_dino"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="48dp"
                         android:src="@drawable/drawable_level9_dino"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -243,6 +257,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/inter_variable"
+                        app:tint="@color/foreground"
                         android:text="No internet"
                         android:textSize="22sp"
                         android:textStyle="bold"
@@ -258,6 +273,8 @@
                         android:layout_marginEnd="20dp"
                         android:text="There is something wrong with the proxy server, or the address is incorrect."
                         android:textSize="18sp"
+                        android:fontFamily="@font/inter_variable"
+                        app:tint="@color/foreground"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet" />
@@ -271,6 +288,8 @@
                         android:layout_marginEnd="20dp"
                         android:text="Try:\n\n\t\t\t\t • Contacting the system admin\n\n\t\t\t\t\t• Checking the proxy address"
                         android:textSize="18sp"
+                        android:fontFamily="@font/inter_variable"
+                        app:tint="@color/foreground"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet_Description" />
@@ -282,6 +301,8 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="16dp"
                         android:text="ERR_PROXY_CONNECTION_FAILED"
+                        android:fontFamily="@font/inter_variable"
+                        app:tint="@color/foreground"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_Level9_suggestedAction" />
 
@@ -292,6 +313,8 @@
                         android:layout_marginTop="16dp"
                         android:backgroundTint="@color/foreground"
                         android:text="Details"
+                        android:fontFamily="@font/inter_variable"
+                        app:tint="@color/foreground"
                         android:textColor="@color/background"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet_ErrorCode" />
@@ -305,7 +328,7 @@
                     android:visibility="gone"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="145dp"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_Level9_However_title"
@@ -316,31 +339,28 @@
                         android:text="However?!"
                         android:textSize="36sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="visible" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textinput_Level9_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="80dp"
                         android:fontFamily="@font/inter_variable"
                         android:foregroundTint="@color/foreground"
                         android:hint="User Name"
-                        android:layout_marginTop="80dp"
                         android:padding="16dp"
                         app:boxStrokeColor="@color/textFieldBorderColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_Level9_However_title"
-                        tools:visibility="visible">
+                        app:layout_constraintTop_toBottomOf="@+id/text_Level9_However_title">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_variable"
                             android:inputType="text"
-                            android:text="daSiteIsDown"
-                            tools:visibility="visible" />
+                            android:text="daSiteIsDown" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -355,16 +375,14 @@
                         app:boxStrokeColor="@color/textFieldBorderColor"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textinput_Level9_username"
-                        tools:visibility="visible">
+                        app:layout_constraintTop_toBottomOf="@+id/textinput_Level9_username">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_variable"
                             android:inputType="textVisiblePassword"
-                            android:text="soLeafmeeeALooooong9"
-                            tools:visibility="visible" />
+                            android:text="soLeafmeeeALooooong9" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -391,12 +409,11 @@
                         android:layout_marginTop="104dp"
                         android:layout_marginEnd="16dp"
                         android:text="Task Failed Successfully?!"
-                        android:visibility="gone"
                         android:textSize="36sp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="visible" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

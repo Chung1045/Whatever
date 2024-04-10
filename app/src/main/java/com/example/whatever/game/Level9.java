@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -314,7 +316,60 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     // Listener for Level elements
     private void listenerInit() {
 
-        findViewById(R.id.image_level9_dino).setOnClickListener(view -> utils.playSFX(R.raw.sfx_level9_jump_dino));
+        findViewById(R.id.image_level9_dino).setOnClickListener(view -> {
+            Boolean isJumping = false;
+            ImageView dinoImageView = findViewById(R.id.image_level9_dino);
+
+            // Play the sound effect for the dino jump
+            utils.playSFX(R.raw.sfx_level9_jump_dino);
+
+            // Define the vertical displacement for the jump (60dp)
+            int jumpHeight = (int) getResources().getDimension(R.dimen.dino_jump_height);
+
+            // Create a translate animation to move the SVG upward
+            TranslateAnimation jumpAnimation = new TranslateAnimation(
+                    Animation.RELATIVE_TO_SELF, 0,
+                    Animation.RELATIVE_TO_SELF, 0,
+                    Animation.RELATIVE_TO_SELF, 0,
+                    Animation.RELATIVE_TO_SELF, -jumpHeight);
+
+            // Set the duration of the jump animation
+            jumpAnimation.setDuration(250); // Adjust the duration as needed
+
+            // Set an interpolator to make the jump animation smoother
+            jumpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+            // Set a listener to handle the end of the jump animation
+            jumpAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    // After the jump, create a new animation to move the SVG back to its original position
+                    TranslateAnimation returnAnimation = new TranslateAnimation(
+                            Animation.RELATIVE_TO_SELF, 0,
+                            Animation.RELATIVE_TO_SELF, 0,
+                            Animation.RELATIVE_TO_SELF, -jumpHeight,
+                            Animation.RELATIVE_TO_SELF, 0);
+
+                    // Set the duration of the return animation
+                    returnAnimation.setDuration(250); // Adjust the duration as needed
+
+                    // Set an interpolator for the return animation
+                    returnAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    // Apply the return animation to the SVG
+                    dinoImageView.startAnimation(returnAnimation);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
+
+            // Apply the jump animation to the SVG
+            dinoImageView.startAnimation(jumpAnimation);
+        });
 
         findViewById(R.id.button_Level9_backOnline_nextBt).setOnClickListener(view -> {
             timerHandler.removeCallbacks(updateTimerThread);
@@ -400,161 +455,165 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         return super.dispatchTouchEvent(event);
     }
 
-    private void dialogueOne(Consumer<Boolean> iscontinue){
+    private void dialogueOne(Consumer<Boolean> isContinue){
         new MaterialAlertDialogBuilder(this).setTitle("Are you sure?")
                 .setMessage("Changes you made will be lost.")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    iscontinue.accept(true);
+                    isContinue.accept(true);
                 })
                 .setNegativeButton("No", (dialog, id) -> {
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                     progressBar.setVisibility(GONE);})
                 .show();
     }
 
-    private void dialogueTwo(Consumer<Boolean> iscontinue){
+    private void dialogueTwo(Consumer<Boolean> isContinue){
         new MaterialAlertDialogBuilder(this).setTitle("Really?")
                .setMessage("Changes you made will be lost.")
                .setCancelable(false)
                .setPositiveButton("Yes", (dialog, id) -> {
-                   iscontinue.accept(true);
+                   isContinue.accept(true);
                })
                 .setNegativeButton("No", (dialog, id) -> {
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                     progressBar.setVisibility(GONE);})
               .show();
     }
 
-    private void dialogueThree(Consumer<Boolean> iscontinue){
+    private void dialogueThree(Consumer<Boolean> isContinue){
         new MaterialAlertDialogBuilder(this).setTitle("Think again?")
                .setMessage("Changes you made will be lost.")
                .setCancelable(false)
                .setPositiveButton("Yes", (dialog, id) -> {
-                   iscontinue.accept(true);
+                   isContinue.accept(true);
                })
                 .setNegativeButton("No", (dialog, id) -> {
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                     progressBar.setVisibility(GONE);})
               .show();
     }
 
-    private void dialogueFour(Consumer<Boolean> iscontinue){
+    private void dialogueFour(Consumer<Boolean> isContinue){
         new MaterialAlertDialogBuilder(this).setTitle("I'm sorry, but are you really sure?...")
               .setMessage("Changes you made will be lost.")
               .setCancelable(false)
               .setPositiveButton("Yes", (dialog, id) -> {
-                  iscontinue.accept(true);
+                  isContinue.accept(true);
               }
               )
                 .setNegativeButton("No", (dialog, id) -> {
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                     progressBar.setVisibility(GONE);})
              .show();
     }
 
-    private void dialogueFive(Consumer<Boolean> iscontinue){
+    private void dialogueFive(Consumer<Boolean> isContinue){
         new MaterialAlertDialogBuilder(this).setTitle("I'm sorry, but are you really sure?...")
              .setMessage("Changes you made will be lost.")
              .setCancelable(false)
             .setPositiveButton("Yes", (dialog, id) -> {
-                 iscontinue.accept(true);
+                 isContinue.accept(true);
              })
                 .setNegativeButton("No", (dialog, id) -> {
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                     progressBar.setVisibility(GONE);})
             .show();
     }
 
-    private void dialogueSix(Consumer<Boolean> iscontinue) {
+    private void dialogueSix(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("...")
                 .setMessage("Changes you made will be lost.")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    iscontinue.accept(true);
+                    isContinue.accept(true);
                 })
                 .setNegativeButton("No", (dialog, id) -> {
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                     progressBar.setVisibility(GONE);})
                 .show();
     }
 
-    private void dialogueSeven(Consumer<Boolean> iscontinue) {
+    private void dialogueSeven(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("Okay then...")
                .setMessage("What about we play a game?\n If you win I let you reconnect to the internet.")
                .setCancelable(false)
                .setPositiveButton("Yes", (dialog, id) -> {
-                   iscontinue.accept(true);
+                   isContinue.accept(true);
                })
               .setNegativeButton("No", (dialog, id) -> {
-                  iscontinue.accept(false);
+                  isContinue.accept(false);
                   progressBar.setVisibility(GONE);})
               .show();
     }
 
-    private void dialogueEight(Consumer<Boolean> iscontinue) {
+    private void dialogueEight(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("Ready?")
                 .setMessage("Remember this color \n #FF0000")
                 .setCancelable(false)
                 .setPositiveButton("OK", (dialog, id) -> {
-                    iscontinue.accept(true);
+                    isContinue.accept(true);
                 })
                 .show();
     }
 
-    private void dialogueNine(Consumer<Boolean> iscontinue) {
+    private void dialogueNine(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("What is the last color?")
                .setMessage("Remember this color Yellow")
                 .setCancelable(false)
                 .setPositiveButton("Red", (dialog, id) -> {
-                    iscontinue.accept(true);
+                    isContinue.accept(true);
                 })
                 .setNegativeButton("Blue", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                 })
                 .setNeutralButton("Green", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                 })
                 .show();
     }
 
-    private void dialogueTen(Consumer<Boolean> iscontinue) {
+    private void dialogueTen(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("What is the last color?")
                 .setMessage("Remember this color Green")
                 .setCancelable(false)
                 .setPositiveButton("#FFFF00", (dialog, id) -> {
-                    iscontinue.accept(true);
+                    isContinue.accept(true);
                 })
                 .setNegativeButton("#00FFFF", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                 })
                 .setNeutralButton("#FF00FF", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                 })
                 .show();
     }
 
-    private void dialogueEleven(Consumer<Boolean> iscontinue) {
+    private void dialogueEleven(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("What would be the color?")
                 .setMessage("What is the color when the first color mixed with the third color?")
                 .setCancelable(false)
                 .setPositiveButton("Topaz", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(true);
+                    isContinue.accept(true);
                 })
                 .setNegativeButton("Calamansi", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                 })
                 .setNeutralButton("Pale", (dialog, id) -> {
                     progressBar.setVisibility(GONE);
-                    iscontinue.accept(false);
+                    isContinue.accept(false);
                 })
                 .show();
+    }
+
+    private void dinoCountBlink(){
+        
     }
 
 }
