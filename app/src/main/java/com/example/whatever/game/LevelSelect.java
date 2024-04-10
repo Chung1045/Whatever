@@ -81,7 +81,7 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(this, MainActivity.class));
             }
             if (view.getId() == R.id.button_selectLevel_templateLevel) {
-                startActivity(new Intent(this, LevelTemplate.class));
+                startActivity(new Intent(this, Level9.class));
             }
             if (view.getId() == R.id.image_level_selection_account_icon) {
                 startActivity(new Intent(this, ProfileView.class));
@@ -101,19 +101,20 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
     protected void onResume() {
         super.onResume();
         ImageView avatar = findViewById(R.id.image_level_selection_account_icon);
+
         if (firebaseHelper.isLoggedIn()){
             utils.getBitmapFromByte(output -> {
                 if (!(output == null)){
                     avatar.setColorFilter(Color.TRANSPARENT);
                     avatar.setImageBitmap(output);
                 } else {
-                    avatar.setColorFilter(R.color.foreground);
                     avatar.setImageResource(R.drawable.ic_account_circle_24);
+                    avatar.setColorFilter(getColor(R.color.foreground));
                 }
             });
         } else {
-            avatar.setColorFilter(R.color.white);
             avatar.setImageResource(R.drawable.ic_account_circle_24);
+            avatar.setColorFilter(getColor(R.color.foreground));
         }
     }
 
