@@ -286,7 +286,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void updateBestTime(){
-        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L) == 0L ||
+        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L) != 0L ||
                 timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0L)){
             UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL9, timeUsedInMilliseconds).commit();
             TextView timeUsedTitle = findViewById(R.id.text_Level9_TimeUsedTitle);
@@ -308,7 +308,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     public void onWrongAttempt(){
-        utils.playWrongSFX();
+        utils.playSFX(R.raw.sfx_level9_wrong);
     }
 
     // AKA Stopwatch Timer
@@ -335,13 +335,18 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
             dinoCount.setVisibility(View.VISIBLE);
 
             // Play the sound effect for the dino jump
-            utils.playSFX(R.raw.sfx_level9_jump_dino);
+
 
             UserPreferences.editor.putInt(UserPreferences.DINO_COUNT,
                     UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0) + 1).commit();
             int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT,0);
             dinoCount.setText(String.valueOf(count));
 
+            if (count % 100 == 0){
+                dinoCountBlink();
+            } else{
+                utils.playSFX(R.raw.sfx_level9_jump_dino);
+            }
             // Define the vertical displacement for the jump (60dp)
             int jumpHeight = (int) getResources().getDimension(R.dimen.dino_jump_height);
 
@@ -632,6 +637,35 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void dinoCountBlink(){
+
+        TextView dinoCount = findViewById(R.id.text_level9_dino_count);
+        utils.playSFX(R.raw.sfx_level9_point);
+
+        new Handler().postDelayed(() -> {
+            dinoCount.setVisibility(GONE);
+            new Handler().postDelayed(() ->{
+                dinoCount.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(() -> {
+                    dinoCount.setVisibility(GONE);
+                    new Handler().postDelayed(() -> {
+                        dinoCount.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(() -> {
+                            dinoCount.setVisibility(GONE);
+                            new Handler().postDelayed(() -> {
+                                dinoCount.setVisibility(View.VISIBLE);
+                                new Handler().postDelayed(() -> {
+                                    dinoCount.setVisibility(GONE);
+                                    new Handler().postDelayed(() -> {
+                                        dinoCount.setVisibility(View.VISIBLE);
+                                    }, 500);
+                                }, 500);
+                            }, 500);
+                        }, 500);
+                    }, 500);
+                }, 500);
+            }, 500);
+        }, 500);
+
         
     }
 
