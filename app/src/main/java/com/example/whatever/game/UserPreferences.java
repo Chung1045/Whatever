@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 public class UserPreferences {
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String SFX_ENABLED = "sfxEnabled";
+    public static final String VIBRATION_ENABLED = "vibrationEnabled";
     public static final String BEST_TIME_LEVEL1 = "bestTimeLevel1";
     public static final String BEST_TIME_LEVEL2 = "bestTimeLevel2";
     public static final String BEST_TIME_LEVEL3 = "bestTimeLevel3";

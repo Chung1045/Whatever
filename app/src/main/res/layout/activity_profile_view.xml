@@ -223,7 +223,7 @@
             android:clickable="true">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/switchBarLayout_profile_sfx_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
@@ -242,7 +242,7 @@
                 android:textColor="@color/foreground"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/switchBarLayout_profile_sfx_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
@@ -258,19 +258,54 @@
                 app:thumbTint="@color/background"
                 app:trackTint="@color/foreground" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/switchBarLayout_profile_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/switchBarLayout_profile_vibration_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="20dp" />
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/baseline_vibration_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/foreground" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/string_profile_option_vibration_text"
+                android:textColor="@color/foreground"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/switchBarLayout_profile_vibration_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_profile_vibration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="16dp"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbTint="@color/background"
+                app:trackTint="@color/foreground" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

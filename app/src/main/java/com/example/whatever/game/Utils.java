@@ -17,6 +17,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -118,7 +121,10 @@ public class Utils {
     public void playSFX(int soundResourceId){
         sfxUtils.playSound(activity, soundResourceId);
     }
-    public void playWrongSFX(){ sfxUtils.playSound(activity, R.raw.wrong_sfx); }
+    public void playWrongSFX(){
+        sfxUtils.playSound(activity, R.raw.wrong_sfx);
+        sfxUtils.vibrateWithPattern();
+    }
     public void playEnterLevelSFX(){ sfxUtils.playSound(activity, R.raw.enter_level_sfx);}
     public void playCorrectSFX(){ sfxUtils.playCorrectSFXSound(activity);}
 
@@ -326,6 +332,18 @@ public class Utils {
             sfxPlayer = MediaPlayer.create(c, R.raw.correct_sfx);
             sfxPlayer.setOnCompletionListener(mediaPlayer -> MediaPlayer.create(c, R.raw.clapping_sfx).start());
             sfxPlayer.start();
+        }
+
+        public void vibrateWithPattern() {
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            if (vibrator != null) {
+                long[] pattern = {0, 150, 100, 150};
+
+                VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
+            if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
+                    vibrator.vibrate(vibrationEffect);
+                }
+            }
         }
 
     }

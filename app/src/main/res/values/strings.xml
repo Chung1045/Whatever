@@ -33,6 +33,7 @@
     <string name="string_profile_LogOut_text">Log Out</string>
     <string name="string_leaderboard_signIn_function_description">Sign in to view ranks</string>
     <string name="string_leaderboard_signInOrUp_text">Sign in / Sign up</string>
+    <string name="string_profile_option_vibration_text">Vibration</string>
 
     <string-array name="string_Level7_hints_array">
         <item>"Who wants to sleep with the light?"</item>

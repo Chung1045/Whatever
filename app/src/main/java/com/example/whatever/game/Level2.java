@@ -243,7 +243,19 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
             startActivity(new Intent(Level2.this, LevelSelect.class));
             finish();
         });
-        // place your element listener here
+
+        findViewById(R.id.image_Level2_third).setOnClickListener(view -> {
+            onWrongAttempt();
+        });
+
+        findViewById(R.id.image_Level2_second).setOnClickListener(view -> {
+            onWrongAttempt();
+        });
+
+        findViewById(R.id.image_Level2_first).setOnClickListener(view -> {
+            onWrongAttempt();
+        });
+
     }
 
     private void resetState() {

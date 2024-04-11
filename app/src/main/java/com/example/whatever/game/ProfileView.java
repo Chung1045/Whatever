@@ -83,6 +83,9 @@ public class ProfileView extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listView_profile_references);
 
+        MaterialSwitch vibrationSwitch = findViewById(R.id.switch_profile_vibration);
+        vibrationSwitch.setChecked(UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED,false));
+
         // Sample data
         String[] data = getResources().getStringArray(R.array.string_profile_references_array);
         ArrayList<String> dataList = new ArrayList<>(Arrays.asList(data));
@@ -113,6 +116,16 @@ public class ProfileView extends AppCompatActivity {
 
         MaterialSwitch sfxSwitch = findViewById(R.id.switch_profile_sfx);
         sfxSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, sfxSwitch.isChecked()).commit());
+
+        findViewById(R.id.switchBarLayout_profile_vibration).setOnClickListener(v -> {
+            MaterialSwitch vibrationSwitch = findViewById(R.id.switch_profile_vibration);
+            vibrationSwitch.setChecked(!vibrationSwitch.isChecked());
+            UserPreferences.editor.putBoolean(UserPreferences.VIBRATION_ENABLED, vibrationSwitch.isChecked()).commit();
+        });
+
+        MaterialSwitch vibrationSwitch = findViewById(R.id.switch_profile_vibration);
+        vibrationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> UserPreferences.editor.putBoolean(UserPreferences.VIBRATION_ENABLED, vibrationSwitch.isChecked()).commit());
+
 
         findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> {
             startActivity(new Intent(ProfileView.this, SignIn.class));

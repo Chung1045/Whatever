@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateUI() {
+
         ImageView avatar = findViewById(R.id.image_home_account_image);
 
         if (firebaseHelper.isLoggedIn()){
