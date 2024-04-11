@@ -169,7 +169,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_Level4_Question2"
-            tools:ignore="Autofill" />
+            tools:ignore="Autofill,LabelFor" />
 
         <Button
             android:id="@+id/button_Level4_ResetAnswerBt"

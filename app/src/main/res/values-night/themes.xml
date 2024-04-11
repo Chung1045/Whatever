@@ -5,7 +5,6 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:fontFamily">"@font/inter_variable"</item>
-        <item name="android:splashScreenTheme">@style/Theme.App.Starting</item>
     </style>
 
     <style name="Theme.Whatever.Button" parent="ThemeOverlay.Material3.Button">
@@ -16,10 +15,6 @@
     <style name="Theme.Whatever.ResultButton" parent="ThemeOverlay.Material3.Button">
         <item name="android:backgroundTint">@color/resultScreenButtonBackground</item>
         <item name="android:drawableTint">@color/resultScreenButtonForeground</item>
-    </style>
-
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="android:windowSplashScreenBackground">#FFFFFF</item>
     </style>
 
     <style name="roundedImageViewRounded">

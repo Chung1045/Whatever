@@ -164,14 +164,16 @@
                 android:layout_height="300dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/image_level5_peter" />
+                app:srcCompat="@drawable/image_level5_peter"
+                tools:ignore="ContentDescription" />
             <ImageView
                 android:id="@+id/image_her"
                 android:layout_width="146dp"
                 android:layout_height="135dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="150dp"
-                app:srcCompat="@drawable/drawable_level1_her" />
+                app:srcCompat="@drawable/drawable_level1_her"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <RelativeLayout

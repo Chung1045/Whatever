@@ -20,8 +20,8 @@ import java.util.List;
 
 public class LeaderboardViewRecyclerAdapter extends RecyclerView.Adapter<LeaderboardViewRecyclerAdapter.MyViewHolder> {
 
-    private Context context;
-    private List<LeaderboardViewModel> leaderboardData;
+    private final Context context;
+    private final List<LeaderboardViewModel> leaderboardData;
 
     public LeaderboardViewRecyclerAdapter(Context context, List<LeaderboardViewModel> leaderboardData){
         this.context = context;
@@ -75,10 +75,10 @@ public class LeaderboardViewRecyclerAdapter extends RecyclerView.Adapter<Leaderb
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         // Define views for the recycler view item
-        private TextView userName;
-        private TextView position;
-        private TextView bestTime;
-        private ImageView profileImage;
+        private final TextView userName;
+        private final TextView position;
+        private final TextView bestTime;
+        private final ImageView profileImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

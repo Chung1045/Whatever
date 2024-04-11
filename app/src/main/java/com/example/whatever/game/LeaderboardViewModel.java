@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LeaderboardViewModel {
-    private String userName;
-    private float bestTime;
-    private int position;
-    private String profilePicURL;
+    private final String userName;
+    private final float bestTime;
+    private final int position;
+    private final String profilePicURL;
 
     public LeaderboardViewModel(HashMap<String, Object> leaderboardData) {
         this.userName = (String) leaderboardData.get("username");

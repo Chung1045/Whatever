@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -265,6 +266,7 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Listener for dragging move-able elements
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

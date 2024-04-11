@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -166,7 +167,7 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
         timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level2_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -208,7 +209,7 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -266,6 +267,7 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Listener for dragging move-able elements
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

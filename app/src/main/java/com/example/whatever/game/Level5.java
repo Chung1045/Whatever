@@ -3,6 +3,7 @@ package com.example.whatever.game;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,15 +41,15 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         setContentView(R.layout.activity_level5);
         View v = findViewById(R.id.view_LevelLayout_Level5);
         onLevelStart(v);
-        lv5_gear3 = (ImageView) findViewById(R.id.image_Level5_gear3);
-        lv5_gear4 = (ImageView) findViewById(R.id.image_Level5_gear4);
-        lv5_gear5 = (ImageView) findViewById(R.id.image_Level5_gear5);
-        lv5_gear6 = (ImageView) findViewById(R.id.image_Level5_gear6);
-        lv5_setting = (ImageView) findViewById(R.id.button_Level5_SettingsBt);
-        lv5_waterdrop = (ImageView) findViewById(R.id.image_Level5_waterdrop);
-        lv5_waterdrop1 = (ImageView) findViewById(R.id.image_Level5_waterdrop1);
-        lv5_waterdrop2 = (ImageView) findViewById(R.id.image_Level5_waterdrop2);
-        lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
+        lv5_gear3 = findViewById(R.id.image_Level5_gear3);
+        lv5_gear4 = findViewById(R.id.image_Level5_gear4);
+        lv5_gear5 = findViewById(R.id.image_Level5_gear5);
+        lv5_gear6 = findViewById(R.id.image_Level5_gear6);
+        lv5_setting = findViewById(R.id.button_Level5_SettingsBt);
+        lv5_waterdrop = findViewById(R.id.image_Level5_waterdrop);
+        lv5_waterdrop1 = findViewById(R.id.image_Level5_waterdrop1);
+        lv5_waterdrop2 = findViewById(R.id.image_Level5_waterdrop2);
+        lv5_drag = findViewById(R.id.Level5_drag);
 
         lv5_gear3.setOnLongClickListener(onclickListener);
         lv5_gear4.setOnLongClickListener(onclickListener);
@@ -76,7 +77,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
                 final View view = (View) event.getLocalState();
 
                 if (view.getId() == R.id.button_Level5_SettingsBt) {
-                    lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
+                    lv5_drag = findViewById(R.id.Level5_drag);
                     lv5_drag.setImageResource(R.drawable.baseline_settings_24);
 
                     View view1 = findViewById(R.id.image_Level5_gear1);
@@ -249,7 +250,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         isLevelPass = true;
         TextView timeUsedCount = findViewById(R.id.text_Level5_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         updateBestTime();
@@ -291,7 +292,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -325,6 +326,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
 
     // Listener for dragging move-able elements
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

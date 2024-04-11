@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +38,7 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener, V
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private void onLevelStart(View v){
 
         startTime = System.currentTimeMillis();
@@ -262,6 +264,7 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener, V
     }
 
     // Listener for dragging move-able elements
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

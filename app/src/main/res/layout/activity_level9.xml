@@ -147,9 +147,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/drawable_level9_url_bar_background"
-                android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="12dp"
-                android:drawableTint="@color/background"
                 android:fontFamily="@font/inter_variable"
                 android:padding="8dp"
                 android:text="whatever.site"
@@ -158,7 +156,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:drawableLeftCompat="@drawable/baseline_lock_24"
+                app:drawableTint="@color/background" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -170,7 +170,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_Level9_view_more"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/foreground" />
+                app:tint="@color/foreground"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/button_Level9_view_more"
@@ -182,7 +183,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/foreground" />
+                app:tint="@color/foreground"
+                tools:ignore="ContentDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -237,7 +239,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/image_level9_dino"
                         app:layout_constraintEnd_toEndOf="@+id/image_level9_dino"
                         app:layout_constraintStart_toStartOf="@+id/image_level9_dino"
-                        app:layout_constraintTop_toTopOf="@+id/image_level9_dino" />
+                        app:layout_constraintTop_toTopOf="@+id/image_level9_dino"
+                        tools:ignore="ContentDescription" />
 
 
                     <ImageView
@@ -248,7 +251,8 @@
                         android:layout_marginTop="48dp"
                         android:src="@drawable/drawable_level9_dino"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/text_Level9_noInternet"
@@ -414,7 +418,8 @@
                         app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textinput_Level9_password"
-                        app:tint="@color/background" />
+                        app:tint="@color/background"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/text_Level9_However_Login_Message"

@@ -152,7 +152,8 @@
                 android:layout_gravity="bottom"
                 android:clickable="true"
                 android:translationY="-1dp"
-                app:srcCompat="@drawable/drawable_level2_biggest_faketext" />
+                app:srcCompat="@drawable/drawable_level2_biggest_faketext"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
 
@@ -199,7 +200,8 @@
                     android:layout_marginTop="10dp"
                     android:padding="5dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_outlined_circle" />
+                    app:srcCompat="@drawable/drawable_level2_outlined_circle"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/image_Level2_second"
@@ -208,7 +210,8 @@
                     android:layout_marginStart="50dp"
                     android:padding="5dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_outlined_circle" />
+                    app:srcCompat="@drawable/drawable_level2_outlined_circle"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
 
             <LinearLayout
@@ -224,7 +227,8 @@
                     android:layout_marginStart="30dp"
                     android:padding="10dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_outlined_rectangle" />
+                    app:srcCompat="@drawable/drawable_level2_outlined_rectangle"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
 
             <LinearLayout
@@ -239,7 +243,8 @@
                     android:layout_height="219dp"
                     android:layout_marginStart="30dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/drawable_level2_triangle" />
+                    app:srcCompat="@drawable/drawable_level2_triangle"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
         </LinearLayout>
 

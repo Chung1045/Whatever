@@ -147,7 +147,8 @@
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/image_level3_sheep" />
+            app:srcCompat="@drawable/image_level3_sheep"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/button_Level3_fox1Bt"
@@ -159,7 +160,8 @@
             android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_Level3_Title"
-            app:srcCompat="@drawable/image_level3_fox" />
+            app:srcCompat="@drawable/image_level3_fox"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/button_Level3_fox2Bt"
@@ -173,7 +175,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/button_Level3_fox1Bt"
             app:layout_constraintTop_toBottomOf="@+id/text_Level3_Title"
-            app:srcCompat="@drawable/image_level3_fox" />
+            app:srcCompat="@drawable/image_level3_fox"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/button_Level3_fox3Bt"
@@ -185,7 +188,8 @@
             android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_Level3_fox1Bt"
-            app:srcCompat="@drawable/image_level3_fox" />
+            app:srcCompat="@drawable/image_level3_fox"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/button_Level3_fox4Bt"
@@ -197,7 +201,8 @@
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_Level3_fox2Bt"
-            app:srcCompat="@drawable/image_level3_fox" />
+            app:srcCompat="@drawable/image_level3_fox"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

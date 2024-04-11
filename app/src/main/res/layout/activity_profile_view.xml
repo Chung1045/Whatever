@@ -126,7 +126,8 @@
                         android:layout_gravity="bottom"
                         android:layout_marginStart="5dp"
                         android:src="@drawable/outline_edit_24"
-                        app:tint="@color/background" />
+                        app:tint="@color/background"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
 
@@ -246,7 +247,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/foreground" />
+                app:tint="@color/foreground"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -295,7 +297,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/foreground" />
+                app:tint="@color/foreground"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"

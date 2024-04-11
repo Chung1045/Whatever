@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RecordListAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<Map.Entry<String, Object>> mRecordEntries;
+    private final Context mContext;
+    private final List<Map.Entry<String, Object>> mRecordEntries;
 
     public RecordListAdapter(Context context, Map<String, Object> recordHolder) {
         mContext = context;

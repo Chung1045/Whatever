@@ -7,6 +7,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -45,7 +46,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     private final String levelHint = "No Help Lol";
     private final Random random = new Random();
     private ProgressBar progressBar;
-    private Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor();
     private Activity.ScreenCaptureCallback screenCaptureCallback;
 
     @Override
@@ -267,9 +268,6 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                unregisterScreenCaptureCallback(screenCaptureCallback);
-            }
         }
     }
 
@@ -279,9 +277,6 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                registerScreenCaptureCallback(executor, screenCaptureCallback);
-            }
         }
     }
 
@@ -302,7 +297,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         isLevelPass = true;
         TextView timeUsedCount = findViewById(R.id.text_Level9_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
-        timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
+        timeUsedCount.setText(minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -348,7 +343,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -468,6 +463,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
+
     }
 
     private void resetState() {
@@ -485,6 +481,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Listener for dragging move-able elements
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

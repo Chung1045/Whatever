@@ -249,10 +249,10 @@ public class Utils {
 
     public class NotificationUtils {
 
-        private Activity activity;
-        private View view;
-        private NotificationManager notificationManager;
-        private SnackBarUtils snackBarUtils;
+        private final Activity activity;
+        private final View view;
+        private final NotificationManager notificationManager;
+        private final SnackBarUtils snackBarUtils;
 
         public NotificationUtils(Activity a, View v){
             this.activity = a;
@@ -291,7 +291,7 @@ public class Utils {
 
     public class DialogUtils{
 
-        private Context context;
+        private final Context context;
 
         public DialogUtils(Context c){
             this.context = c;
@@ -323,7 +323,7 @@ public class Utils {
 
     private class IntentUtils{
 
-        private Context context;
+        private final Context context;
 
         public IntentUtils(Context c){
             context = c;
@@ -339,7 +339,7 @@ public class Utils {
 
     public class SFXUtils {
         private MediaPlayer sfxPlayer;
-        private Context context;
+        private final Context context;
 
         public SFXUtils(Context c){
             context = c;

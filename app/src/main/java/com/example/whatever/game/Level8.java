@@ -234,7 +234,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -308,6 +308,7 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
     }
 
     // Listener for dragging move-able elements
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

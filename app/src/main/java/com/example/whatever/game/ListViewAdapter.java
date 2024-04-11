@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class ListViewAdapter extends ArrayAdapter<String> {
 
-    private ArrayList<String> dataSet;
-    private Context mContext;
+    private final ArrayList<String> dataSet;
+    private final Context mContext;
 
     public ListViewAdapter(ArrayList<String> data, Context context) {
         super(context, R.layout.listview_item_layout, data);

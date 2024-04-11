@@ -1,5 +1,6 @@
 package com.example.whatever.game;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -236,7 +237,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // AKA Stopwatch Timer
-    private Runnable updateTimerThread = new Runnable() {
+    private final Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeUsedInMilliseconds = System.currentTimeMillis() - startTime;
 
@@ -248,7 +249,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         }
     };
 
-    private Runnable checkDarkEnvironment = () -> {
+    private final Runnable checkDarkEnvironment = () -> {
         int nightModeFlags =
                 getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
@@ -382,6 +383,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Listener for dragging move-able elements
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {
@@ -414,7 +416,7 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         return super.dispatchTouchEvent(event);
     }
 
-    private SensorEventListener lightSensorListener = new SensorEventListener() {
+    private final SensorEventListener lightSensorListener = new SensorEventListener() {
 
         boolean isSFXOnPlayed = false;
         boolean isSFXOffPlayed = false;
