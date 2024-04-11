@@ -27,6 +27,9 @@
         android:theme="@style/Theme.Whatever"
         tools:targetApi="34">
         <activity
+            android:name=".Records"
+            android:exported="false" />
+        <activity
             android:name=".Level9"
             android:exported="false" />
         <activity

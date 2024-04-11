@@ -38,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -128,6 +129,19 @@ public class Utils {
     public void playEnterLevelSFX(){ sfxUtils.playSound(activity, R.raw.enter_level_sfx);}
     public void playCorrectSFX(){ sfxUtils.playCorrectSFXSound(activity);}
 
+    private String calculateTimeFromLong(long time){
+        if (time == 0){
+            return "-- : -- : --";
+        }else {
+            long seconds = time / 1000;
+            long minutes = seconds / 60;
+            seconds = seconds % 60;
+            int milliseconds = (int) (time % 1000);
+
+            return String.format("%02d:%02d:%03d", minutes, seconds, (long) milliseconds);
+        }
+    }
+
     public String getBestTotaltime(){
         long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
         long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
@@ -152,6 +166,35 @@ public class Utils {
             return "Best total time : " + String.format("%02d:%02d:%02d.%02d", minutes, seconds, milliseconds);
         }
 
+    }
+
+    public void localGetAllRecords(Consumer<Map<String, Object>> consumer){
+
+        Map<String, Object> recordHolder = new HashMap<>();
+
+        long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
+        long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
+        long bestTimeLevel3 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0);
+        long bestTimeLevel4 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0);
+        long bestTimeLevel5 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0);
+        long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
+        long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
+        long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+        long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        int dinoCount = sharedPref.getInt(UserPreferences.DINO_COUNT, 0);
+
+        recordHolder.put("Best time Level1", calculateTimeFromLong(bestTimeLevel1));
+        recordHolder.put("Best time Level2", calculateTimeFromLong(bestTimeLevel2));
+        recordHolder.put("Best time Level3", calculateTimeFromLong(bestTimeLevel3));
+        recordHolder.put("Best time Level4", calculateTimeFromLong(bestTimeLevel4));
+        recordHolder.put("Best time Level5", calculateTimeFromLong(bestTimeLevel5));
+        recordHolder.put("Best time Level6", calculateTimeFromLong(bestTimeLevel6));
+        recordHolder.put("Best time Level7", calculateTimeFromLong(bestTimeLevel7));
+        recordHolder.put("Best time Level8", calculateTimeFromLong(bestTimeLevel8));
+        recordHolder.put("Best time Level9", calculateTimeFromLong(bestTimeLevel9));
+        recordHolder.put("Dino Count", dinoCount);
+
+        consumer.accept(recordHolder);
     }
 
     public boolean isAllLevelPassed(){
@@ -263,22 +306,12 @@ public class Utils {
         }
 
         public void setYesNoDialog(String message, int titleResourceId) {
-            // Legacy (Material 2)
-            //AlertDialog.Builder dialogBuilder;
-
-            //dialogBuilder = new AlertDialog.Builder(context);
-            //dialogBuilder.setMessage(message)
-            //        .setTitle(titleResourceId)
-            //        .setCancelable(false)
-            //        .setPositiveButton("Yes", null)  // Pass null for no action
-            //        .setNegativeButton("No", null);  // Pass null for no action
 
             new MaterialAlertDialogBuilder(context).setTitle(titleResourceId).setMessage(message)
                     .setCancelable(false)
                     .setPositiveButton("Yes", null)
                     .setNegativeButton("No", null).show();
 
-            //showDialog(dialogBuilder);
         }
 
         public void showDialog(AlertDialog.Builder alertBlueprint){

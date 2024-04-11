@@ -137,6 +137,11 @@ public class ProfileView extends AppCompatActivity {
             finish();
         });
 
+        findViewById(R.id.button_profile_record).setOnClickListener(view -> {
+            startActivity(new Intent().setClass(ProfileView.this, Records.class));
+            finish();
+        });
+
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

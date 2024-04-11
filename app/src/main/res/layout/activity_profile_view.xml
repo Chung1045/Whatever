@@ -185,6 +185,19 @@
                         android:text="@string/string_profile_leaderboard_text"
                         android:textColor="@color/foreground" />
 
+                    <Button
+                        android:id="@+id/button_profile_record"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:backgroundTint="@color/background"
+                        android:clickable="true"
+                        android:fontFamily="@font/inter_variable"
+                        android:text="Record"
+                        android:textColor="@color/foreground" />
+
                 </LinearLayout>
 
             </LinearLayout>
