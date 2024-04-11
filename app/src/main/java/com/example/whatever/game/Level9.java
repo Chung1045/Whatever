@@ -228,16 +228,19 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(Level9.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
         findViewById(R.id.button_Level9_NavigateBackBt).setOnClickListener(view -> {
             startActivity(new Intent(Level9.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level9_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level9.this, LevelSelect.class));
+            finish();
         });
 
     }
@@ -270,18 +273,12 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     protected void onStop() {
         super.onStop();
         timerHandler.removeCallbacks(updateTimerThread);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            unregisterScreenCaptureCallback(screenCaptureCallback);
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         timerHandler.removeCallbacks(updateTimerThread);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            unregisterScreenCaptureCallback(screenCaptureCallback);
-        }
     }
 
     // Show the level pass screen

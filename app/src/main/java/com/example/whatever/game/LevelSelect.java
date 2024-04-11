@@ -45,6 +45,7 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(LevelSelect.this, MainActivity.class));
+                finish();
             }
         });
 
