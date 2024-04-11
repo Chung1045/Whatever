@@ -1,21 +1,23 @@
 package com.example.whatever.game;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Random;
 
@@ -26,9 +28,11 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String[] levelPassMessage = new String[]{"U can do better", "Try hard?", "As expected"};
+    private final String levelHint = "Is there only 4 gears?";
     private final Random random = new Random();
+
+    ImageView lv5_gear3, lv5_gear4, lv5_gear5, lv5_gear6, lv5_setting, lv5_waterdrop, lv5_waterdrop1, lv5_waterdrop2, lv5_drag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,87 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         setContentView(R.layout.activity_level5);
         View v = findViewById(R.id.view_LevelLayout_Level5);
         onLevelStart(v);
+        lv5_gear3 = (ImageView) findViewById(R.id.image_Level5_gear3);
+        lv5_gear4 = (ImageView) findViewById(R.id.image_Level5_gear4);
+        lv5_gear5 = (ImageView) findViewById(R.id.image_Level5_gear5);
+        lv5_gear6 = (ImageView) findViewById(R.id.image_Level5_gear6);
+        lv5_setting = (ImageView) findViewById(R.id.button_Level5_SettingsBt);
+        lv5_waterdrop = (ImageView) findViewById(R.id.image_Level5_waterdrop);
+        lv5_waterdrop1 = (ImageView) findViewById(R.id.image_Level5_waterdrop1);
+        lv5_waterdrop2 = (ImageView) findViewById(R.id.image_Level5_waterdrop2);
+        lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
+
+        lv5_gear3.setOnLongClickListener(onclickListener);
+        lv5_gear4.setOnLongClickListener(onclickListener);
+        lv5_gear5.setOnLongClickListener(onclickListener);
+        lv5_gear6.setOnLongClickListener(onclickListener);
+        lv5_setting.setOnLongClickListener(onclickListener);
+
+        lv5_drag.setOnDragListener(dragListener);
     }
+
+    View.OnLongClickListener onclickListener = (v) -> {
+        ClipData data = ClipData.newPlainText("", "");
+        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+        v.startDragAndDrop(data, shadowBuilder, v, 0);
+        return true;
+    };
+
+
+    View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int dragEvent = event.getAction();
+
+            if (dragEvent == DragEvent.ACTION_DRAG_ENDED) {
+                final View view = (View) event.getLocalState();
+
+                if (view.getId() == R.id.button_Level5_SettingsBt) {
+                    lv5_drag = (ImageView) findViewById(R.id.Level5_drag);
+                    lv5_drag.setImageResource(R.drawable.baseline_settings_24);
+
+                    View view1 = findViewById(R.id.image_Level5_gear1);
+                    View view2 = findViewById(R.id.image_Level5_gear2);
+                    View view3 = findViewById(R.id.image_Level5_gear7);
+                    View view4 = findViewById(R.id.Level5_drag);
+
+                    PropertyValuesHolder rotation = PropertyValuesHolder.ofFloat(View.ROTATION, 360f, 0f);
+                    PropertyValuesHolder rotation2 = PropertyValuesHolder.ofFloat(View.ROTATION, 0f, 360f);
+
+                    ObjectAnimator animator1 = ObjectAnimator.ofPropertyValuesHolder(view3, rotation);
+                    animator1.setDuration(1000);
+
+                    ObjectAnimator animator2 = ObjectAnimator.ofPropertyValuesHolder(view4, rotation);
+                    animator2.setDuration(1000);
+
+                    ObjectAnimator animator3 = ObjectAnimator.ofPropertyValuesHolder(view1, rotation2);
+                    animator3.setDuration(1000);
+
+                    ObjectAnimator animator4 = ObjectAnimator.ofPropertyValuesHolder(view2, rotation2);
+                    animator4.setDuration(1000);
+
+                    AnimatorSet animatorSet = new AnimatorSet();
+                    animatorSet.playTogether(animator1, animator2, animator3, animator4);
+                    animatorSet.start();
+
+                    lv5_waterdrop.setVisibility(View.VISIBLE);
+                    lv5_waterdrop1.setVisibility(View.VISIBLE);
+                    lv5_waterdrop2.setVisibility(View.VISIBLE);
+                    timerHandler.removeCallbacks(updateTimerThread);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            onLevelPass();
+                        }
+                    }, 1000);
+                } else if (view.getId() == R.id.image_Level5_gear3 || view.getId() == R.id.image_Level5_gear4 || view.getId() == R.id.image_Level5_gear5 || view.getId() == R.id.image_Level5_gear6) {
+                    onWrongAttempt();
+                }
+            }
+
+            return true;
+        }
+    };
 
     private void onLevelStart(View v){
 
@@ -163,7 +247,6 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
-        timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level5_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
         timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
@@ -237,13 +320,11 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void resetState(){
-        View textView = findViewById(R.id.timer_text_view);
-        textView.setTranslationX(0);
-        textView.setTranslationY(0);
         // add you move-able / state changeable elements here
     }
 
     // Listener for dragging move-able elements
+
     @Override
     public boolean onTouch(View view, MotionEvent event) { // move elements
         switch (event.getActionMasked()) {

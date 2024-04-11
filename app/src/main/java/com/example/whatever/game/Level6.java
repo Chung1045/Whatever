@@ -17,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.Random;
 
 public class Level6 extends AppCompatActivity implements View.OnTouchListener {
@@ -27,8 +29,12 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String levelHint = "Can you steal the weapon?";
     private final Random random = new Random();
+
+    LottieAnimationView win, spearLose, throwLose;
+    ImageView lv6_original_archer, lv6_original_player, lv6_after_archer, lv6_after_player, lv6_vs, lv6_pass, lv6_spear, lv6_throw, lv6_spearselect, lv6_throwselect;
+    TextView lv6_you, lv6_enemy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +42,44 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         setContentView(R.layout.activity_level6);
         View v = findViewById(R.id.view_LevelLayout_Level6);
         onLevelStart(v);
+
+        lv6_pass = findViewById(R.id.pass);
+        lv6_spear = findViewById(R.id.image_Level6_spear);
+        lv6_throw = findViewById(R.id.image_Level6_throw);
+        lv6_original_archer = findViewById(R.id.image_Level6_original_archer);
+        lv6_original_player = findViewById(R.id.image_Level6_original_player);
+        lv6_after_archer = findViewById(R.id.image_Level6_after_archer);
+        lv6_after_player = findViewById(R.id.image_Level6_after_player);
+        lv6_vs = findViewById(R.id.image_Level6_vs);
+        lv6_spearselect = findViewById(R.id.image_Level6_select_spear);
+        lv6_throwselect = findViewById(R.id.image_Level6_select_throw);
+        lv6_you = findViewById(R.id.tv_you);
+        lv6_enemy = findViewById(R.id.tv_enemy);
+        spearLose = findViewById(R.id.animation_Level6spear_lose);
+        throwLose = findViewById(R.id.animation_Level6throw_lose);
+        win = findViewById(R.id.animation_Level6win);
     }
 
+    private void lottieAnimation(int id){
+        switch (id){
+            case 0:
+                win.setVisibility(View.VISIBLE);
+                win.animate().setStartDelay(100);
+                break;
+
+            case 1:
+                spearLose.setVisibility(View.VISIBLE);
+                spearLose.animate().setStartDelay(100);
+                break;
+
+            case 2:
+                throwLose.setVisibility(View.VISIBLE);
+                throwLose.animate().setStartDelay(100);
+                break;
+
+
+        }
+    }
     private void onLevelStart(View v){
 
         startTime = System.currentTimeMillis();
@@ -163,7 +205,6 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
-        timerHandler.removeCallbacks(updateTimerThread);
         TextView timeUsedCount = findViewById(R.id.text_Level6_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
         timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
@@ -233,11 +274,102 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
             utils.showSnackBarMessage(levelHint);
         });
 
+        findViewById(R.id.pass).setOnClickListener(view -> {
+            removeItem();
+            timerHandler.removeCallbacks(updateTimerThread);
+            lv6_after_archer.setVisibility(View.VISIBLE);
+            lv6_after_player.setVisibility(View.VISIBLE);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    lv6_after_archer.setVisibility(View.GONE);
+                    lv6_after_player.setVisibility(View.GONE);
+                    lottieAnimation(0);
+                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
+                }
+            }, 500);
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    onLevelPass();
+                }
+            }, 3000);
+        });
+
+        findViewById(R.id.image_Level6_spear).setOnClickListener(view -> {
+            removeItem();
+            lv6_spearselect.setVisibility(View.VISIBLE);
+            lv6_original_archer.setVisibility(View.VISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    lv6_spearselect.setVisibility(View.GONE);
+                    lv6_original_archer.setVisibility(View.GONE);
+                    lottieAnimation(1);
+                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
+                }
+            }, 500);
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    onWrongAttempt();
+                    resetState();
+                }
+            }, 3000);
+
+        });
+
+        findViewById(R.id.image_Level6_throw).setOnClickListener(view -> {
+            removeItem();
+            lv6_throwselect.setVisibility(View.VISIBLE);
+            lv6_original_archer.setVisibility(View.VISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    lv6_throwselect.setVisibility(View.GONE);
+                    lv6_original_archer.setVisibility(View.GONE);
+                    lottieAnimation(2);
+                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
+                }
+            }, 500);
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    onWrongAttempt();
+                    resetState();
+                }
+            }, 3000);
+        });
         // place your element listener here
     }
 
+    private void removeItem(){
+        lv6_vs.setVisibility(View.GONE);
+        lv6_pass.setVisibility(View.GONE);
+        lv6_original_archer.setVisibility(View.GONE);
+        lv6_original_player.setVisibility(View.GONE);
+        lv6_spear.setVisibility(View.GONE);
+        lv6_throw.setVisibility(View.GONE);
+        lv6_you.setVisibility(View.GONE);
+        lv6_enemy.setVisibility(View.GONE);
+    }
     private void resetState(){
-
+        lv6_you.setVisibility(View.VISIBLE);
+        lv6_enemy.setVisibility(View.VISIBLE);
+        lv6_original_archer.setVisibility(View.VISIBLE);
+        lv6_original_player.setVisibility(View.VISIBLE);
+        lv6_pass.setVisibility(View.VISIBLE);
+        lv6_vs.setVisibility(View.VISIBLE);
+        lv6_spear.setVisibility(View.VISIBLE);
+        lv6_throw.setVisibility(View.VISIBLE);
+        win.setVisibility(View.GONE);
+        throwLose.setVisibility(View.GONE);
+        spearLose.setVisibility(View.GONE);
+        lv6_after_archer.setVisibility(View.GONE);
+        lv6_after_player.setVisibility(View.GONE);
+        lv6_throwselect.setVisibility(View.GONE);
+        lv6_spearselect.setVisibility(View.GONE);
         // add you move-able / state changeable elements here
     }
 
