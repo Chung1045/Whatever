@@ -129,24 +129,20 @@ public class ProfileView extends AppCompatActivity {
 
         findViewById(R.id.button_profile_sign_in_sign_up).setOnClickListener(v -> {
             startActivity(new Intent(ProfileView.this, SignIn.class));
-            finish();
         });
 
         findViewById(R.id.button_profile_leaderboard).setOnClickListener(view -> {
             startActivity(new Intent(ProfileView.this, LeaderBoard.class));
-            finish();
         });
 
         findViewById(R.id.button_profile_record).setOnClickListener(view -> {
             startActivity(new Intent().setClass(ProfileView.this, Records.class));
-            finish();
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(ProfileView.this, MainActivity.class));
-                finish();
             }
         });
 

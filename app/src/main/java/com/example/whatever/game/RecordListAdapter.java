@@ -7,34 +7,35 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class RecordListAdapter extends BaseAdapter {
     private Context mContext;
-    private Map<String, Object> mRecordHolder;
+    private List<Map.Entry<String, Object>> mRecordEntries;
 
     public RecordListAdapter(Context context, Map<String, Object> recordHolder) {
         mContext = context;
-        mRecordHolder = recordHolder;
+        mRecordEntries = new ArrayList<>(recordHolder.entrySet());
+        // Sort the entries based on their keys
+        Collections.sort(mRecordEntries, (entry1, entry2) -> entry1.getKey().compareTo(entry2.getKey()));
     }
 
     @Override
     public int getCount() {
-        return mRecordHolder.size(); // Number of records
+        return mRecordEntries.size(); // Number of records
     }
 
     @Override
     public Object getItem(int position) {
-        // Get the record at the specified position
-        // For simplicity, returning null as we don't need this method
-        return null;
+        return mRecordEntries.get(position); // Get the record entry at the specified position
     }
 
     @Override
     public long getItemId(int position) {
-        // Return the ID of the record at the specified position
-        // For simplicity, returning 0 as we don't need this method
-        return 0;
+        return position; // Return the position as the ID
     }
 
     @Override
@@ -50,7 +51,7 @@ public class RecordListAdapter extends BaseAdapter {
         TextView textResult = convertView.findViewById(R.id.record_itemView_text_result);
 
         // Get the key-value pair at the specified position
-        Map.Entry<String, Object> entry = (Map.Entry<String, Object>) mRecordHolder.entrySet().toArray()[position];
+        Map.Entry<String, Object> entry = mRecordEntries.get(position);
         String key = entry.getKey();
         Object value = entry.getValue();
 
@@ -60,6 +61,4 @@ public class RecordListAdapter extends BaseAdapter {
 
         return convertView;
     }
-
 }
-
