@@ -3,11 +3,17 @@ package com.example.whatever.game;
 import static android.view.View.GONE;
 
 import java.util.Random;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -36,9 +42,11 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String levelHint = "No Help Lol";
     private final Random random = new Random();
     private ProgressBar progressBar;
+
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         onLevelStart(v);
     }
 
-    private void onLevelStart(View v){
+    private void onLevelStart(View v) {
 
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(updateTimerThread, 0);
@@ -58,7 +66,6 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         // change accordingly to the current level
         UserPreferences.editor.putInt(UserPreferences.LAST_PLAYED_LEVEL, 9).commit();
         progressBar = findViewById(R.id.progressBar_Level9_web);
-
 
 
         topBarInit();
@@ -71,9 +78,9 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
     private void uiInit() {
         TextView dinoCount = findViewById(R.id.text_level9_dino_count);
-        int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT,0);
+        int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0);
 
-        if (count != 0){
+        if (count != 0) {
             dinoCount.setVisibility(View.VISIBLE);
             dinoCount.setText(String.valueOf(count));
         }
@@ -132,7 +139,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
                                                                                                     new Handler().postDelayed(() -> {
                                                                                                         progressBar.setVisibility(View.GONE);
                                                                                                         progressBar.setProgress(0);
-                                                                                                        }, 2000);
+                                                                                                    }, 2000);
                                                                                                 }
                                                                                             });
                                                                                         }
@@ -163,7 +170,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
 
-    private void topBarInit(){
+    private void topBarInit() {
         boolean sfx = UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, true);
         ImageView soundBt = findViewById(R.id.button_Level9_SoundBt);
         if (!sfx) {
@@ -207,7 +214,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level9_SoundBt).setOnClickListener(view -> {
             ImageView soundButton = findViewById(R.id.button_Level9_SoundBt);
-            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED,!UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED,false)).commit();
+            UserPreferences.editor.putBoolean(UserPreferences.SFX_ENABLED, !UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, false)).commit();
 
             if (!UserPreferences.sharedPref.getBoolean(UserPreferences.SFX_ENABLED, false)) {
                 soundButton.setImageResource(R.drawable.ic_volume_muted_24);
@@ -241,15 +248,21 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         if (!isLevelPass) {
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                unregisterScreenCaptureCallback(screenCaptureCallback);
+            }
         }
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         if (!isLevelPass) {
             startTime = System.currentTimeMillis() - elapsedTime; // Adjust start time to account for elapsed time
             timerHandler.postDelayed(updateTimerThread, 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                registerScreenCaptureCallback(executor, screenCaptureCallback);
+            }
         }
     }
 
@@ -257,21 +270,31 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     protected void onStop() {
         super.onStop();
         timerHandler.removeCallbacks(updateTimerThread);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            unregisterScreenCaptureCallback(screenCaptureCallback);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         timerHandler.removeCallbacks(updateTimerThread);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            unregisterScreenCaptureCallback(screenCaptureCallback);
+        }
     }
 
     // Show the level pass screen
-    public void onLevelPass(){
+    public void onLevelPass() {
         isLevelPass = true;
         TextView timeUsedCount = findViewById(R.id.text_Level9_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
         timeUsedCount.setText("" + minutes + ":" + String.format("%02d", seconds) + ":" + String.format("%03d", milliseconds));
         passMessage.setText(levelPassMessage[random.nextInt(levelPassMessage.length)]);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            unregisterScreenCaptureCallback(screenCaptureCallback);
+        }
 
         updateBestTime();
 
@@ -285,9 +308,9 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         utils.playCorrectSFX();
     }
 
-    private void updateBestTime(){
+    private void updateBestTime() {
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L) != 0L ||
-                timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0L)){
+                timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0L)) {
             UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL9, timeUsedInMilliseconds).commit();
             TextView timeUsedTitle = findViewById(R.id.text_Level9_TimeUsedTitle);
             timeUsedTitle.setText("New best time : ");
@@ -307,7 +330,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         }
     }
 
-    public void onWrongAttempt(){
+    public void onWrongAttempt() {
         utils.playSFX(R.raw.sfx_level9_wrong);
     }
 
@@ -339,12 +362,12 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
             UserPreferences.editor.putInt(UserPreferences.DINO_COUNT,
                     UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0) + 1).commit();
-            int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT,0);
+            int count = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0);
             dinoCount.setText(String.valueOf(count));
 
-            if (count % 100 == 0){
+            if (count % 100 == 0) {
                 dinoCountBlink();
-            } else{
+            } else {
                 utils.playSFX(R.raw.sfx_level9_jump_dino);
             }
             // Define the vertical displacement for the jump (60dp)
@@ -366,7 +389,8 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
             // Set a listener to handle the end of the jump animation
             jumpAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {}
+                public void onAnimationStart(Animation animation) {
+                }
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
@@ -388,7 +412,8 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {}
+                public void onAnimationRepeat(Animation animation) {
+                }
             });
 
             // Apply the jump animation to the SVG
@@ -432,7 +457,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
     }
 
-    private void resetState(){
+    private void resetState() {
         ConstraintLayout noInternetLayout = findViewById(R.id.view_Level9_variableLayout_noInternet);
         ConstraintLayout backOnlineLayout = findViewById(R.id.view_Level9_variableLayout_backOnline);
 
@@ -479,7 +504,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         return super.dispatchTouchEvent(event);
     }
 
-    private void dialogueOne(Consumer<Boolean> isContinue){
+    private void dialogueOne(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("Are you sure?")
                 .setMessage("Changes you made will be lost.")
                 .setCancelable(false)
@@ -488,61 +513,66 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
                 })
                 .setNegativeButton("No", (dialog, id) -> {
                     isContinue.accept(false);
-                    progressBar.setVisibility(GONE);})
+                    progressBar.setVisibility(GONE);
+                })
                 .show();
     }
 
-    private void dialogueTwo(Consumer<Boolean> isContinue){
+    private void dialogueTwo(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("Really?")
-               .setMessage("Changes you made will be lost.")
-               .setCancelable(false)
-               .setPositiveButton("Yes", (dialog, id) -> {
-                   isContinue.accept(true);
-               })
+                .setMessage("Changes you made will be lost.")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    isContinue.accept(true);
+                })
                 .setNegativeButton("No", (dialog, id) -> {
                     isContinue.accept(false);
-                    progressBar.setVisibility(GONE);})
-              .show();
+                    progressBar.setVisibility(GONE);
+                })
+                .show();
     }
 
-    private void dialogueThree(Consumer<Boolean> isContinue){
+    private void dialogueThree(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("Think again?")
-               .setMessage("Changes you made will be lost.")
-               .setCancelable(false)
-               .setPositiveButton("Yes", (dialog, id) -> {
-                   isContinue.accept(true);
-               })
+                .setMessage("Changes you made will be lost.")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    isContinue.accept(true);
+                })
                 .setNegativeButton("No", (dialog, id) -> {
                     isContinue.accept(false);
-                    progressBar.setVisibility(GONE);})
-              .show();
+                    progressBar.setVisibility(GONE);
+                })
+                .show();
     }
 
-    private void dialogueFour(Consumer<Boolean> isContinue){
+    private void dialogueFour(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("I'm sorry, but are you really sure?...")
-              .setMessage("Changes you made will be lost.")
-              .setCancelable(false)
-              .setPositiveButton("Yes", (dialog, id) -> {
-                  isContinue.accept(true);
-              }
-              )
+                .setMessage("Changes you made will be lost.")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                            isContinue.accept(true);
+                        }
+                )
                 .setNegativeButton("No", (dialog, id) -> {
                     isContinue.accept(false);
-                    progressBar.setVisibility(GONE);})
-             .show();
+                    progressBar.setVisibility(GONE);
+                })
+                .show();
     }
 
-    private void dialogueFive(Consumer<Boolean> isContinue){
+    private void dialogueFive(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("I'm sorry, but are you really sure?...")
-             .setMessage("Changes you made will be lost.")
-             .setCancelable(false)
-            .setPositiveButton("Yes", (dialog, id) -> {
-                 isContinue.accept(true);
-             })
+                .setMessage("Changes you made will be lost.")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    isContinue.accept(true);
+                })
                 .setNegativeButton("No", (dialog, id) -> {
                     isContinue.accept(false);
-                    progressBar.setVisibility(GONE);})
-            .show();
+                    progressBar.setVisibility(GONE);
+                })
+                .show();
     }
 
     private void dialogueSix(Consumer<Boolean> isContinue) {
@@ -554,21 +584,23 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
                 })
                 .setNegativeButton("No", (dialog, id) -> {
                     isContinue.accept(false);
-                    progressBar.setVisibility(GONE);})
+                    progressBar.setVisibility(GONE);
+                })
                 .show();
     }
 
     private void dialogueSeven(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("Okay then...")
-               .setMessage("What about we play a game?\n If you win I let you reconnect to the internet.")
-               .setCancelable(false)
-               .setPositiveButton("Yes", (dialog, id) -> {
-                   isContinue.accept(true);
-               })
-              .setNegativeButton("No", (dialog, id) -> {
-                  isContinue.accept(false);
-                  progressBar.setVisibility(GONE);})
-              .show();
+                .setMessage("What about we play a game?\n If you win I let you reconnect to the internet.")
+                .setCancelable(false)
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    isContinue.accept(true);
+                })
+                .setNegativeButton("No", (dialog, id) -> {
+                    isContinue.accept(false);
+                    progressBar.setVisibility(GONE);
+                })
+                .show();
     }
 
     private void dialogueEight(Consumer<Boolean> isContinue) {
@@ -583,7 +615,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
     private void dialogueNine(Consumer<Boolean> isContinue) {
         new MaterialAlertDialogBuilder(this).setTitle("What is the last color?")
-               .setMessage("Remember this color Yellow")
+                .setMessage("Remember this color Yellow")
                 .setCancelable(false)
                 .setPositiveButton("Red", (dialog, id) -> {
                     isContinue.accept(true);
@@ -636,14 +668,14 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
                 .show();
     }
 
-    private void dinoCountBlink(){
+    private void dinoCountBlink() {
 
         TextView dinoCount = findViewById(R.id.text_level9_dino_count);
         utils.playSFX(R.raw.sfx_level9_point);
 
         new Handler().postDelayed(() -> {
             dinoCount.setVisibility(GONE);
-            new Handler().postDelayed(() ->{
+            new Handler().postDelayed(() -> {
                 dinoCount.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(() -> {
                     dinoCount.setVisibility(GONE);
@@ -666,9 +698,21 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
             }, 500);
         }, 500);
 
-        
+
     }
 
+    @TargetApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    private final Activity.ScreenCaptureCallback screenCaptureCallback =
+            new Activity.ScreenCaptureCallback() {
+                @Override
+                public void onScreenCaptured() {
+                    View backOnlineView = findViewById(R.id.view_Level9_variableLayout_backOnline);
+                    Log.d("Screencapture", "Screen capture started");
+                    if (backOnlineView.getVisibility() == View.VISIBLE) {
+                        utils.showSnackBarMessage("Heyyy! How dare you take the screenshot with my username and password???");
+                    }
+                }
+            };
 }
 
 
