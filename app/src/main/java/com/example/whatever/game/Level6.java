@@ -286,6 +286,7 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                     lv6_after_archer.setVisibility(View.GONE);
                     lv6_after_player.setVisibility(View.GONE);
                     lottieAnimation(0);
+                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
                 }
             }, 500);
 
@@ -306,11 +307,13 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                     lv6_spearselect.setVisibility(View.GONE);
                     lv6_original_archer.setVisibility(View.GONE);
                     lottieAnimation(1);
+                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
                 }
             }, 500);
 
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    onWrongAttempt();
                     resetState();
                 }
             }, 3000);
@@ -327,11 +330,13 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                     lv6_throwselect.setVisibility(View.GONE);
                     lv6_original_archer.setVisibility(View.GONE);
                     lottieAnimation(2);
+                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
                 }
             }, 500);
 
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    onWrongAttempt();
                     resetState();
                 }
             }, 3000);
