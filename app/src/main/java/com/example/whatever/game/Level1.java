@@ -189,15 +189,15 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void updateBestTime(){
-        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L) == 0L ||
-                timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L)){
-            UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, timeUsedInMilliseconds).commit();
+        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0L) == 0L ||
+                timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0L)){
+            UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL1, timeUsedInMilliseconds).commit();
             TextView timeUsedTitle = findViewById(R.id.text_Level1_TimeUsedTitle);
             timeUsedTitle.setText("New best time : ");
             findViewById(R.id.text_Level1_BestTimeUsedTitle).setVisibility(View.GONE);
             findViewById(R.id.text_Level1_Best_TimeUsedText).setVisibility(View.GONE);
         } else {
-            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L);
+            Long bestTime = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0L);
             TextView bestTimeUsed = findViewById(R.id.text_Level1_Best_TimeUsedText);
 
             long seconds = bestTime / 1000;

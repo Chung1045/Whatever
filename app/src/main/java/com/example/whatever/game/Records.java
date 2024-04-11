@@ -56,11 +56,9 @@ public class Records extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                startActivity(new Intent(Records.this, ProfileView.class));
                 finish();
             }
         });
-
 
     }
 

@@ -3,6 +3,7 @@ package com.example.whatever.game;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -100,6 +101,8 @@ public class LeaderBoard extends AppCompatActivity {
             leaderboard.setAdapter(adapter);
             leaderboard.setLayoutManager(new LinearLayoutManager(this));
 
+            new Handler().postDelayed(() -> progress.setVisibility(View.GONE), 2000);
+
         });
     }
 
@@ -113,7 +116,6 @@ public class LeaderBoard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            startActivity(new Intent(LeaderBoard.this, ProfileView.class));
             this.finish();
             return true;
         }
@@ -138,7 +140,6 @@ public class LeaderBoard extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                startActivity(new Intent(LeaderBoard.this, ProfileView.class));
                 finish();
             }
         });
@@ -149,6 +150,10 @@ public class LeaderBoard extends AppCompatActivity {
                 leaderBoardRecyclerViewInit();
             });
             swipeRefreshLayout.setRefreshing(false);
+        });
+
+        findViewById(R.id.button_leaderboard_record).setOnClickListener(view -> {
+            startActivity(new Intent().setClass(LeaderBoard.this, Records.class));
         });
     }
 

@@ -163,7 +163,7 @@ public class Utils {
             seconds = seconds % 60;
             int milliseconds = (int) (totalTime % 1000);
             UserPreferences.editor.putLong(UserPreferences.BEST_TIME_USED_TOTAL, totalTime).commit();
-            return "Best total time : " + String.format("%02d:%02d:%02d.%02d", minutes, seconds, milliseconds);
+            return "Best total time : " + String.format("%02d:%02d.%02d", minutes, seconds, milliseconds);
         }
 
     }

@@ -38,6 +38,7 @@ public class FirebaseHelper {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance();
+        user = mAuth.getCurrentUser();
     }
 
     public FirebaseUser getCurrentUser() {

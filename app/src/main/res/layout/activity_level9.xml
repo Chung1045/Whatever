@@ -268,20 +268,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/image_level9_dino" />
 
-                    <TextView
-                        android:id="@+id/text_Level9_noInternet_Description"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="20dp"
-                        android:text="There is something wrong with the proxy server, or the address is incorrect."
-                        android:textSize="18sp"
-                        android:fontFamily="@font/inter_variable"
-                        app:tint="@color/foreground"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet" />
 
                     <TextView
                         android:id="@+id/text_Level9_suggestedAction"
@@ -290,13 +276,13 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
-                        android:text="Try:\n\n\t\t\t\t • Contacting the system admin\n\n\t\t\t\t\t• Checking the proxy address"
+                        android:text="Try:\n\n\t\t\t\t • Turning off airplane mode\n\n\t\t\t\t\t• Turning on mobile data or Wi-Fi\n\n\t\t\t\t\t• Checking the signal in your area"
                         android:textSize="18sp"
                         android:fontFamily="@font/inter_variable"
                         app:tint="@color/foreground"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet_Description" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_Level9_noInternet" />
 
                     <TextView
                         android:id="@+id/text_Level9_noInternet_ErrorCode"
@@ -304,7 +290,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="16dp"
-                        android:text="ERR_PROXY_CONNECTION_FAILED"
+                        android:text="ERR_INTERNET_DISCONNECTED"
                         android:fontFamily="@font/inter_variable"
                         app:tint="@color/foreground"
                         app:layout_constraintStart_toStartOf="parent"
@@ -428,6 +414,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="104dp"
                         android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/inter_variable"
                         android:text="Task Failed Successfully?!"
                         android:textSize="36sp"
                         android:visibility="gone"
