@@ -162,10 +162,10 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.895"
+            app:layout_constraintHorizontal_bias="0.91"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.581"
+            app:layout_constraintVertical_bias="0.444"
             tools:ignore="ContentDescription" />
 
         <ImageView

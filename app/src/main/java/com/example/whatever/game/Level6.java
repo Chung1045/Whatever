@@ -64,21 +64,20 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     private void lottieAnimation(int id){
         switch (id){
             case 0:
-                win.setFrame(0);
                 win.setVisibility(View.VISIBLE);
                 win.animate().setStartDelay(100);
                 break;
 
             case 1:
-                spearLose.setFrame(0);
                 spearLose.setVisibility(View.VISIBLE);
                 spearLose.animate().setStartDelay(100);
+                spearLose.playAnimation();
                 break;
 
             case 2:
-                throwLose.setFrame(0);
                 throwLose.setVisibility(View.VISIBLE);
                 throwLose.animate().setStartDelay(100);
+                throwLose.playAnimation();
                 break;
 
 
@@ -317,8 +316,14 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
 
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    onWrongAttempt();
+                    spearLose.pauseAnimation();
                     resetState();
+                }
+            }, 2450);
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    onWrongAttempt();
                 }
             }, 3000);
 
@@ -337,11 +342,15 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                     new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
                 }
             }, 500);
-
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    throwLose.pauseAnimation();
+                    resetState();
+                }
+            }, 2450);
             handler.postDelayed(new Runnable() {
                 public void run() {
                     onWrongAttempt();
-                    resetState();
                 }
             }, 3000);
         });
