@@ -1,14 +1,19 @@
 package com.example.whatever.game;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -33,6 +38,10 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
     private final Random random = new Random();
     private SensorManager sensorManager;
     private Sensor rotationVectorSensor;
+    private Vibrator vibrator;
+    private long touchStartTime = 0L;
+    private boolean isTouchingUnlockIndicator = false, canVibrate = false;
+    private final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,7 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
     }
 
@@ -140,6 +150,7 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
         if (!isLevelPass) {
             elapsedTime = System.currentTimeMillis() - startTime; // Calculate elapsed time
             timerHandler.removeCallbacks(updateTimerThread); // Stop the timer when the activity enters onPause state
+            sensorManager.unregisterListener(this);
         }
     }
 
@@ -282,11 +293,15 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
         return super.dispatchTouchEvent(event);
     }
 
+    @Override
     public void onSensorChanged(SensorEvent event) {
+        ImageView knobSwitch = findViewById(R.id.image_level10_knob_rotation_indicator);
+        ImageView unlockIndicator = findViewById(R.id.image_level10_knob_unlock_indicator);
+        TextView debugText = findViewById(R.id.text_Level10_DebugTextView);
 
-        ImageView knobSwitch = findViewById(R.id.image_level10_knob_switch);
-        knobSwitch.setPivotX(166);
-        knobSwitch.setPivotY(197);
+        knobSwitch.setPivotX(knobSwitch.getWidth() / 2);
+        knobSwitch.setPivotY(knobSwitch.getHeight());
+
         // Check if the sensor type is rotation vector
         if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
             // Get rotation values from the sensor event
@@ -300,11 +315,67 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
 
             // Rotate the ImageView based on the rotation angle
             knobSwitch.setRotation(rotationAngle);
+            debugText.setText("Rotation angle: " + rotationAngle);
+
+            if (Math.floor(rotationAngle) % 2 == 0 && canVibrate) {
+                vibrate();
+                canVibrate = false;
+            } else if (Math.floor(rotationAngle) % 2 != 0) {
+                canVibrate = true;
+            }
+
+            // Check if the knob switch touches the unlock indicator
+            Rect knobRect = new Rect();
+            knobSwitch.getHitRect(knobRect);
+            Rect unlockRect = new Rect();
+            unlockIndicator.getHitRect(unlockRect);
+            if (knobRect.intersect(unlockRect)) {
+                if (!isTouchingUnlockIndicator) {
+                    // Start timer when knob switch starts touching unlock indicator
+                    isTouchingUnlockIndicator = true;
+                    touchStartTime = System.currentTimeMillis();
+                    handler.postDelayed(unlockCheckRunnable, 0);
+                }
+            } else {
+                // Knob switch is not touching the unlock indicator
+                isTouchingUnlockIndicator = false;
+                handler.removeCallbacks(unlockCheckRunnable);
+            }
+
         }
+    }
+
+    // Runnable to check if knob switch continues to touch unlock indicator for 3 seconds
+    private final Runnable unlockCheckRunnable = new Runnable() {
+        @Override
+        public void run() {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - touchStartTime >= 3000) {
+                // Knob switch has been touching unlock indicator for 3 seconds
+                // Trigger unlock action here
+                onUnlockAction();
+            } else {
+                // Continue checking if knob switch is touching unlock indicator
+                handler.postDelayed(this, 100); // Check every 100 milliseconds
+            }
+        }
+    };
+
+    // Method to perform unlock action
+    private void onUnlockAction() {
+        // Perform unlock action here
+        // For example:
+        // Unlock the level, show success message, etc.
+        onLevelPass(); // Assuming this method exists to show level pass screen
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Not used in this example
+    }
+
+    private void vibrate() {
+        Log.d("Vibrate", "Vibrate");
+        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.EFFECT_TICK));
     }
 }

@@ -189,20 +189,37 @@
             android:src="@drawable/drawable_level10_knob_unlock_indicator"
             app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
             app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
-            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background" />
+            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/image_level10_knob_rotation_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:src="@drawable/drawable_level10_knob_rotation_indicator"
+            app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_switch"
+            app:layout_constraintStart_toStartOf="@+id/image_level10_knob_switch"
+            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_switch" />
 
         <ImageView
             android:id="@+id/image_level10_knob_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:src="@drawable/drawable_level10_knob_switch"
-            android:transformPivotY="-4dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_level10_knob_background"
             app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
             app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
             app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
             tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/text_Level10_DebugTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="345dp"
+            tools:layout_editor_absoluteY="110dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
