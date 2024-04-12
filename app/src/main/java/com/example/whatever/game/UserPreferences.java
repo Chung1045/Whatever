@@ -17,6 +17,7 @@ public class UserPreferences {
     public static final String BEST_TIME_LEVEL7 = "bestTimeLevel7";
     public static final String BEST_TIME_LEVEL8 = "bestTimeLevel8";
     public static final String BEST_TIME_LEVEL9 = "bestTimeLevel9";
+    public static final String BEST_TIME_LEVEL10 = "bestTimeLevel10";
     public static final String DINO_COUNT = "dinoCount";
     public static final String BEST_TIME_LEVEL_TEMPLATE = "bestTimeLevelTemplate";
     public static final String LAST_PLAYED_LEVEL = "lastPlayedLevel";

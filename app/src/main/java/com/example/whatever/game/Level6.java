@@ -64,16 +64,19 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     private void lottieAnimation(int id){
         switch (id){
             case 0:
+                win.setFrame(0);
                 win.setVisibility(View.VISIBLE);
                 win.animate().setStartDelay(100);
                 break;
 
             case 1:
+                spearLose.setFrame(0);
                 spearLose.setVisibility(View.VISIBLE);
                 spearLose.animate().setStartDelay(100);
                 break;
 
             case 2:
+                throwLose.setFrame(0);
                 throwLose.setVisibility(View.VISIBLE);
                 throwLose.animate().setStartDelay(100);
                 break;

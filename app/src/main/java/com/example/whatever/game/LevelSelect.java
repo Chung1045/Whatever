@@ -82,7 +82,7 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(this, MainActivity.class));
             }
             if (view.getId() == R.id.button_selectLevel_templateLevel) {
-                startActivity(new Intent(this, Level9.class));
+                startActivity(new Intent(this, Level10.class));
             }
             if (view.getId() == R.id.image_level_selection_account_icon) {
                 startActivity(new Intent(this, ProfileView.class));

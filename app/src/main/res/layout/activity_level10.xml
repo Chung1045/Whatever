@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".Level10">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_topbar_Level10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/button_Level10_NavigateBackBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/string_TopAppBar_backBtDescription"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:tooltipText="Level Selection"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurface" />
+
+        <LinearLayout
+            android:id="@+id/view_topbarButtons_Level10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/button_Level10_HintBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/string_TopAppBar_hintBtDescription"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_lightbulb_outline_24"
+                android:tooltipText="Hint"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level10_ResetBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/string_TopAppBar_resetBtDescription"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_refresh_24"
+                android:tooltipText="Restart Level"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level10_SettingsBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/string_TopAppBar_settingBtDescription"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_settings_24"
+                android:tooltipText="Settings"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level10_SoundBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/string_TopAppBar_soundBtDescription"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/ic_volume_on_24"
+                android:tooltipText="Toggle Sound"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurface" />
+
+            <ImageView
+                android:id="@+id/button_Level10_CloseBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/string_topAppBar_SettingCloseDescription"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:src="@drawable/baseline_close_24"
+                android:tooltipText="Close Settings"
+                android:visibility="gone"
+                app:tint="?attr/colorOnSurface" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_Level10_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="123dp"
+            android:fontFamily="@font/inter_variable"
+            android:paddingBottom="10dp"
+            android:text="Unlock!"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_LevelLayout_Level10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_topbar_Level10"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/drawable_level10_safe_inner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_level10_safe_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="18dp"
+            android:src="@drawable/drawable_level10_safe_panel"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/image_level10_knob_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/drawable_level10_knob_background"
+            app:layout_constraintBottom_toBottomOf="@+id/image_level10_safe_panel"
+            app:layout_constraintEnd_toEndOf="@+id/image_level10_safe_panel"
+            app:layout_constraintStart_toStartOf="@+id/image_level10_safe_panel"
+            app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel" />
+
+        <ImageView
+            android:id="@+id/image_level10_knob_unlock_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/drawable_level10_knob_unlock_indicator"
+            app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
+            app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
+            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background" />
+
+        <ImageView
+            android:id="@+id/image_level10_knob_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/drawable_level10_knob_switch"
+            android:transformPivotY="-4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_level10_knob_background"
+            app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
+            app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
+            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
+            tools:visibility="visible" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_Level10_Pass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/resultScreenBackground"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
+
+        <TextView
+            android:id="@+id/text_Level10_TimeUsedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="@string/string_LevelPass_timeUsedPlaceHolder"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level10_TimeUsedTitle" />
+
+        <TextView
+            android:id="@+id/text_Level10_LevelPassTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="92dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="@string/string_LevelPass_levelPassTitle"
+            android:textColor="@color/foreground"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_Level10_TimeUsedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="@string/string_LevelPass_timeUsedText"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level10_LevelPassTitle" />
+
+        <TextView
+            android:id="@+id/text_Level10_BestTimeUsedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="@string/string_LevelPass_bestTimeUsedText"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level10_TimeUsedText" />
+
+        <TextView
+            android:id="@+id/text_Level10_Best_TimeUsedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_variable"
+            android:text="@string/string_LevelPass_bestTimeUsedPlaceHolder"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level10_BestTimeUsedTitle" />
+
+        <TextView
+            android:id="@+id/text_LevelTemPlate_PassMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="232dp"
+            android:fontFamily="@font/inter_variable"
+            android:paddingHorizontal="10dp"
+            android:text="@string/string_LevelPass_messagePlaceholder"
+            android:textColor="@color/foreground"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Level10_TimeUsedText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_LevelTemPlate_PassMessage"
+            app:layout_constraintVertical_bias="0.096">
+
+            <Button
+                android:id="@+id/button_Level10_HomeBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/foreground"
+                android:drawableEnd="@drawable/baseline_home_24"
+                android:drawableTint="@color/background"
+                android:text="@string/string_LevelPass_levelSelect"
+                android:textColor="@color/background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ButtonStyle" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
