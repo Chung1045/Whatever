@@ -18,11 +18,14 @@ public class UserPreferences {
     public static final String BEST_TIME_LEVEL8 = "bestTimeLevel8";
     public static final String BEST_TIME_LEVEL9 = "bestTimeLevel9";
     public static final String BEST_TIME_LEVEL10 = "bestTimeLevel10";
+    public static final String CURRENT_RANK = "currentRank";
+    public static final String TOTAL_COMPETITORS = "totalCompetitors";
     public static final String DINO_COUNT = "dinoCount";
     public static final String BEST_TIME_LEVEL_TEMPLATE = "bestTimeLevelTemplate";
     public static final String LAST_PLAYED_LEVEL = "lastPlayedLevel";
     public static final String USER_AVATAR = "userAvatar";
     public static final String BEST_TIME_USED_TOTAL = "bestTimeUsedTotal";
+
     public static SharedPreferences sharedPref;
     public static SharedPreferences.Editor editor;
     public static void init(Activity a) {

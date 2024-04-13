@@ -28,7 +28,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
     private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Try tapping the buttons";
+    private final String levelHint = "Fat and ter";
     private final Random random = new Random();
 
     @Override

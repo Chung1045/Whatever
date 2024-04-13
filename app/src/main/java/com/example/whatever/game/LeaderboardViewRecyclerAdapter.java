@@ -3,6 +3,7 @@ package com.example.whatever.game;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.whatever.game.LeaderboardViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,11 +22,15 @@ import java.util.List;
 public class LeaderboardViewRecyclerAdapter extends RecyclerView.Adapter<LeaderboardViewRecyclerAdapter.MyViewHolder> {
 
     private final Context context;
-    private final List<LeaderboardViewModel> leaderboardData;
+    private List<LeaderboardViewModel> leaderboardData;
+    private static final int VIEW_TYPE_NORMAL = 0;
+    private static final int VIEW_TYPE_CURRENT_USER = 1;
+
 
     public LeaderboardViewRecyclerAdapter(Context context, List<LeaderboardViewModel> leaderboardData){
         this.context = context;
         this.leaderboardData = leaderboardData;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -34,6 +39,7 @@ public class LeaderboardViewRecyclerAdapter extends RecyclerView.Adapter<Leaderb
         // Inflate layout
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycleview_leaderboard_item_view, parent, false);
+
         return new MyViewHolder(view);
     }
 

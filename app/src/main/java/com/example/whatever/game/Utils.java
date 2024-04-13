@@ -53,7 +53,9 @@ public class Utils {
     private DialogUtils dialogUtils;
     private IntentUtils intentUtils;
     private SFXUtils sfxUtils;
+    private VibrateUtils vibrateUtils;
     private ImageUtils imageUtils;
+
 
     public Utils(Activity a, View v, Context c){
         this.activity = a;
@@ -72,6 +74,7 @@ public class Utils {
         intentUtils = new IntentUtils(c);
         sfxUtils = new SFXUtils(c);
         imageUtils = new ImageUtils();
+        vibrateUtils = new VibrateUtils(c);
     }
 
     // Functions
@@ -95,36 +98,21 @@ public class Utils {
         UserPreferences.editor.putString(UserPreferences.USER_AVATAR, null).commit();
     }
 
-    public void showActionSnackBar(String message, String buttonText){
-        snackBarUtils.setActionSnackbar(message, buttonText);
+    public void vibrateTick(){
+        vibrateUtils.vibrateTick();
     }
-
-    public void showNotifications(String message){
-        notificationUtils.showNotif(activity, "This is a notification", view);
+    public void vibrateHeavyTick(){
+        vibrateUtils.vibrateHeavyTick();
     }
-
-    public void showSimpleDialog(String message, int titleResourceID){
-        dialogUtils.setSimpleDialog(message, titleResourceID);
-    }
-
-    public void showYesNoDialog(String message, int titleResourceID){
-        dialogUtils.setYesNoDialog(message, titleResourceID );
-    }
-
-    public void startUrlIntent(String url){
-        intentUtils.urlIntent(url);
-    }
-
     public void hideKeyboard(){
         hideKeyboardFunction(view, activity);
     }
-
     public void playSFX(int soundResourceId){
         sfxUtils.playSound(activity, soundResourceId);
     }
     public void playWrongSFX(){
         sfxUtils.playSound(activity, R.raw.wrong_sfx);
-        sfxUtils.vibrateWithPattern();
+        vibrateUtils.vibrateWrongAttempt();
     }
     public void playEnterLevelSFX(){ sfxUtils.playSound(activity, R.raw.enter_level_sfx);}
     public void playCorrectSFX(){ sfxUtils.playCorrectSFXSound(activity);}
@@ -152,12 +140,14 @@ public class Utils {
         long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
         long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        long bestTimeLevel10 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0);
 
         if (bestTimeLevel1 == 0 || bestTimeLevel2 == 0 || bestTimeLevel3 == 0 || bestTimeLevel4 == 0
-                || bestTimeLevel5 == 0 || bestTimeLevel6 == 0 || bestTimeLevel7 == 0 || bestTimeLevel8 == 0 || bestTimeLevel9 == 0) {
+                || bestTimeLevel5 == 0 || bestTimeLevel6 == 0 || bestTimeLevel7 == 0 || bestTimeLevel8 == 0 || bestTimeLevel9 == 0 || bestTimeLevel10 == 0){
             return "Finish all level to see your best total time.";
         } else {
-            long totalTime = bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 + bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8 + bestTimeLevel9;
+            long totalTime = bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 + bestTimeLevel4
+                    + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8 + bestTimeLevel9 + bestTimeLevel10;
             long seconds = totalTime / 1000;
             long minutes = seconds / 60;
             seconds = seconds % 60;
@@ -181,17 +171,20 @@ public class Utils {
         long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
         long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        long bestTimeLevel10 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0);
         int dinoCount = sharedPref.getInt(UserPreferences.DINO_COUNT, 0);
 
-        recordHolder.put("Best time Level1", calculateTimeFromLong(bestTimeLevel1));
-        recordHolder.put("Best time Level2", calculateTimeFromLong(bestTimeLevel2));
-        recordHolder.put("Best time Level3", calculateTimeFromLong(bestTimeLevel3));
-        recordHolder.put("Best time Level4", calculateTimeFromLong(bestTimeLevel4));
-        recordHolder.put("Best time Level5", calculateTimeFromLong(bestTimeLevel5));
-        recordHolder.put("Best time Level6", calculateTimeFromLong(bestTimeLevel6));
-        recordHolder.put("Best time Level7", calculateTimeFromLong(bestTimeLevel7));
-        recordHolder.put("Best time Level8", calculateTimeFromLong(bestTimeLevel8));
-        recordHolder.put("Best time Level9", calculateTimeFromLong(bestTimeLevel9));
+        recordHolder.put("Best time Level01", calculateTimeFromLong(bestTimeLevel1));
+        recordHolder.put("Best time Level02", calculateTimeFromLong(bestTimeLevel2));
+        recordHolder.put("Best time Level03", calculateTimeFromLong(bestTimeLevel3));
+        recordHolder.put("Best time Level04", calculateTimeFromLong(bestTimeLevel4));
+        recordHolder.put("Best time Level05", calculateTimeFromLong(bestTimeLevel5));
+        recordHolder.put("Best time Level06", calculateTimeFromLong(bestTimeLevel6));
+        recordHolder.put("Best time Level07", calculateTimeFromLong(bestTimeLevel7));
+        recordHolder.put("Best time Level08", calculateTimeFromLong(bestTimeLevel8));
+        recordHolder.put("Best time Level09", calculateTimeFromLong(bestTimeLevel9));
+        recordHolder.put("Best time Level10", calculateTimeFromLong(bestTimeLevel10));
+        recordHolder.put("Average Time", getAverageTime());
         recordHolder.put("Dino Count", dinoCount);
 
         consumer.accept(recordHolder);
@@ -207,9 +200,26 @@ public class Utils {
         long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
         long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        long bestTimeLevel10 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0);
 
         return bestTimeLevel1 != 0 && bestTimeLevel2 != 0 && bestTimeLevel3 != 0 && bestTimeLevel4 != 0
-                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0 && bestTimeLevel9!= 0;
+                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0 && bestTimeLevel9!= 0 && bestTimeLevel10!= 0;
+    }
+
+    public String getAverageTime(){
+        long bestTimeLevel1 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0);
+        long bestTimeLevel2 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0);
+        long bestTimeLevel3 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0);
+        long bestTimeLevel4 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0);
+        long bestTimeLevel5 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0);
+        long bestTimeLevel6 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0);
+        long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
+        long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
+        long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        long bestTimeLevel10 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0);
+
+        return calculateTimeFromLong((bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 + bestTimeLevel4
+                + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8 + bestTimeLevel9 + bestTimeLevel10) / 10);
     }
 
     //Classes to handel the functions
@@ -367,18 +377,44 @@ public class Utils {
             sfxPlayer.start();
         }
 
-        public void vibrateWithPattern() {
+    }
+
+    public class VibrateUtils{
+        private Context context;
+        private Vibrator vibrator;
+
+        public VibrateUtils(Context c){
+            context = c;
+            vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+
+        public void vibrateTick() {
+            if (vibrator != null) {
+                if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.EFFECT_TICK));
+                }
+            }
+        }
+
+        public void vibrateHeavyTick() {
+            if (vibrator!= null) {
+                if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.EFFECT_HEAVY_CLICK));
+                }
+            }
+        }
+
+        public void vibrateWrongAttempt() {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null) {
                 long[] pattern = {0, 150, 100, 150};
 
                 VibrationEffect vibrationEffect = VibrationEffect.createWaveform(pattern, -1);
-            if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
+                if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
                     vibrator.vibrate(vibrationEffect);
                 }
             }
         }
-
     }
 
     public class ImageUtils {

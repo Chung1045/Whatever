@@ -58,14 +58,11 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             screenCaptureCallback =
-                    new Activity.ScreenCaptureCallback() {
-                        @Override
-                        public void onScreenCaptured() {
-                            View backOnlineView = findViewById(R.id.view_Level9_variableLayout_backOnline);
-                            Log.d("Screencapture", "Screen capture started");
-                            if (backOnlineView.getVisibility() == View.VISIBLE) {
-                                utils.showSnackBarMessage("Heyyy! How dare you take the screenshot with my username and password???");
-                            }
+                    () -> {
+                        View backOnlineView = findViewById(R.id.view_Level9_variableLayout_backOnline);
+                        Log.d("Screencapture", "Screen capture started");
+                        if (backOnlineView.getVisibility() == View.VISIBLE) {
+                            utils.showSnackBarMessage("Heyyy! How dare you take the screenshot with my username and password???");
                         }
                     };
             registerScreenCaptureCallback(executor, screenCaptureCallback);
@@ -257,6 +254,11 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
         findViewById(R.id.button_Level9_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level9.this, LevelSelect.class));
+            finish();
+        });
+
+        findViewById(R.id.button_Level9_NextLevelBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level9.this, Level10.class));
             finish();
         });
 

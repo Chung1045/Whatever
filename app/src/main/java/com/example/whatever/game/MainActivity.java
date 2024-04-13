@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int lastPlayedLevel = UserPreferences.sharedPref.getInt("lastPlayedLevel", 0);
         if (lastPlayedLevel == 0){
             findViewById(R.id.home_lastPlayedBt).setVisibility(View.GONE);
+        } else {
+            Button lastPlayedBt = findViewById(R.id.home_lastPlayedBt);
+            lastPlayedBt.setText(getText(R.string.string_main_activity_continueLevelText) + String.valueOf(lastPlayedLevel));
         }
     }
 
@@ -89,8 +93,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, Level7.class));
             } else if (level == 8){
                 startActivity(new Intent(this, Level8.class));
-            } else if (level == -1){
-                startActivity(new Intent(this, LevelTemplate.class));
+            } else if (level == 9){
+                startActivity(new Intent(this, Level9.class));
+            } else if (level == 10){
+                startActivity(new Intent(this, Level10.class));
             }
         }
 

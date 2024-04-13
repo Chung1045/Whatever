@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawable_leaderboard_item_background"
+    android:layout_marginVertical="10dp">
 
     <!-- Define the layout for each row in the ListView -->
     <TextView
@@ -11,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textColor="@color/background"
         android:fontFamily="@font/inter_variable"
         android:padding="8dp"
         android:text="Level"
@@ -26,6 +29,7 @@
         android:layout_margin="10dp"
         android:gravity="end"
         android:padding="8dp"
+        android:textColor="@color/background"
         android:fontFamily="@font/inter_variable"
         android:text="XXmXXs"
         android:textSize="16sp"

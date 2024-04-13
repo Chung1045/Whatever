@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -146,15 +146,12 @@ public class LeaderBoard extends AppCompatActivity {
 
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.view_leaderboard_swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            recyclerViewItemInit(newLeaderboardData -> {
-                leaderBoardRecyclerViewInit();
-            });
+            leaderBoardRecyclerViewInit();
             swipeRefreshLayout.setRefreshing(false);
         });
 
-        findViewById(R.id.button_leaderboard_record).setOnClickListener(view -> {
-            startActivity(new Intent().setClass(LeaderBoard.this, Records.class));
-        });
+        findViewById(R.id.button_leaderboard_record).setOnClickListener(view ->
+                startActivity(new Intent().setClass(LeaderBoard.this, Records.class)));
     }
 
     private void updateUI(){
@@ -162,6 +159,8 @@ public class LeaderBoard extends AppCompatActivity {
         TextView profileDescription = findViewById(R.id.text_leaderboard_description);
         Button signIn = findViewById(R.id.button_leaderboard_sign_in_sign_up);
         ImageView userAvatar = findViewById(R.id.image_leaderboard_leaderboard_icon);
+        LinearLayout rankLayout = findViewById(R.id.view_leaderboard_rank_layout);
+        TextView rankText = findViewById(R.id.text_leaderboard_rankResult);
 
         if (firebaseHelper.isLoggedIn()){
             userName.setText(firebaseHelper.getUserName());
@@ -177,10 +176,20 @@ public class LeaderBoard extends AppCompatActivity {
             });
             profileDescription.setText(utils.getBestTotaltime());
             if (utils.isAllLevelPassed()){
-                firebaseHelper.updateBestTime(this, successful ->{});
+                firebaseHelper.updateBestTime(this, successful ->{
+                    if (successful){
+                        rankLayout.setVisibility(View.VISIBLE);
+                        String currentRank = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.CURRENT_RANK, 0));
+                        String totalCompetors = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.TOTAL_COMPETITORS, 0));
+                        rankText.setText(currentRank + " / " + totalCompetors);
+                    } else {
+                        utils.showSnackBarMessage("Error: Unable to fetch leaderboard");
+                    }
+                });
+
             }
         } else {
-            userName.setText("Guests");
+            userName.setText(getText(R.string.string_profile_defaultUsername));
             signIn.setVisibility(View.VISIBLE);
             userAvatar.setColorFilter(getColor(R.color.background));
             userAvatar.setImageResource(R.drawable.ic_account_circle_24);

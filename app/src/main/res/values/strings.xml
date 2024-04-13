@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Whatever¿</string>
-    <string name="string_Level1_title"></string>
-    <string name="string_Level2_title"></string>
-    <string name="string_Level3_title"></string>
-    <string name="string_Level4_title"></string>
-    <string name="string_Level5_title"></string>
-    <string name="string_Level6_title"></string>
+    <string name="string_main_activity_continueLevelText">Continue Level </string>
+    <string name="string_Level1_title">Guess a word!</string>
+    <string name="string_Level2_title">Which One is the</string>
+    <string name="string_Level3_title">Where is the Sheep?</string>
+    <string name="string_Level4_title">"What is the next number?</string>
+    <string name="string_Level5_title">Give Peter some water!</string>
+    <string name="string_Level6_title">Defeat the enemy!</string>
     <string name="string_Level7_title">Go to sleep!</string>
     <string name="string_Level8_title">Find the way out!</string>
     <string name="string_LevelPass_nextLevel">Next Level</string>
@@ -35,6 +36,74 @@
     <string name="string_leaderboard_signInOrUp_text">Sign in / Sign up</string>
     <string name="string_profile_option_vibration_text">Vibration</string>
 
+    <string-array name="string_Level1_hints_array">
+        <item>"Fat and ter"</item>
+        <item>"Try combine two words?"</item>
+    </string-array>
+
+    <string-array name="string_level1_level_pass_messages_array">
+        <item>"When father is fat"</item>
+        <item>"Fatty father"</item>
+        <item>"Are ya winning son?"</item>
+        <item>"That was quite easy"</item>
+        <item>"As expected"</item>
+    </string-array>
+
+    <string-array name="string_Level2_hints_array">
+        <item>"Who is the \"biggest?\""</item>
+    </string-array>
+
+    <string-array name="string_level2_level_pass_messages_array">
+        <item>"\"Totally\" Correct"</item>
+        <item>"Can it become as big as the universe?"</item>
+        <item>"Yes Cuz why not?"</item>
+    </string-array>
+
+    <string-array name="string_Level3_hints_array">
+        <item>Sheep is behind the fox. Move the fox far away!</item>
+        <item>"Is there any thing behind the fox?"</item>
+        <item>"I think there is some secrets?"</item>
+    </string-array>
+
+    <string-array name="string_level3_level_pass_messages_array">
+        <item>"Why would a sheep want to be a fox?"</item>
+        <item>"Tricky?"</item>
+        <item>"Fox skinned sheep???"</item>
+    </string-array>
+
+    <string-array name="string_Level4_hints_array">
+        <item>"It's a fibonacci sequence, just google it"</item>
+    </string-array>
+
+    <string-array name="string_level4_level_pass_messages_array">
+        <item>"You must be good at math isn't it?"</item>
+        <item>"I wonder how big it can be......"</item>
+        <item>"Can we count through aleph null?"</item>
+        <item>"Would it be bigger that TREE(3)?"</item>
+    </string-array>
+
+    <string-array name="string_Level5_hints_array">
+        <item>"U can do better"</item>
+        <item>"Try hard?"</item>
+        <item>"As expected"</item>
+    </string-array>
+
+    <string-array name="string_level5_level_pass_messages_array">
+        <item>"Is there only 4 gears?"</item>
+    </string-array>
+
+    <string-array name="string_Level6_hints_array">
+        <item>"Can you steal the weapon?"</item>
+        <item>"I wonder if I can steal the enemy's weapon "</item>
+        <item>"Short distance weapons are no match to the long range weapons!"</item>
+    </string-array>
+
+    <string-array name="string_level6_level_pass_messages_array">
+        <item>"Should I call you a thief?"</item>
+        <item>"What else can I grab from enemy?"</item>
+        <item>"Your parents are mad right now......"</item>
+    </string-array>
+
     <string-array name="string_Level7_hints_array">
         <item>"Who wants to sleep with the light?"</item>
         <item>"I am sensitive to any light when sleeping"</item>
@@ -59,6 +128,25 @@
         <item>"That was hard isn't it?"</item>
         <item>"Ever played Rotaneo?"</item>
         <item>"Shh, there a better way to do it"</item>
+    </string-array>
+
+    <string-array name="string_Level9_hints_array">
+        <item>"Sorry! Help not available lol"</item>
+        <item>"Go get help"</item>
+    </string-array>
+
+    <string-array name="string_level9_level_pass_messages_array">
+        <item>"Did you steal the login credentials?"</item>
+        <item>"Are you being honest?"</item>
+    </string-array>
+
+    <string-array name="string_Level10_hints_array">
+        <item>"Try spin your phone?"</item>
+    </string-array>
+
+    <string-array name="string_level10_level_pass_messages_array">
+        <item>"What's inside?"</item>
+        <item>"Tresurous"</item>
     </string-array>
 
     <string-array name="string_profile_references_array">

@@ -11,4 +11,7 @@
     <color name="cardBackground">#FF000000</color>
     <color name="textFieldBorderColor">#FF2d2d2d</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FF000000</color>
+    <color name="safe_locked">#FFAF5151</color>
+    <color name="safe_unlocked">#FF72D961</color>
+    <color name="leaderboard_currentUser">#FFAF5151</color>
 </resources>

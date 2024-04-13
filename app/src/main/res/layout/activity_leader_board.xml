@@ -133,6 +133,35 @@
                                 android:textSize="18sp" />
 
                             <LinearLayout
+                                android:id="@+id/view_leaderboard_rank_layout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/text_leaderboard_rankText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_variable"
+                                    android:text="Rank: "
+                                    android:textColor="@color/background"
+                                    android:textSize="18sp" />
+
+                                <TextView
+                                    android:id="@+id/text_leaderboard_rankResult"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:fontFamily="@font/inter_variable"
+                                    android:text="XX/XX"
+                                    android:textColor="@color/background"
+                                    android:textSize="32sp" />
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">

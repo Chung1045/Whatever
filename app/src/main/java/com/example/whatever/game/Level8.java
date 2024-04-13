@@ -139,9 +139,20 @@ public class Level8 extends AppCompatActivity implements View.OnTouchListener, S
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level8_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level8.this, LevelSelect.class)));
+        findViewById(R.id.button_Level8_NavigateBackBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level8.this, LevelSelect.class));
+            finish();
+        });
 
-        findViewById(R.id.button_Level8_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level8.this, LevelSelect.class)));
+        findViewById(R.id.button_Level8_HomeBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level8.this, LevelSelect.class));
+            finish();
+        });
+
+        findViewById(R.id.button_Level8_NextLevelBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level8.this, Level9.class));
+            finish();
+        });
 
     }
 

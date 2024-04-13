@@ -659,6 +659,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_LevelTemPlate_PassMessage"
             app:layout_constraintVertical_bias="0.096">
 
+
             <Button
                 android:id="@+id/button_Level8_HomeBt"
                 android:layout_width="wrap_content"
@@ -672,6 +673,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/button_Level8_NextLevelBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/foreground"
+                android:drawableEnd="@drawable/baseline_arrow_forward_24"
+                android:drawableTint="@color/background"
+                android:text="@string/string_LevelPass_nextLevel"
+                android:textColor="@color/background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ButtonStyle,ContentDescription" />
 
         </LinearLayout>
 

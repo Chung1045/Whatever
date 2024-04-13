@@ -274,7 +274,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:visibility="gone"> <!-- To block from interacting the item behind the result screen -->
+        tools:visibility="visible"> <!-- To block from interacting the item behind the result screen -->
 
         <TextView
             android:id="@+id/text_Level7_TimeUsedText"
@@ -383,7 +383,7 @@
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle,ContentDescription"/>
+                tools:ignore="ButtonStyle,ContentDescription" />
 
             <Button
                 android:id="@+id/button_Level7_NextLevelBt"
@@ -396,7 +396,7 @@
                 android:textColor="@color/background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ButtonStyle,ContentDescription"/>
+                tools:ignore="ButtonStyle,ContentDescription" />
 
         </LinearLayout>
 

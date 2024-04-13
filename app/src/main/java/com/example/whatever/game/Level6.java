@@ -163,14 +163,17 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         // go back to level selection (Top arrow back icon)
         findViewById(R.id.button_Level6_NavigateBackBt).setOnClickListener(view -> {
             startActivity(new Intent(Level6.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level6_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level6.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level6_NextLevelBt).setOnClickListener(view -> {
             startActivity(new Intent(Level6.this, Level7.class));
+            finish();
         });
 
     }
@@ -206,6 +209,7 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     // Show the level pass screen
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public void onLevelPass(){
         isLevelPass = true;
         TextView timeUsedCount = findViewById(R.id.text_Level6_TimeUsedText);
@@ -225,6 +229,7 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         utils.playCorrectSFX();
     }
 
+    @SuppressLint("DefaultLocale")
     private void updateBestTime(){
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0L) == 0L ||
                 timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0L)){
@@ -284,20 +289,14 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
             lv6_after_player.setVisibility(View.VISIBLE);
 
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    lv6_after_archer.setVisibility(View.GONE);
-                    lv6_after_player.setVisibility(View.GONE);
-                    lottieAnimation(0);
-                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
-                }
+            handler.postDelayed(() -> {
+                lv6_after_archer.setVisibility(View.GONE);
+                lv6_after_player.setVisibility(View.GONE);
+                lottieAnimation(0);
+                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
             }, 500);
 
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    onLevelPass();
-                }
-            }, 3000);
+            handler.postDelayed(this::onLevelPass, 3000);
         });
 
         findViewById(R.id.image_Level6_spear).setOnClickListener(view -> {
@@ -305,27 +304,19 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
             lv6_spearselect.setVisibility(View.VISIBLE);
             lv6_original_archer.setVisibility(View.VISIBLE);
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    lv6_spearselect.setVisibility(View.GONE);
-                    lv6_original_archer.setVisibility(View.GONE);
-                    lottieAnimation(1);
-                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
-                }
+            handler.postDelayed(() -> {
+                lv6_spearselect.setVisibility(View.GONE);
+                lv6_original_archer.setVisibility(View.GONE);
+                lottieAnimation(1);
+                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1000);
             }, 500);
 
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    spearLose.pauseAnimation();
-                    resetState();
-                }
+            handler.postDelayed(() -> {
+                spearLose.pauseAnimation();
+                resetState();
             }, 2450);
 
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    onWrongAttempt();
-                }
-            }, 3000);
+            handler.postDelayed(() -> onWrongAttempt(), 2000);
 
         });
 
@@ -334,25 +325,17 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
             lv6_throwselect.setVisibility(View.VISIBLE);
             lv6_original_archer.setVisibility(View.VISIBLE);
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    lv6_throwselect.setVisibility(View.GONE);
-                    lv6_original_archer.setVisibility(View.GONE);
-                    lottieAnimation(2);
-                    new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1500);
-                }
+            handler.postDelayed(() -> {
+                lv6_throwselect.setVisibility(View.GONE);
+                lv6_original_archer.setVisibility(View.GONE);
+                lottieAnimation(2);
+                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1000);
             }, 500);
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    throwLose.pauseAnimation();
-                    resetState();
-                }
+            handler.postDelayed(() -> {
+                throwLose.pauseAnimation();
+                resetState();
             }, 2450);
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    onWrongAttempt();
-                }
-            }, 3000);
+            handler.postDelayed(() -> onWrongAttempt(), 2000);
         });
         // place your element listener here
     }

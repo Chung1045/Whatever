@@ -160,66 +160,108 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/image_level10_safe_panel"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_variable"
+            android:text="FIN"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.442" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/view_level10_safe_panel_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="9dp"
             android:layout_marginBottom="18dp"
-            android:src="@drawable/drawable_level10_safe_panel"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            tools:visibility="visible">
 
-        <ImageView
-            android:id="@+id/image_level10_knob_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/drawable_level10_knob_background"
-            app:layout_constraintBottom_toBottomOf="@+id/image_level10_safe_panel"
-            app:layout_constraintEnd_toEndOf="@+id/image_level10_safe_panel"
-            app:layout_constraintStart_toStartOf="@+id/image_level10_safe_panel"
-            app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel" />
+            <ImageView
+                android:id="@+id/image_level10_safe_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawable_level10_safe_panel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/image_level10_knob_unlock_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/drawable_level10_knob_unlock_indicator"
-            app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
-            app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
-            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
-            tools:visibility="gone" />
+            <ImageView
+                android:id="@+id/image_level10_knob_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawable_level10_knob_background"
+                app:layout_constraintBottom_toBottomOf="@+id/image_level10_safe_panel"
+                app:layout_constraintEnd_toEndOf="@+id/image_level10_safe_panel"
+                app:layout_constraintStart_toStartOf="@+id/image_level10_safe_panel"
+                app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel" />
 
-        <ImageView
-            android:id="@+id/image_level10_knob_rotation_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-6dp"
-            android:src="@drawable/drawable_level10_knob_rotation_indicator"
-            app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_switch"
-            app:layout_constraintStart_toStartOf="@+id/image_level10_knob_switch"
-            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_switch" />
+            <ImageView
+                android:id="@+id/image_level10_knob_unlock_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawable_level10_knob_unlock_indicator"
+                app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
+                app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
+                app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
+                tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/image_level10_knob_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/drawable_level10_knob_switch"
-            app:layout_constraintBottom_toBottomOf="@+id/image_level10_knob_background"
-            app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
-            app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
-            app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
-            tools:visibility="visible" />
+            <ImageView
+                android:id="@+id/image_level10_knob_rotation_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:src="@drawable/drawable_level10_knob_rotation_indicator"
+                app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_switch"
+                app:layout_constraintStart_toStartOf="@+id/image_level10_knob_switch"
+                app:layout_constraintTop_toTopOf="@+id/image_level10_knob_switch" />
+
+            <ImageView
+                android:id="@+id/image_level10_knob_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawable_level10_knob_switch"
+                app:layout_constraintBottom_toBottomOf="@+id/image_level10_knob_background"
+                app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
+                app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
+                app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/image_level10_safe_unlock_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/drawable_level10_unlock_indicator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel"
+                app:tint="@color/safe_locked" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/text_Level10_DebugTextView"
+            android:id="@+id/text_Level10_Countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="345dp"
-            tools:layout_editor_absoluteY="110dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_variable"
+            android:textColor="@color/foreground"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

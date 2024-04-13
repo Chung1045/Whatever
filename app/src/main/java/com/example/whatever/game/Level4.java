@@ -27,7 +27,7 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"You must be good at math isnt it?", "I wonder how big it can be......", "Can we count through aleph null?"};
+    private final String[] levelPassMessage = new String[]{"You must be good at math isn't it?", "I wonder how big it can be......", "Can we count through aleph null?"};
     private final String levelHint = "It's a fibonacci sequence, just google it";
     private final Random random = new Random();
 

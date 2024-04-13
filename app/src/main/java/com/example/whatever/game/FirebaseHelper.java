@@ -190,9 +190,10 @@ public class FirebaseHelper {
         long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
         long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        long bestTimeLevel10 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0);
 
         return bestTimeLevel1 != 0 && bestTimeLevel2 != 0 && bestTimeLevel3 != 0 && bestTimeLevel4 != 0
-                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0 && bestTimeLevel9!= 0;
+                && bestTimeLevel5 != 0 && bestTimeLevel6 != 0 && bestTimeLevel7 != 0 && bestTimeLevel8 != 0 && bestTimeLevel9!= 0 && bestTimeLevel10!= 0;
     }
 
     public Map<String, Object> firebaseGetBestTime(Activity activity){
@@ -206,6 +207,7 @@ public class FirebaseHelper {
         Long bestTimeLevel7 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0);
         Long bestTimeLevel8 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0);
         Long bestTimeLevel9 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0);
+        Long bestTimeLevel10 = UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0);
         int dinoCount = UserPreferences.sharedPref.getInt(UserPreferences.DINO_COUNT, 0);
 
         Map<String, Object> result = new HashMap<>();
@@ -218,8 +220,9 @@ public class FirebaseHelper {
         result.put("bestTimeLevel7", String.valueOf(bestTimeLevel7));
         result.put("bestTimeLevel8", String.valueOf(bestTimeLevel8));
         result.put("bestTimeLevel9", String.valueOf(bestTimeLevel9));
+        result.put("bestTimeLevel10", String.valueOf(bestTimeLevel10));
         result.put("bestTotalTime", String.valueOf(bestTimeLevel1 + bestTimeLevel2 + bestTimeLevel3 +
-                bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8 + bestTimeLevel9));
+                bestTimeLevel4 + bestTimeLevel5 + bestTimeLevel6 + bestTimeLevel7 + bestTimeLevel8 + bestTimeLevel9 + bestTimeLevel10));
         result.put("dinoCount", dinoCount);
         return result;
 
@@ -257,7 +260,19 @@ public class FirebaseHelper {
                 Log.d("Record", "Leaderboard size = " + leaderboardList.size() + "\n Data = " + leaderboardList + "\n Now going to sort");
                 // Sort the leaderboard list by bestTime in ascending order
                 sortByBestTimeAscending(leaderboardList);
+                UserPreferences.editor.putInt(UserPreferences.TOTAL_COMPETITORS, leaderboardList.size()).commit();
+
                 Log.d("Record", "Sorted: " + leaderboardList);
+
+                int currentUserRank = 0;
+                for (int i = 0; i < leaderboardList.size(); i++) {
+                    String uid = (String) leaderboardList.get(i).get("uid");
+                    if (uid.equals(user.getUid())) {
+                        currentUserRank = i + 1;
+                        UserPreferences.editor.putInt(UserPreferences.CURRENT_RANK, currentUserRank).commit();
+                        break;
+                    }
+                }
 
                 // Call the callback with the leaderboard data
                 callback.accept(leaderboardList);
@@ -307,6 +322,8 @@ public class FirebaseHelper {
                 String Level6 = snapshot.child("bestTimeLevel6").getValue(String.class);
                 String Level7 = snapshot.child("bestTimeLevel7").getValue(String.class);
                 String Level8 = snapshot.child("bestTimeLevel8").getValue(String.class);
+                String Level9 = snapshot.child("bestTimeLevel9").getValue(String.class);
+                String Level10 = snapshot.child("bestTimeLevel10").getValue(String.class);
                 String bestTotalTime = snapshot.child("bestTotalTime").getValue(String.class);
                 int dinoCount = snapshot.child("dinoCount").getValue(Integer.class);
 
@@ -333,6 +350,12 @@ public class FirebaseHelper {
                 }
                 if (Level8!= null &&!Level8.equals("0")) {
                     UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL8, Long.parseLong(Level8));
+                }
+                if (Level9!= null &&!Level9.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL9, Long.parseLong(Level9));
+                }
+                if (Level10!= null &&!Level10.equals("0")) {
+                    UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL10, Long.parseLong(Level10));
                 }
                 if (bestTotalTime!= null &&!bestTotalTime.equals("0")) {
                     UserPreferences.editor.putLong(UserPreferences.BEST_TIME_USED_TOTAL, Long.parseLong(bestTotalTime));

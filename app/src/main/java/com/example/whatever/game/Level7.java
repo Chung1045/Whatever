@@ -139,11 +139,14 @@ public class Level7 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level7_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, LevelSelect.class)));
+        findViewById(R.id.button_Level7_NavigateBackBt).setOnClickListener(view -> finish());
 
-        findViewById(R.id.button_Level7_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, LevelSelect.class)));
+        findViewById(R.id.button_Level7_HomeBt).setOnClickListener(view -> finish());
 
-        findViewById(R.id.button_Level7_NextLevelBt).setOnClickListener(view -> startActivity(new Intent(Level7.this, Level8.class)));
+        findViewById(R.id.button_Level7_NextLevelBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level7.this, Level8.class));
+            finish();
+        });
 
     }
 

@@ -1,5 +1,10 @@
 package com.example.whatever.game;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +28,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.Random;
 
@@ -38,9 +44,8 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
     private final Random random = new Random();
     private SensorManager sensorManager;
     private Sensor rotationVectorSensor;
-    private Vibrator vibrator;
     private long touchStartTime = 0L;
-    private boolean isTouchingUnlockIndicator = false, canVibrate = false;
+    private boolean isTouchingUnlockIndicator = false, canVibrate = false, isVibrate1 = false, isVibrate2 = false;
     private final Handler handler = new Handler();
 
     @Override
@@ -50,12 +55,11 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
         View v = findViewById(android.R.id.content);
         onLevelStart(v);
 
-        levelPassMessage = getResources().getStringArray(R.array.string_level8_level_pass_messages_array);
-        //levelHint = getResources().getStringArray(R.array.string_Level10_hints_array);
+        levelPassMessage = getResources().getStringArray(R.array.string_level10_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level10_hints_array);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
     }
 
@@ -68,7 +72,7 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
         UserPreferences.init(this);
 
         // change accordingly to the current level
-        UserPreferences.editor.putInt(UserPreferences.LAST_PLAYED_LEVEL, 8).commit();
+        UserPreferences.editor.putInt(UserPreferences.LAST_PLAYED_LEVEL, 10).commit();
 
         topBarInit();
         utils = new Utils(this, v, this);
@@ -134,13 +138,20 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(Level10.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
-        findViewById(R.id.button_Level10_NavigateBackBt).setOnClickListener(view -> startActivity(new Intent(Level10.this, LevelSelect.class)));
+        findViewById(R.id.button_Level10_NavigateBackBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level10.this, LevelSelect.class));
+            finish();
+        });
 
-        findViewById(R.id.button_Level10_HomeBt).setOnClickListener(view -> startActivity(new Intent(Level10.this, LevelSelect.class)));
+        findViewById(R.id.button_Level10_HomeBt).setOnClickListener(view -> {
+            startActivity(new Intent(Level10.this, LevelSelect.class));
+            finish();
+        });
 
     }
 
@@ -181,8 +192,6 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
     // Show the level pass screen
     public void onLevelPass(){
         isLevelPass = true;
-        timerHandler.removeCallbacks(updateTimerThread);
-        sensorManager.unregisterListener(this);
 
         TextView timeUsedCount = findViewById(R.id.text_Level10_TimeUsedText);
         TextView passMessage = findViewById(R.id.text_LevelTemPlate_PassMessage);
@@ -297,7 +306,7 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
     public void onSensorChanged(SensorEvent event) {
         ImageView knobSwitch = findViewById(R.id.image_level10_knob_rotation_indicator);
         ImageView unlockIndicator = findViewById(R.id.image_level10_knob_unlock_indicator);
-        TextView debugText = findViewById(R.id.text_Level10_DebugTextView);
+        TextView countdown = findViewById(R.id.text_Level10_Countdown);
 
         knobSwitch.setPivotX(knobSwitch.getWidth() / 2);
         knobSwitch.setPivotY(knobSwitch.getHeight());
@@ -315,12 +324,12 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
 
             // Rotate the ImageView based on the rotation angle
             knobSwitch.setRotation(rotationAngle);
-            debugText.setText("Rotation angle: " + rotationAngle);
 
-            if (Math.floor(rotationAngle) % 2 == 0 && canVibrate) {
-                vibrate();
+            if (Math.floor(rotationAngle) % 5 == 0 && canVibrate) {
+                utils.vibrateTick();
+                //utils.playSFX(R.raw.sfx_level10_safe_knob_click);
                 canVibrate = false;
-            } else if (Math.floor(rotationAngle) % 2 != 0) {
+            } else if (Math.floor(rotationAngle) % 5 != 0) {
                 canVibrate = true;
             }
 
@@ -335,11 +344,16 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
                     isTouchingUnlockIndicator = true;
                     touchStartTime = System.currentTimeMillis();
                     handler.postDelayed(unlockCheckRunnable, 0);
+                    countdown.setText("3");
+                    utils.vibrateHeavyTick();
                 }
             } else {
                 // Knob switch is not touching the unlock indicator
                 isTouchingUnlockIndicator = false;
                 handler.removeCallbacks(unlockCheckRunnable);
+                countdown.setText(null);
+                isVibrate1 = false;
+                isVibrate2 = false;
             }
 
         }
@@ -350,9 +364,21 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
         @Override
         public void run() {
             long currentTime = System.currentTimeMillis();
+            TextView countdown = findViewById(R.id.text_Level10_Countdown);
+            if (currentTime - touchStartTime >= 1000 && !isVibrate1) {
+                countdown.setText("2");
+                utils.vibrateHeavyTick();
+                isVibrate1 = true;
+            }
+            if (currentTime - touchStartTime >= 2000 &&!isVibrate2) {
+                countdown.setText("1");
+                utils.vibrateHeavyTick();
+                isVibrate2 = true;
+            }
             if (currentTime - touchStartTime >= 3000) {
                 // Knob switch has been touching unlock indicator for 3 seconds
                 // Trigger unlock action here
+                countdown.setText(null);
                 onUnlockAction();
             } else {
                 // Continue checking if knob switch is touching unlock indicator
@@ -363,19 +389,43 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
 
     // Method to perform unlock action
     private void onUnlockAction() {
-        // Perform unlock action here
-        // For example:
-        // Unlock the level, show success message, etc.
-        onLevelPass(); // Assuming this method exists to show level pass screen
+        handler.removeCallbacks(unlockCheckRunnable);
+        sensorManager.unregisterListener(this);
+        timerHandler.removeCallbacks(updateTimerThread);
+
+        ConstraintLayout safePanel = findViewById(R.id.view_level10_safe_panel_layout);
+        safePanel.setPivotX(0);
+        safePanel.setPivotY((float) safePanel.getHeight() / 2);
+
+        Animator doorOpenAnimationPart1 = AnimatorInflater.loadAnimator(this, R.animator.animator_level10_safe_open_part1);
+        doorOpenAnimationPart1.setTarget(safePanel);
+
+        Animator doorOpenAnimationPart2 = AnimatorInflater.loadAnimator(this, R.animator.animator_level10_safe_open_part2);
+        doorOpenAnimationPart2.setTarget(safePanel);
+
+        ImageView unlockIndicator = findViewById(R.id.image_level10_safe_unlock_status);
+
+        unlockIndicator.setColorFilter(R.color.safe_unlocked);
+        utils.playSFX(R.raw.sfx_level10_safe_unlock);
+        new Handler().postDelayed(() -> {
+            utils.playSFX(R.raw.sfx_level10_safe_door_open);
+            doorOpenAnimationPart1.start();
+            new Handler().postDelayed(() -> {
+                unlockIndicator.setVisibility(View.GONE);
+                findViewById(R.id.image_level10_knob_background).setVisibility(View.GONE);
+                findViewById(R.id.image_level10_knob_unlock_indicator).setVisibility(View.GONE);
+                findViewById(R.id.image_level10_knob_switch).setVisibility(View.GONE);
+                findViewById(R.id.image_level10_knob_rotation_indicator).setVisibility(View.GONE);
+                doorOpenAnimationPart2.start();
+                new Handler().postDelayed(this::onLevelPass, 2000);
+            }, 500);
+        },1500);
+
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Not used in this example
+        // Empty
     }
 
-    private void vibrate() {
-        Log.d("Vibrate", "Vibrate");
-        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.EFFECT_TICK));
-    }
 }

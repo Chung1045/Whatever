@@ -197,16 +197,19 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void handleOnBackPressed() {
                 startActivity(new Intent(Level5.this, LevelSelect.class));
+                finish();
             }
         });
 
         // go back to level selection (Top arrow back icon)
         findViewById(R.id.button_Level5_NavigateBackBt).setOnClickListener(view -> {
             startActivity(new Intent(Level5.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level5_HomeBt).setOnClickListener(view -> {
             startActivity(new Intent(Level5.this, LevelSelect.class));
+            finish();
         });
 
         findViewById(R.id.button_Level5_NextLevelBt).setOnClickListener(view -> {
