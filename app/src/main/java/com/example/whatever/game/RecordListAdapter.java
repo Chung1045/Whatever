@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class RecordListAdapter extends BaseAdapter {
         mContext = context;
         mRecordEntries = new ArrayList<>(recordHolder.entrySet());
         // Sort the entries based on their keys
-        Collections.sort(mRecordEntries, (entry1, entry2) -> entry1.getKey().compareTo(entry2.getKey()));
+        Collections.sort(mRecordEntries, Map.Entry.comparingByKey());
     }
 
     @Override

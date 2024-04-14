@@ -23,6 +23,7 @@
             android:minHeight="?attr/actionBarSize"
             android:background="@color/background"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
+            app:titleTextAppearance="@style/TitleBarTextApperance"
             app:title="Sign In" />
 
     </com.google.android.material.appbar.AppBarLayout>

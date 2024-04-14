@@ -184,7 +184,10 @@ public class Utils {
         recordHolder.put("Best time Level08", calculateTimeFromLong(bestTimeLevel8));
         recordHolder.put("Best time Level09", calculateTimeFromLong(bestTimeLevel9));
         recordHolder.put("Best time Level10", calculateTimeFromLong(bestTimeLevel10));
-        recordHolder.put("Average Time", getAverageTime());
+
+        if (isAllLevelPassed()) {
+            recordHolder.put("Average Time", getAverageTime());
+        }
         recordHolder.put("Dino Count", dinoCount);
 
         consumer.accept(recordHolder);

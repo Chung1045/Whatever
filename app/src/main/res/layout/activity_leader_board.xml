@@ -23,7 +23,8 @@
             android:background="@color/background"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
-            app:title="Leader Board" />
+            app:title="Leader Board"
+            app:titleTextAppearance="@style/TitleBarTextApperance" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -136,7 +137,8 @@
                                 android:id="@+id/view_leaderboard_rank_layout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:visibility="gone">
+                                android:visibility="gone"
+                                tools:visibility="visible">
 
                                 <TextView
                                     android:id="@+id/text_leaderboard_rankText"
@@ -158,6 +160,32 @@
                                     android:textSize="32sp" />
 
 
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/view_leaderboard_rank_layout_dino"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                tools:visibility="visible">
+
+                                <TextView
+                                    android:id="@+id/text_leaderboard_rankText_dino"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_variable"
+                                    android:text="Dino count rank: "
+                                    android:textColor="@color/background"
+                                    android:textSize="18sp" />
+
+                                <TextView
+                                    android:id="@+id/text_leaderboard_rankResult_dino"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_variable"
+                                    android:text="XX/XX"
+                                    android:textColor="@color/background"
+                                    android:textSize="32sp" />
 
                             </LinearLayout>
 
@@ -204,11 +232,23 @@
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/bottomAppBar_leaderboard_viewSwitch"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
-                    tools:visibility="gone" />
+                    tools:visibility="visible" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_leaderboard_dinoView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/bottomAppBar_leaderboard_viewSwitch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+                    tools:visibility="visible" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/view_leaderboard_empty"
@@ -247,13 +287,26 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomAppBar_leaderboard_viewSwitch"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:background="@color/backgroundBottomNav"
+                    android:tint="@color/foreground"
+                    app:itemRippleColor="@color/white"
+                    app:itemTextAppearanceActive="@font/inter_variable"
+                    app:itemTextAppearanceActiveBoldEnabled="false"
+                    app:itemTextAppearanceInactive="@font/inter_variable"
+                    app:itemTextColor="@color/foreground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:menu="@menu/menu_leaderboard_activity_view_switch" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

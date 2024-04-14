@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="background">#FF000000</color>
+    <color name="backgroundBottomNav">#FF131313</color>
     <color name="foreground">#FFFFFFFF</color>
     <color name="buttonBackground">#FFFFFFFF</color>
     <color name="resultScreenBackground">#EF000000</color>

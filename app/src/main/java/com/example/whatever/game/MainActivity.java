@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     avatar.setImageResource(R.drawable.ic_account_circle_24);
                     avatar.setColorFilter(getColor(R.color.foreground));
                 }
+                firebaseHelper.retrieveProgress();
             });
         } else {
             avatar.setImageResource(R.drawable.ic_account_circle_24);

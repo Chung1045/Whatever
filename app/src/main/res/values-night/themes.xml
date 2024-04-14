@@ -24,4 +24,10 @@
         <item name="strokeColor">@color/foreground</item>
     </style>
 
+    <style name="TitleBarTextApperance">
+        <item name="android:fontFamily">@font/inter_variable</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/foreground</item>
+    </style>
+
 </resources>

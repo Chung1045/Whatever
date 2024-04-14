@@ -92,6 +92,7 @@ public class SignIn extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         utils.showSnackBarMessage("Sign in successfully");
+                        firebaseHelper.retrieveProgress();
                         firebaseHelper.downloadProfileImage(bitmap -> {
                             if (bitmap != null) {
                                 utils.saveAvatar(bitmap);

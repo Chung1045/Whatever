@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuitem_leaderboard_bestTime"
+        android:enabled="true"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Best Total Time" />
+
+    <item
+        android:id="@+id/menuitem_leaderboard_dinoCount"
+        android:enabled="true"
+        android:icon="@drawable/drawable_dino"
+        android:title="Dino Count" />
+
+
+</menu>

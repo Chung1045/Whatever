@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +38,7 @@ public class LeaderBoard extends AppCompatActivity {
     private Utils utils;
     private final FirebaseHelper firebaseHelper = new FirebaseHelper();
     private ProgressBar progress;
+    private RecyclerView leaderboardView, dinoCountView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,12 @@ public class LeaderBoard extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.view_leaderboard_topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        leaderboardView = findViewById(R.id.recyclerview_leaderboard_view);
+        dinoCountView = findViewById(R.id.recyclerview_leaderboard_dinoView);
+
+        leaderboardView.setVisibility(View.VISIBLE);
+        dinoCountView.setVisibility(View.GONE);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -54,12 +64,12 @@ public class LeaderBoard extends AppCompatActivity {
         });
 
         firebaseHelper.updateBestTime(this, successful ->{});
+        firebaseHelper.updateDinoCount(this, successful ->{});
         progress = findViewById(R.id.progressBar_leaderboard);
 
         updateUI();
         listenerInit();
         leaderBoardRecyclerViewInit();
-
     }
 
     private void recyclerViewItemInit(Consumer<List<LeaderboardViewModel>> callback) {
@@ -85,10 +95,43 @@ public class LeaderBoard extends AppCompatActivity {
         });
     }
 
+    private void recyclerDinoViewItemInit(Consumer<List<DinoLeaderboardViewModel>> callback) {
+        progress.setVisibility(View.VISIBLE);
+
+        ConstraintLayout emptyView = findViewById(R.id.view_leaderboard_empty);
+        RecyclerView leaderboard = findViewById(R.id.recyclerview_leaderboard_view);
+
+        firebaseHelper.getDinoCountLeaderboard(newLeaderboardData -> {
+            Log.d("Dino", String.valueOf(newLeaderboardData.size()));
+            if (newLeaderboardData != null) {
+                if (newLeaderboardData.isEmpty()) {
+                    leaderboard.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                    progress.setVisibility(View.GONE);
+                } else {
+                    List<DinoLeaderboardViewModel> convertedData = convertToDinoLeaderboardViewModels(newLeaderboardData);
+                    callback.accept(convertedData);
+                }
+            } else {
+                utils.showToastMessage("Try again");
+                progress.setVisibility(View.GONE);
+            }
+        });
+    }
+
     private List<LeaderboardViewModel> convertToLeaderboardViewModels(List<HashMap<String, Object>> data) {
         List<LeaderboardViewModel> convertedData = new ArrayList<>();
         for (HashMap<String, Object> userData : data) {
             LeaderboardViewModel viewModel = new LeaderboardViewModel(userData);
+            convertedData.add(viewModel);
+        }
+        return convertedData;
+    }
+
+    private List<DinoLeaderboardViewModel> convertToDinoLeaderboardViewModels(List<HashMap<String, Object>> data) {
+        List<DinoLeaderboardViewModel> convertedData = new ArrayList<>();
+        for (HashMap<String, Object> userData : data) {
+            DinoLeaderboardViewModel viewModel = new DinoLeaderboardViewModel(userData);
             convertedData.add(viewModel);
         }
         return convertedData;
@@ -102,7 +145,15 @@ public class LeaderBoard extends AppCompatActivity {
             leaderboard.setLayoutManager(new LinearLayoutManager(this));
 
             new Handler().postDelayed(() -> progress.setVisibility(View.GONE), 2000);
+        });
 
+        RecyclerView dinoLeaderboard = findViewById(R.id.recyclerview_leaderboard_dinoView);
+        recyclerDinoViewItemInit(newLeaderboardData -> {
+            DinoLeaderboardViewRecyclerAdapter adapter = new DinoLeaderboardViewRecyclerAdapter(this, newLeaderboardData);
+            dinoLeaderboard.setAdapter(adapter);
+            dinoLeaderboard.setLayoutManager(new LinearLayoutManager(this));
+
+            new Handler().postDelayed(() -> progress.setVisibility(View.GONE), 2000);
         });
     }
 
@@ -152,6 +203,21 @@ public class LeaderBoard extends AppCompatActivity {
 
         findViewById(R.id.button_leaderboard_record).setOnClickListener(view ->
                 startActivity(new Intent().setClass(LeaderBoard.this, Records.class)));
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomAppBar_leaderboard_viewSwitch);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menuitem_leaderboard_bestTime) {
+                leaderboardView.setVisibility(View.VISIBLE);
+                dinoCountView.setVisibility(View.GONE);
+                item.setChecked(true);
+            } else if (item.getItemId() == R.id.menuitem_leaderboard_dinoCount) {
+                leaderboardView.setVisibility(View.GONE);
+                dinoCountView.setVisibility(View.VISIBLE);
+                item.setChecked(true);
+            }
+            return false;
+        });
+
     }
 
     private void updateUI(){
@@ -160,7 +226,10 @@ public class LeaderBoard extends AppCompatActivity {
         Button signIn = findViewById(R.id.button_leaderboard_sign_in_sign_up);
         ImageView userAvatar = findViewById(R.id.image_leaderboard_leaderboard_icon);
         LinearLayout rankLayout = findViewById(R.id.view_leaderboard_rank_layout);
+        LinearLayout rankLayoutDino = findViewById(R.id.view_leaderboard_rank_layout_dino);
         TextView rankText = findViewById(R.id.text_leaderboard_rankResult);
+        TextView rankTextDino = findViewById(R.id.text_leaderboard_rankResult_dino);
+
 
         if (firebaseHelper.isLoggedIn()){
             userName.setText(firebaseHelper.getUserName());
@@ -182,6 +251,11 @@ public class LeaderBoard extends AppCompatActivity {
                         String currentRank = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.CURRENT_RANK, 0));
                         String totalCompetors = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.TOTAL_COMPETITORS, 0));
                         rankText.setText(currentRank + " / " + totalCompetors);
+
+                        rankLayoutDino.setVisibility(View.VISIBLE);
+                        String currentRankDino = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.CURRENT_RANK_DINO, 0));
+                        String totalCompetorsDino = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.TOTAL_COMPETITORS_DINO, 0));
+                        rankTextDino.setText(currentRankDino + " / " + totalCompetorsDino);
                     } else {
                         utils.showSnackBarMessage("Error: Unable to fetch leaderboard");
                     }
@@ -197,7 +271,5 @@ public class LeaderBoard extends AppCompatActivity {
         }
 
     }
-
-
 
 }

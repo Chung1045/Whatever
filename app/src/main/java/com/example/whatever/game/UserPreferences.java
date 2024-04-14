@@ -20,6 +20,8 @@ public class UserPreferences {
     public static final String BEST_TIME_LEVEL10 = "bestTimeLevel10";
     public static final String CURRENT_RANK = "currentRank";
     public static final String TOTAL_COMPETITORS = "totalCompetitors";
+    public static final String CURRENT_RANK_DINO = "currentRankDino";
+    public static final String TOTAL_COMPETITORS_DINO = "totalCompetitorsDino";
     public static final String DINO_COUNT = "dinoCount";
     public static final String BEST_TIME_LEVEL_TEMPLATE = "bestTimeLevelTemplate";
     public static final String LAST_PLAYED_LEVEL = "lastPlayedLevel";
