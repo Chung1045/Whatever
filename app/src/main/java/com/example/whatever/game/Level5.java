@@ -29,8 +29,8 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"U can do better", "Try hard?", "As expected"};
-    private final String levelHint = "Is there only 4 gears?";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
 
     ImageView lv5_gear3, lv5_gear4, lv5_gear5, lv5_gear6, lv5_setting, lv5_waterdrop, lv5_waterdrop1, lv5_waterdrop2, lv5_drag;
@@ -40,24 +40,11 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level5);
         View v = findViewById(R.id.view_LevelLayout_Level5);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level5_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level5_hints_array);
+
         onLevelStart(v);
-        lv5_gear3 = findViewById(R.id.image_Level5_gear3);
-        lv5_gear4 = findViewById(R.id.image_Level5_gear4);
-        lv5_gear5 = findViewById(R.id.image_Level5_gear5);
-        lv5_gear6 = findViewById(R.id.image_Level5_gear6);
-        lv5_setting = findViewById(R.id.button_Level5_SettingsBt);
-        lv5_waterdrop = findViewById(R.id.image_Level5_waterdrop);
-        lv5_waterdrop1 = findViewById(R.id.image_Level5_waterdrop1);
-        lv5_waterdrop2 = findViewById(R.id.image_Level5_waterdrop2);
-        lv5_drag = findViewById(R.id.Level5_drag);
-
-        lv5_gear3.setOnLongClickListener(onclickListener);
-        lv5_gear4.setOnLongClickListener(onclickListener);
-        lv5_gear5.setOnLongClickListener(onclickListener);
-        lv5_gear6.setOnLongClickListener(onclickListener);
-        lv5_setting.setOnLongClickListener(onclickListener);
-
-        lv5_drag.setOnDragListener(dragListener);
     }
 
     View.OnLongClickListener onclickListener = (v) -> {
@@ -109,11 +96,7 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
                     lv5_waterdrop2.setVisibility(View.VISIBLE);
                     timerHandler.removeCallbacks(updateTimerThread);
                     Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            onLevelPass();
-                        }
-                    }, 1000);
+                    handler.postDelayed(() -> onLevelPass(), 1000);
                 } else if (view.getId() == R.id.image_Level5_gear3 || view.getId() == R.id.image_Level5_gear4 || view.getId() == R.id.image_Level5_gear5 || view.getId() == R.id.image_Level5_gear6) {
                     onWrongAttempt();
                 }
@@ -317,8 +300,26 @@ public class Level5 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.button_Level5_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
+
+        lv5_gear3 = findViewById(R.id.image_Level5_gear3);
+        lv5_gear4 = findViewById(R.id.image_Level5_gear4);
+        lv5_gear5 = findViewById(R.id.image_Level5_gear5);
+        lv5_gear6 = findViewById(R.id.image_Level5_gear6);
+        lv5_setting = findViewById(R.id.button_Level5_SettingsBt);
+        lv5_waterdrop = findViewById(R.id.image_Level5_waterdrop);
+        lv5_waterdrop1 = findViewById(R.id.image_Level5_waterdrop1);
+        lv5_waterdrop2 = findViewById(R.id.image_Level5_waterdrop2);
+        lv5_drag = findViewById(R.id.Level5_drag);
+
+        lv5_gear3.setOnLongClickListener(onclickListener);
+        lv5_gear4.setOnLongClickListener(onclickListener);
+        lv5_gear5.setOnLongClickListener(onclickListener);
+        lv5_gear6.setOnLongClickListener(onclickListener);
+        lv5_setting.setOnLongClickListener(onclickListener);
+
+        lv5_drag.setOnDragListener(dragListener);
 
         // place your element listener here
     }

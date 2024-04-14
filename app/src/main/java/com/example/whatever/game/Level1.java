@@ -27,8 +27,8 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Fat and ter";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
 
     @Override
@@ -37,6 +37,8 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         setContentView(R.layout.activity_level1);
         View v = findViewById(R.id.view_LevelLayout_Level1);
 
+        levelPassMessage = getResources().getStringArray(R.array.string_level1_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level1_hints_array);
 
         onLevelStart(v);
     }
@@ -240,7 +242,7 @@ public class Level1 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.button_Level1_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
 
         findViewById(R.id.button_Level1_SubmitBt).setOnClickListener(view -> {

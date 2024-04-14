@@ -23,8 +23,8 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"\"Totally\" Correct", "Can it become as big as the universe?", "Yes Cuz why not?"};
-    private final String levelHint = "Who is the \"biggest?\"";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
 
     @Override
@@ -32,6 +32,10 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level2);
         View v = findViewById(R.id.view_LevelLayout_Level2);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level2_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level2_hints_array);
+
         onLevelStart(v);
     }
 
@@ -233,7 +237,7 @@ public class Level2 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.button_Level2_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
 
         findViewById(R.id.image_Level2_fifth).setOnClickListener(view -> {

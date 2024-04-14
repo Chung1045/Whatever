@@ -29,8 +29,8 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "Can you steal the weapon?";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
 
     LottieAnimationView win, spearLose, throwLose;
@@ -42,6 +42,10 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level6);
         View v = findViewById(R.id.view_LevelLayout_Level6);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level6_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level6_hints_array);
+
         onLevelStart(v);
 
         lv6_pass = findViewById(R.id.pass);
@@ -279,7 +283,7 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
         });
 
         findViewById(R.id.button_Level6_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
 
         findViewById(R.id.pass).setOnClickListener(view -> {
@@ -308,7 +312,7 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                 lv6_spearselect.setVisibility(View.GONE);
                 lv6_original_archer.setVisibility(View.GONE);
                 lottieAnimation(1);
-                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1000);
+                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1200);
             }, 500);
 
             handler.postDelayed(() -> {
@@ -329,7 +333,7 @@ public class Level6 extends AppCompatActivity implements View.OnTouchListener {
                 lv6_throwselect.setVisibility(View.GONE);
                 lv6_original_archer.setVisibility(View.GONE);
                 lottieAnimation(2);
-                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1000);
+                new Handler().postDelayed(() -> utils.playSFX(R.raw.sfx_level6_damage), 1200);
             }, 500);
             handler.postDelayed(() -> {
                 throwLose.pauseAnimation();

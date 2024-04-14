@@ -40,21 +40,13 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.button_selectLevel_Level8).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_Level9).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_Level10).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level2).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level3).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level4).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level5).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level6).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level7).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level8).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level9).setOnClickListener(this);
-        findViewById(R.id.button_selectLevel_Level10).setOnClickListener(this);
         findViewById(R.id.button_selectLevel_NavigateBackBt).setOnClickListener(this);
         findViewById(R.id.image_level_selection_account_icon).setOnClickListener(this);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                startActivity(new Intent(LevelSelect.this, MainActivity.class));
                 finish();
             }
         });
@@ -95,6 +87,7 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(this, Level10.class));
             }
             if (view.getId() == R.id.button_selectLevel_NavigateBackBt) {
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
             }
             if (view.getId() == R.id.image_level_selection_account_icon) {
@@ -131,11 +124,11 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
             avatar.setColorFilter(getColor(R.color.foreground));
         }
 
-        markUnplayedLevels();
+        markUnPlayedLevels();
 
     }
 
-    private void markUnplayedLevels(){
+    private void markUnPlayedLevels(){
         Button Level1bt = findViewById(R.id.button_selectLevel_Level1);
         Button Level2bt = findViewById(R.id.button_selectLevel_Level2);
         Button Level3bt = findViewById(R.id.button_selectLevel_Level3);

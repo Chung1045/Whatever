@@ -24,8 +24,8 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener, V
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Why would a sheep want to be a fox?", "Tricky?", "Fox skinned sheep???"};
-    private final String levelHint = "Sheep is behind the fox. Move the fox far away!";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
 
     @Override
@@ -33,6 +33,10 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener, V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level3);
         View v = findViewById(R.id.view_LevelLayout_Level3);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level3_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level3_hints_array);
+
         onLevelStart(v);
     }
 
@@ -250,7 +254,7 @@ public class Level3 extends AppCompatActivity implements View.OnTouchListener, V
         });
 
         findViewById(R.id.button_Level3_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
 
         // place your element listener here

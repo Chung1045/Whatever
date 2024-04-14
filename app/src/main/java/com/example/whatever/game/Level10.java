@@ -60,7 +60,6 @@ public class Level10 extends AppCompatActivity implements View.OnTouchListener, 
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-
     }
 
 

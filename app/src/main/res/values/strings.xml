@@ -9,6 +9,7 @@
     <string name="string_Level6_title">Defeat the enemy!</string>
     <string name="string_Level7_title">Go to sleep!</string>
     <string name="string_Level8_title">Find the way out!</string>
+    <string name="string_Level10_title">Unlock!</string>
     <string name="string_LevelPass_nextLevel">Next Level</string>
     <string name="string_LevelPass_levelSelect">Level Select</string>
     <string name="string_LevelPass_messagePlaceholder">I have done something</string>
@@ -35,6 +36,21 @@
     <string name="string_leaderboard_signIn_function_description">Sign in to view ranks</string>
     <string name="string_leaderboard_signInOrUp_text">Sign in / Sign up</string>
     <string name="string_profile_option_vibration_text">Vibration</string>
+    <string name="string_contentDescription_NavigateBack">Level Selection</string>
+    <string name="string_contentDescription_hint">Hint</string>
+    <string name="string_contentDescription_Reset">Reset</string>
+    <string name="string_contentDescription_Settings">Settings</string>
+    <string name="string_contentDescription_toggleSound">Toggle Sound</string>
+    <string name="string_contentDescription_closeSettings">Close</string>
+    <string name="string_Level1_buttonSubmit_text">Submit</string>
+    <string name="string_Level1_editText_text">Type Here</string>
+    <string name="string_level4_math_question">1, 1, 2, 3, 5, 8, ?</string>
+    <string name="string_level4_buttonResetAnswer_text">Reset</string>
+    <string name="string_level4_buttonEnterAnswer_text">Enter</string>
+    <string name="string_level6_enemy_textDescription">ENEMY</string>
+    <string name="string_level6_you_textDescription">YOU</string>
+    <string name="string_level10_safe_inner_message">FIN</string>
+    <string name="string_level9_btDetails_text">Details</string>
 
     <string-array name="string_Level1_hints_array">
         <item>"Fat and ter"</item>
@@ -51,6 +67,7 @@
 
     <string-array name="string_Level2_hints_array">
         <item>"Who is the \"biggest?\""</item>
+        <item>"Pay attention to the context"</item>
     </string-array>
 
     <string-array name="string_level2_level_pass_messages_array">
@@ -83,13 +100,14 @@
     </string-array>
 
     <string-array name="string_Level5_hints_array">
-        <item>"U can do better"</item>
-        <item>"Try hard?"</item>
-        <item>"As expected"</item>
+        <item>"Is there only 4 gears?"</item>
+        <item>"Can we make use of the system UI elements?"</item>
     </string-array>
 
     <string-array name="string_level5_level_pass_messages_array">
-        <item>"Is there only 4 gears?"</item>
+        <item>"I wonder why an imaginary UI elements can help him......"</item>
+        <item>"???"</item>
+        <item>"Don't unplug me"</item>
     </string-array>
 
     <string-array name="string_Level6_hints_array">
@@ -102,6 +120,7 @@
         <item>"Should I call you a thief?"</item>
         <item>"What else can I grab from enemy?"</item>
         <item>"Your parents are mad right now......"</item>
+        <item>"Ouch"</item>
     </string-array>
 
     <string-array name="string_Level7_hints_array">
@@ -154,37 +173,6 @@
         <item>"Firebase Realtime Database"</item>
         <item>"Firebase Storage"</item>
         <item>"Lottie Animations"</item>
-    </string-array>
-
-    <string-array name="names">
-        <item>Roman</item>
-        <item>Vasilisa</item>
-        <item>Nikolai</item>
-        <item>Ivan</item>
-        <item>Hiroshi</item>
-        <item>Yuta</item>
-        <item>Amagi</item>
-        <item>Kazusa</item>
-        <item>Yuko</item>
-        <item>Morisawa</item>
-        <item>Sena</item>
-        <item>Hikari</item>
-        <item>Tairitsu</item>
-        <item>PAFF</item>
-        <item>Yuu</item>
-        <item>Neko OwO</item>
-        <item>Kuzuha</item>
-        <item>Kane</item>
-        <item>Kanata</item>
-        <item>Kenmochi</item>
-        <item>Akina</item>
-        <item>Akito</item>
-        <item>Toya</item>
-        <item>Nagumo</item>
-        <item>Takamine</item>
-        <item>Tsusaka</item>
-        <item>Ivy</item>
-        <item>Vanessa</item>
     </string-array>
 
 

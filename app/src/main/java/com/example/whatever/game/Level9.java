@@ -42,8 +42,8 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"Are ya winning son?", "That was quite easy", "As expected"};
-    private final String levelHint = "No Help Lol";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
     private ProgressBar progressBar;
     private final Executor executor = Executors.newSingleThreadExecutor();
@@ -54,6 +54,10 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level9);
         View v = findViewById(R.id.view_LevelLayout_Level9);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level9_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level9_hints_array);
+
         onLevelStart(v);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -462,7 +466,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
 
 
         findViewById(R.id.button_Level9_HintBt).setOnClickListener(view -> {
-            utils.showSnackBarMessage(levelHint);
+            utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]);
         });
 
 

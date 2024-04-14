@@ -27,8 +27,8 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
     private int minutes, seconds, milliseconds, deltaX, deltaY;
     private long timeUsedInMilliseconds;
     private boolean isLevelPass = false;
-    private final String[] levelPassMessage = new String[]{"You must be good at math isn't it?", "I wonder how big it can be......", "Can we count through aleph null?"};
-    private final String levelHint = "It's a fibonacci sequence, just google it";
+    private String[] levelPassMessage;
+    private String[] levelHint;
     private final Random random = new Random();
 
     @Override
@@ -36,6 +36,10 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level4);
         View v = findViewById(R.id.view_LevelLayout_Level4);
+
+        levelPassMessage = getResources().getStringArray(R.array.string_level4_level_pass_messages_array);
+        levelHint = getResources().getStringArray(R.array.string_Level4_hints_array);
+
         onLevelStart(v);
     }
 
@@ -253,7 +257,7 @@ public class Level4 extends AppCompatActivity implements View.OnTouchListener {
             }
         });
 
-        findViewById(R.id.button_Level4_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint));
+        findViewById(R.id.button_Level4_HintBt).setOnClickListener(view -> utils.showSnackBarMessage(levelHint[random.nextInt(levelHint.length)]));
 
         // place your element listener here
     }

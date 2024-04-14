@@ -70,7 +70,7 @@ public class LeaderBoard extends AppCompatActivity {
 
         firebaseHelper.getLeaderboard(newLeaderboardData -> {
             if (newLeaderboardData != null) {
-                if (newLeaderboardData.size() == 0) {
+                if (newLeaderboardData.isEmpty()) {
                     leaderboard.setVisibility(View.GONE);
                     emptyView.setVisibility(View.VISIBLE);
                     progress.setVisibility(View.GONE);

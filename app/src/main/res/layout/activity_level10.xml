@@ -128,7 +128,7 @@
             android:layout_marginEnd="123dp"
             android:fontFamily="@font/inter_variable"
             android:paddingBottom="10dp"
-            android:text="Unlock!"
+            android:text="@string/string_Level10_title"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
             android:textSize="24sp"
@@ -165,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_variable"
-            android:text="FIN"
+            android:text="@string/string_level10_safe_inner_message"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -195,7 +195,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/image_level10_knob_background"
@@ -205,7 +206,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/image_level10_safe_panel"
                 app:layout_constraintEnd_toEndOf="@+id/image_level10_safe_panel"
                 app:layout_constraintStart_toStartOf="@+id/image_level10_safe_panel"
-                app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel" />
+                app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/image_level10_knob_unlock_indicator"
@@ -215,7 +217,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
                 app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
                 app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/image_level10_knob_rotation_indicator"
@@ -225,7 +228,8 @@
                 android:src="@drawable/drawable_level10_knob_rotation_indicator"
                 app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_switch"
                 app:layout_constraintStart_toStartOf="@+id/image_level10_knob_switch"
-                app:layout_constraintTop_toTopOf="@+id/image_level10_knob_switch" />
+                app:layout_constraintTop_toTopOf="@+id/image_level10_knob_switch"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/image_level10_knob_switch"
@@ -236,7 +240,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/image_level10_knob_background"
                 app:layout_constraintStart_toStartOf="@+id/image_level10_knob_background"
                 app:layout_constraintTop_toTopOf="@+id/image_level10_knob_background"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/image_level10_safe_unlock_status"
@@ -247,7 +252,8 @@
                 android:src="@drawable/drawable_level10_unlock_indicator"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image_level10_safe_panel"
-                app:tint="@color/safe_locked" />
+                app:tint="@color/safe_locked"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
