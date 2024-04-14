@@ -141,36 +141,34 @@ public class LevelSelect extends AppCompatActivity implements View.OnClickListen
         Button Level10bt = findViewById(R.id.button_selectLevel_Level10);
 
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL1, 0) == 0){
-            Level1bt.setText(Level1bt.getText().toString() + "*");
+            Level1bt.setText(getText(R.string.string_levelSelect_Level1bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL2, 0) == 0){
-            Level2bt.setText(Level2bt.getText().toString() + "*");
+            Level2bt.setText(getText(R.string.string_levelSelect_Level2bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL3, 0) == 0){
-            Level3bt.setText(Level3bt.getText().toString() + "*");
+            Level3bt.setText(getText(R.string.string_levelSelect_Level3bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL4, 0) == 0){
-            Level4bt.setText(Level4bt.getText().toString() + "*");
+            Level4bt.setText(getText(R.string.string_levelSelect_Level4bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL5, 0) == 0){
-            Level5bt.setText(Level5bt.getText().toString() + "*");
+            Level5bt.setText(getText(R.string.string_levelSelect_Level5bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL6, 0) == 0){
-            Level6bt.setText(Level6bt.getText().toString() + "*");
+            Level6bt.setText(getText(R.string.string_levelSelect_Level6bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL7, 0) == 0){
-            Level7bt.setText(Level7bt.getText().toString() + "*");
+            Level7bt.setText(getText(R.string.string_levelSelect_Level7bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL8, 0) == 0){
-            Level8bt.setText(Level8bt.getText().toString() + "*");
+            Level8bt.setText(getText(R.string.string_levelSelect_Level8bt) + "*");
         }
-        if  (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0) == 0){
-            Level9bt.setText(Level9bt.getText().toString() + "*");
+        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0) == 0){
+            Level9bt.setText(getText(R.string.string_levelSelect_Level9bt) + "*");
         }
         if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL10, 0) == 0){
-            Level10bt.setText(Level10bt.getText().toString() + "*");
+            Level10bt.setText(getText(R.string.string_levelSelect_Level10bt) + "*");
         }
-
     }
-
 }

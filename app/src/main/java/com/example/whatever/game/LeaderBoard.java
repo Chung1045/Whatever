@@ -243,7 +243,18 @@ public class LeaderBoard extends AppCompatActivity {
                     userAvatar.setImageResource(R.drawable.ic_account_circle_24);
                 }
             });
+
+            if (UserPreferences.sharedPref.getInt(UserPreferences.CURRENT_RANK_DINO, 0) > 0) {
+                firebaseHelper.updateDinoCount(this, successful ->{
+                rankLayoutDino.setVisibility(View.VISIBLE);
+                String currentRankDino = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.CURRENT_RANK_DINO, 0));
+                String totalCompetitorsDino = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.TOTAL_COMPETITORS_DINO, 0));
+                rankTextDino.setText(currentRankDino + " / " + totalCompetitorsDino);
+                });
+            }
+
             profileDescription.setText(utils.getBestTotaltime());
+
             if (utils.isAllLevelPassed()){
                 firebaseHelper.updateBestTime(this, successful ->{
                     if (successful){
@@ -252,10 +263,6 @@ public class LeaderBoard extends AppCompatActivity {
                         String totalCompetors = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.TOTAL_COMPETITORS, 0));
                         rankText.setText(currentRank + " / " + totalCompetors);
 
-                        rankLayoutDino.setVisibility(View.VISIBLE);
-                        String currentRankDino = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.CURRENT_RANK_DINO, 0));
-                        String totalCompetorsDino = String.valueOf(UserPreferences.sharedPref.getInt(UserPreferences.TOTAL_COMPETITORS_DINO, 0));
-                        rankTextDino.setText(currentRankDino + " / " + totalCompetorsDino);
                     } else {
                         utils.showSnackBarMessage("Error: Unable to fetch leaderboard");
                     }

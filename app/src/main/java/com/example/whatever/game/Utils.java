@@ -394,7 +394,7 @@ public class Utils {
         public void vibrateTick() {
             if (vibrator != null) {
                 if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.EFFECT_TICK));
+                    vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.EFFECT_TICK));
                 }
             }
         }
@@ -402,7 +402,7 @@ public class Utils {
         public void vibrateHeavyTick() {
             if (vibrator!= null) {
                 if (UserPreferences.sharedPref.getBoolean(UserPreferences.VIBRATION_ENABLED, false)) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.EFFECT_HEAVY_CLICK));
+                    vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.EFFECT_HEAVY_CLICK));
                 }
             }
         }

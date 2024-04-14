@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Whatever¿</string>
+    <string name="string_levelSelect_Level1bt">1</string>
+    <string name="string_levelSelect_Level2bt">2</string>
+    <string name="string_levelSelect_Level3bt">3</string>
+    <string name="string_levelSelect_Level4bt">4</string>
+    <string name="string_levelSelect_Level5bt">5</string>
+    <string name="string_levelSelect_Level6bt">6</string>
+    <string name="string_levelSelect_Level7bt">7</string>
+    <string name="string_levelSelect_Level8bt">8</string>
+    <string name="string_levelSelect_Level9bt">9</string>
+    <string name="string_levelSelect_Level10bt">10</string>
     <string name="string_main_activity_continueLevelText">Continue Level </string>
     <string name="string_Level1_title">Guess a word!</string>
     <string name="string_Level2_title">Which One is the</string>
