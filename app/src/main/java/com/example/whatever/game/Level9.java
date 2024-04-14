@@ -323,7 +323,7 @@ public class Level9 extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void updateBestTime() {
-        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL_TEMPLATE, 0L) != 0L ||
+        if (UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0L) == 0L ||
                 timeUsedInMilliseconds < UserPreferences.sharedPref.getLong(UserPreferences.BEST_TIME_LEVEL9, 0L)) {
             UserPreferences.editor.putLong(UserPreferences.BEST_TIME_LEVEL9, timeUsedInMilliseconds).commit();
             TextView timeUsedTitle = findViewById(R.id.text_Level9_TimeUsedTitle);
