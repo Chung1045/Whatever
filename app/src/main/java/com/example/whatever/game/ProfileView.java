@@ -162,7 +162,7 @@ public class ProfileView extends AppCompatActivity {
             if (firebaseHelper.isLoggedIn()) {
 
                 if (!checkPickerPermission()) {
-                    utils.showSnackBarMessage("You need to grant permission to ne able to select pictures");
+                    utils.showSnackBarMessage("You need to grant permission to be able to select pictures");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                         // Android 14 or above
                         requestPermissions(new String[]{READ_MEDIA_IMAGES, READ_MEDIA_VIDEO, READ_MEDIA_VISUAL_USER_SELECTED}, 1);
