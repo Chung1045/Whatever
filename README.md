@@ -4,7 +4,7 @@
 
 ---
 
-Whatever? is a puzzle game that is similar to the Brain Out game. It is for our group project in Mobile Apps Development course in HKCC. Contributed and maintained by four contributors
+Whatever? is a puzzle game that is similar to the Brain Out game. It is for our group project in Mobile Apps Development course in my associate degree. Contributed and maintained by four contributors
 
 
 ### Is there a requirements for installing Whatever?
@@ -32,3 +32,10 @@ Yes, Whatever? targets android14 (API version 34) and the minimum supported vers
 - Firebase Storage
 - Lottie Animations
 - Picasso
+
+8964 35th
+
+We believe in democracy, everyone should have their right and freedom to criticize their government.
+
+F*ck CCP
+
